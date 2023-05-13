@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PoyectoVideoteca.Models;
+using ProyectoVideoteca.Models;
 using System.Diagnostics;
 
-namespace PoyectoVideoteca.Controllers
+namespace ProyectoVideoteca.Controllers
 {
     public class HomeController : Controller
     {

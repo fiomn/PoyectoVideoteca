@@ -1,4 +1,4 @@
-namespace PoyectoVideoteca.Models
+namespace ProyectoVideoteca.Models
 {
     public class ErrorViewModel
     {

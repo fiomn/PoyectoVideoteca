@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "PoyectoVideoteca": {
+    "ProyectoVideoteca": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
