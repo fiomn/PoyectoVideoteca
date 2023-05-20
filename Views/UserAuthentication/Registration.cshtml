@@ -6,47 +6,49 @@
 </head>
 
 <html>
-<section>
-    <form asp-action="Registration" method="post">
-        <div class="login">
-            <h2>Registration</h2>
-            <div class="inputBoxR">
-                <input type="text" autocomplete="off" placeholder="Name" asp-for="Name">
-                <span class="text-danger" asp-validation-for="Name"></span>
-            </div>
-            <div class="inputBoxR">
-                <input type="text" autocomplete="off" placeholder="UserName" asp-for="UserName">
-                <span class="text-danger" asp-validation-for="UserName"></span>
-            </div>
-            <div class="inputBoxR">
-                <input type="text" autocomplete="off" placeholder="Email" asp-for="Email">
-                <span class="text-danger" asp-validation-for="Email"></span>
-            </div>
-            <div class="inputBoxR">
-                <input type="password" autocomplete="off" placeholder="Password" asp-for="Password">
-                <span class="text-danger" asp-validation-for="Password"></span>
-            </div>
-            <div class="inputBoxR">
-                <input type="password" autocomplete="off" placeholder="Password Confirm" asp-for="PasswordConfirm">
-                <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
-            </div>
-
-            @if (TempData["msg"] != null)
-            {
-                <div class="form-group">
-                    @TempData["msg"]
+<body id="bodyRegis">
+    <section>
+        <form asp-action="Registration" method="post">
+            <div class="regis">
+                <h2>Registration</h2>
+                <div class="inputBoxR">
+                    <input type="text" autocomplete="off" placeholder="Name" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
-            }
-            <div class="inputBox">
-                <input type="submit" value="Sign Up" id="btn">
-            </div>
-            <div class="groupP">
-                <a href="/UserAuthentication/Login">Login</a>
-            </div>
+                <div class="inputBoxR">
+                    <input type="text" autocomplete="off" placeholder="UserName" asp-for="UserName">
+                    <span class="text-danger" asp-validation-for="UserName"></span>
+                </div>
+                <div class="inputBoxR">
+                    <input type="text" autocomplete="off" placeholder="Email" asp-for="Email">
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="inputBoxR">
+                    <input type="password" autocomplete="off" placeholder="Password" asp-for="Password">
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="inputBoxR">
+                    <input type="password" autocomplete="off" placeholder="Password Confirm" asp-for="PasswordConfirm">
+                    <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+                </div>
 
-            
-        </div>
-    </form>
+                @if (TempData["msg"] != null)
+                {
+                    <div class="form-group">
+                        @TempData["msg"]
+                    </div>
+                }
+                <div class="inputBox">
+                    <input type="submit" value="Sign Up" id="btn">
+                </div>
+                <div class="groupP">
+                    <a href="/UserAuthentication/Login">Login</a>
+                </div>
 
-</section>
+
+            </div>
+        </form>
+
+    </section>
+</body>
 </html>

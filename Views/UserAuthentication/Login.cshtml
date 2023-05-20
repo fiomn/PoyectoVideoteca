@@ -4,38 +4,39 @@
 </head>
 
 <html>
-<section>
-    <form asp-action="Login" method="post">
-        <div class="login">
-            <h2>Sign In</h2>
+<body id="bodyLogin">
+    <section>
+        <form asp-action="Login" method="post">
+            <div class="login">
+                <h2>Sign In</h2>
 
-            <div class="inputBox">
-                <input type="text" autocomplete="off" placeholder="Username" asp-for="UserName"/>
-                <div class="msg">
-                    <span class="err" asp-validation-for="UserName"></span>
+                <div class="inputBox">
+                    <input type="text" autocomplete="off" placeholder="Username" asp-for="UserName" />
+                    <div class="msg">
+                        <span class="err" asp-validation-for="UserName"></span>
+                    </div>
+                </div>
+                <div class="inputBox">
+                    <input type="password" autocomplete="off" placeholder="Password" asp-for="Password" />
+                    <div class="msg">
+                        <span class="err" asp-validation-for="Password"></span>
+                    </div>
+                </div>
+                @if (TempData["msg"] != null)
+                {
+                    <div class="msg">
+                        <span class="err">@TempData["msg"]</span>
+                    </div>
+                }
+                <div class="inputBox">
+                    <input type="submit" value="login" id="btn">
+                </div>
+                <div class="group">
+                    <a href="#">Forgot your password?</a>
+                    <a href="/UserAuthentication/Registration">Sign Up</a>
                 </div>
             </div>
-            <div class="inputBox">
-                <input type="password" autocomplete="off" placeholder="Password" asp-for="Password" />
-                <div class="msg">
-                    <span class="err" asp-validation-for="Password"></span>
-                </div>
-            </div>
-            @if (TempData["msg"] != null)
-            {
-                <div class="msg">
-                    <span class="err">@TempData["msg"]</span>
-                </div>
-            }
-            <div class="inputBox">
-                <input type="submit" value="login" id="btn">
-            </div>
-            <div class="group">
-                <a href="#">Forget Password</a>
-                <a href="/UserAuthentication/Registration">Sign Up</a>
-            </div>
-        </div>
-    </form>
-</section>
-
+        </form>
+    </section>
+</body>
 </html>
