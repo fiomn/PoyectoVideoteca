@@ -12,7 +12,7 @@ using ProyectoVideoteca.Models.Domain;
 namespace ProyectoVideoteca.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230512202411_init")]
+    [Migration("20230520162703_init")]
     partial class init
     {
         /// <inheritdoc />
