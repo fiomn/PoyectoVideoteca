@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\client\" />
-    <Folder Include="Views\superAdmin\" />
+    <Folder Include="Models\Domain\" />
   </ItemGroup>
 
 </Project>
