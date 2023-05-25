@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 
 namespace ProyectoVideoteca.Controllers
 {
-    [Authorize] //everyone can use this controller
+    
     public class ClientController : Controller
     {
-        public IActionResult Index()
+        [Authorize] //everyone can use this controller
+        public ActionResult ClientMain()
         {
             return View();
         }
+
+        
     }
 }

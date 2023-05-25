@@ -62,3 +62,11 @@ peliculas.forEach((pelicula) => {
 fila.addEventListener('mouseleave', () => {
     peliculas.forEach(pelicula => pelicula.classList.remove('hover'));
 });
+
+function openPopup() {
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}

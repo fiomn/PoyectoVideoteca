@@ -45,9 +45,17 @@ namespace ProyectoVideoteca.Controllers
                 return View(model);
             }
             var result = await _service.LoginAsync(model);
-            if (result.StatusCode == 1) //can do it
+            if ((result.StatusCode == 1) && (model.UserName == "Admin")) //can do it
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AdminMain", "Admin");
+            }
+            if ((result.StatusCode == 1) && (model.UserName == "SuperAdmin")) //can do it
+            {
+                return RedirectToAction("SuperAdminMain", "superAdmin");
+            }
+            if ((result.StatusCode == 1) && (model.UserName != "SuperAdmin") && (model.UserName != "Admin")) //can do it
+            {
+                return RedirectToAction("ClientMain", "client");
             }
             else
             {
