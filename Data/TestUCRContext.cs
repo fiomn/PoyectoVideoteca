@@ -16,25 +16,25 @@ public partial class TestUCRContext : DbContext
     {
     }
 
-    public virtual DbSet<tb_ACTOR> tb_ACTORs { get; set; }
+    public virtual DbSet<tb_ACTOR> tb_ACTOR { get; set; }
 
-    public virtual DbSet<tb_AUDIOVISUAL_PRODUCTION> tb_AUDIOVISUAL_PRODUCTIONs { get; set; }
+    public virtual DbSet<tb_AUDIOVISUAL_PRODUCTION> tb_AUDIOVISUAL_PRODUCTION { get; set; }
 
-    public virtual DbSet<tb_DIRECTOR> tb_DIRECTORs { get; set; }
+    public virtual DbSet<tb_DIRECTOR> tb_DIRECTOR { get; set; }
 
-    public virtual DbSet<tb_EPISODE> tb_EPISODEs { get; set; }
+    public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
 
-    public virtual DbSet<tb_GENRE> tb_GENREs { get; set; }
+    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
 
-    public virtual DbSet<tb_MOVIE> tb_MOVIEs { get; set; }
+    public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
 
-    public virtual DbSet<tb_RATING> tb_RATINGs { get; set; }
+    public virtual DbSet<tb_RATING> tb_RATING { get; set; }
 
-    public virtual DbSet<tb_SEASON> tb_SEASONs { get; set; }
+    public virtual DbSet<tb_SEASON> tb_SEASON { get; set; }
 
-    public virtual DbSet<tb_SERIE> tb_SERIEs { get; set; }
+    public virtual DbSet<tb_SERIE> tb_SERIE { get; set; }
 
-    public virtual DbSet<tb_USER> tb_USERs { get; set; }
+    public virtual DbSet<tb_USER> tb_USER { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.

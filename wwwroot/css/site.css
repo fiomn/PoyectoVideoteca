@@ -19,6 +19,7 @@ html {
     background-repeat: no-repeat;
 }
 
+
     #bodyLogin::before {
         background-color: rgb(0,0,0 .5);
         width: 100%;

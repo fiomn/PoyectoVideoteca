@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProyectoVideoteca.Models.tb_USER>
+
+@{
+    ViewData["Title"] = "Display";
+}
+
+<h1>Users List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Admin" asp-action="DownloadPDF">
+    <button class="btn btn-success" type="submit">Report</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ROLE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ROLE)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.USERNAME">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.USERNAME">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.USERNAME">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

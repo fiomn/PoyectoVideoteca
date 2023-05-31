@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ProyectoVideoteca.Models.tb_USER>
+
+@{
+    ViewData["Title"] = "editProfile";
+}
+
+<h1>Edit Profile</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PASSWORD_CONFIRM)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PASSWORD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PASSWORD_CONFIRM)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.USERNAME">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.USERNAME">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.USERNAME">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

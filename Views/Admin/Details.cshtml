@@ -1,0 +1,47 @@
+﻿@model ProyectoVideoteca.Models.tb_USER
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PASSWORD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PASSWORD)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NAME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NAME)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EMAIL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PASSWORD_CONFIRM)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PASSWORD_CONFIRM)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ROLE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ROLE)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.USERNAME">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

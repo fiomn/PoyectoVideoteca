@@ -16,19 +16,19 @@
                 @if (User.IsInRole("admin"))
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminMain">Start</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminMain"></a>
                     </li>
                 }
                 @if (User.IsInRole("superAdmin"))
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="SuperAdmin" asp-action="SuperAdminMain">Start</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SuperAdmin" asp-action="SuperAdminMain"></a>
                     </li>
                 }
                 @if (User.IsInRole("user"))
                 {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="ClientMain">Start</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="ClientMain"></a>
                     </li>
                 }
             </ul>
