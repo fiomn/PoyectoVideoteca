@@ -4,6 +4,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models;
+using ProyectoVideoteca.Models.DTO;
+using ProyectoVideoteca.Repositories.Abstract;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 
@@ -13,6 +15,11 @@ namespace ProyectoVideoteca.Controllers
     public class SuperAdminController : Controller
     {
         private TestUCRContext db = new TestUCRContext(); //database context
+        private readonly IUserAuthenticationService _service; //database context authentication
+        public SuperAdminController(IUserAuthenticationService service)
+        {
+            this._service = service;
+        }
         public ActionResult SuperAdminMain()
         {
             return View();
@@ -33,24 +40,33 @@ namespace ProyectoVideoteca.Controllers
 
         //POST
         [HttpPost]
-        public ActionResult Create(tb_USER user)
+        public async Task<IActionResult> Create(tb_USER user, RegistrationModel model)
         {
-            db.tb_USER.Add(user);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Display));
+            try
+            {
+                var result = await _service.RegistrationAsync(model); //save users in dataBaseContext
+
+                db.tb_USER.Add(user); //save users in testUCR
+                db.SaveChanges();
+                return View(nameof(Display));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //GET DETAILS
-        public ActionResult Details(string username)
+        public ActionResult Details(string userName)
         {
-            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", username)).ToList().FirstOrDefault();
+            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
             return View(user);
         }
 
         //GET EDIT
-        public ActionResult Edit(string username)
+        public ActionResult Edit(string userName)
         {
-            var user = db.tb_USER.Find(username);
+            var user = db.tb_USER.Find(userName);
             return View(user);
         }
 
@@ -63,9 +79,9 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        public ActionResult Delete(string username)
+        public ActionResult Delete(string userName)
         {
-            var person = db.tb_USER.Find(username);
+            var person = db.tb_USER.Find(userName);
             return View(person);
         }
 
@@ -85,7 +101,7 @@ namespace ProyectoVideoteca.Controllers
         {
             var userList = new List<tb_USER>();
             userList = db.tb_USER.FromSqlRaw("exec dbo.getUser").ToList();
-            
+
             var documentpdf = Document.Create(container =>
             {
                 container.Page(page =>

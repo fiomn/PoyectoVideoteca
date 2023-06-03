@@ -17,5 +17,7 @@ public partial class tb_USER
 
     public string ROLE { get; set; } = null!;
 
+    public string? IMG { get; set; }
+
     public virtual ICollection<tb_RATING> tb_RATINGs { get; set; } = new List<tb_RATING>();
 }

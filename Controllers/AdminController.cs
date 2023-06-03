@@ -9,14 +9,22 @@ using System;
 using System.Data;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
-
+using ProyectoVideoteca.Models.DTO;
+using ProyectoVideoteca.Repositories.Abstract;
 
 namespace ProyectoVideoteca.Controllers
 {
     [Authorize(Roles = "admin")] //just admin can use this controller
     public class AdminController : Controller
-    {        
+    {
         private TestUCRContext db = new TestUCRContext(); //database context
+
+        private readonly IUserAuthenticationService _service; //database context authentication
+        public AdminController(IUserAuthenticationService service)
+        {
+            this._service = service;
+        }
+
         public ActionResult AdminMain()
         {
             return View();
@@ -35,52 +43,80 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        //POST
         [HttpPost]
-        public ActionResult Create(tb_USER user)
+        public async Task<IActionResult> Create(tb_USER user, RegistrationModel model)
         {
-            db.tb_USER.Add(user);
-            db.SaveChanges();
-            return RedirectToAction(nameof(Display));
+            try
+            {
+                var result = await _service.RegistrationAsync(model); //save users in dataBaseContext
+
+                db.tb_USER.Add(user); //save users in testUCR
+                db.SaveChanges();
+                return View(nameof(Display));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
         //GET DETAILS
-        public ActionResult Details(string username)
+        public ActionResult Details(string userName)
         {
-            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", username)).ToList().FirstOrDefault();
+            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
             return View(user);
         }
 
-        //GET EDIT
-        public ActionResult Edit(string username)
+        //GET: AdminController/Edit/5
+  
+        public ActionResult Edit(string userName)
         {
-            var user = db.tb_USER.Find(username);
+            var user = db.tb_USER.Find(userName);
             return View(user);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(tb_USER user)
+        public async Task<IActionResult> Edit(tb_USER user, RegistrationModel model)
         {
-            db.Update(user);
-            db.SaveChanges();
-            return View();
+            try
+            {
+                var result = await _service.EditAsync(model); //save users in dataBaseContext
+
+                db.tb_USER.Update(user); //save users in testUCR
+                db.SaveChanges();
+                return View(nameof(Display));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
-        public ActionResult Delete(string username)
+        //GET
+        public ActionResult Delete(string userName)
         {
-            var person = db.tb_USER.Find(username);
+            var person = db.tb_USER.Find(userName);
             return View(person);
         }
 
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(tb_USER user)
+        public async Task<IActionResult> Delete(tb_USER user, RegistrationModel model)
         {
-            db.tb_USER.Remove(user);
-            db.SaveChanges();
-            return View();
+            try
+            {
+                var result = await _service.RemoveAsync(model);
+
+                db.tb_USER.Remove(user);
+                db.SaveChanges();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            
         }
 
         //download and generate PDF

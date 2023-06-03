@@ -39,9 +39,15 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ROLE)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IMG)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IMG)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.USERNAME">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.USERNAME">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

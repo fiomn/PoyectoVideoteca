@@ -74,7 +74,7 @@ namespace ProyectoVideoteca.Repositories.Implementation
         public async Task<Status> RegistrationAsync(RegistrationModel model)
         {
             var status = new Status();
-            var userExists = await userManager.FindByNameAsync(model.UserName); 
+            var userExists = await userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
             {
                 status.StatusCode = 0;
@@ -113,6 +113,64 @@ namespace ProyectoVideoteca.Repositories.Implementation
 
             status.StatusCode = 1;
             status.Message = "User has registered successfully";
+            return status;
+        }
+
+        //delete
+        public async Task<Status> RemoveAsync(RegistrationModel model)
+        {
+            var status = new Status();
+            var userExists = await userManager.FindByNameAsync(model.UserName);
+            if (userExists == null)
+            {
+                status.StatusCode = 0;
+                status.Message = "User doesn't exist";
+                return status;
+            }
+
+            var result = await userManager.DeleteAsync(userExists); //deleted user
+            if (result.Succeeded)
+            {
+                status.StatusCode = 1;
+                status.Message = "User deleted successfully";
+            }
+            else
+            {
+                // Error 
+                status.StatusCode = 0;
+                status.Message = "Error deleting user";
+            }
+            return status;
+        }
+
+        //edit
+        public async Task<Status> EditAsync(RegistrationModel model)
+        {
+            var status = new Status();
+            var userExists = await userManager.FindByNameAsync(model.UserName);
+            if (userExists == null)
+            {
+                status.StatusCode = 0;
+                status.Message = "User doesn't exist";
+                return status;
+            }
+
+            userExists.Email= model.Email;
+            userExists.Name=model.Name;
+            userExists.PasswordHash = model.Password;
+            var result = await userManager.UpdateAsync(userExists); //updated user
+
+            if (result.Succeeded)
+            {
+                status.StatusCode = 1;
+                status.Message = "User updated successfully";
+            }
+            else
+            {
+                // Error 
+                status.StatusCode = 0;
+                status.Message = "Error updating user";
+            }
             return status;
         }
     }

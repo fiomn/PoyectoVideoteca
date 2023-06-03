@@ -58,7 +58,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_AUDIOVISUAL_PRODUCTION>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_AUDIO__475DFD2E135A2A4B");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_AUDIO__475DFD2E4A6F508D");
 
             entity.ToTable("tb_AUDIOVISUAL_PRODUCTION");
 
@@ -71,8 +71,26 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.FRONT_PAGE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.GENRE_NAME)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.RELEASE_DATE).HasColumnType("date");
             entity.Property(e => e.SYNOPSIS).HasColumnType("text");
+
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
+                .HasForeignKey(d => d.ACTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_ACTOR_ID");
+
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
+                .HasForeignKey(d => d.DIRECTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_DIRECTOR_ID");
+
+            entity.HasOne(d => d.GENRE_NAMENavigation).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
+                .HasForeignKey(d => d.GENRE_NAME)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_GENRE_NAME");
         });
 
         modelBuilder.Entity<tb_DIRECTOR>(entity =>
@@ -91,7 +109,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_EPISODE>(entity =>
         {
-            entity.HasKey(e => e.EPISODE_ID).HasName("PK__tb_EPISO__8960B3EF022A6411");
+            entity.HasKey(e => e.EPISODE_ID).HasName("PK__tb_EPISO__8960B3EFCB79B7E3");
 
             entity.ToTable("tb_EPISODE");
 
@@ -119,7 +137,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_MOVIE>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E9D511A9B");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E8C9CE220");
 
             entity.ToTable("tb_MOVIE");
 
@@ -135,11 +153,11 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_RATING>(entity =>
         {
-            entity.HasKey(e => e.RATING_ID).HasName("PK__tb_RATIN__1068AE7233F2F1BC");
+            entity.HasKey(e => e.RATING_ID).HasName("PK__tb_RATIN__1068AE720F1B138F");
 
             entity.ToTable("tb_RATING");
 
-            entity.HasIndex(e => new { e.TITLE, e.USERNAME }, "UQ__tb_RATIN__AC48433D5F8923ED").IsUnique();
+            entity.HasIndex(e => new { e.TITLE, e.USERNAME }, "UQ__tb_RATIN__AC48433D47860B29").IsUnique();
 
             entity.Property(e => e.COMMENT)
                 .HasMaxLength(100)
@@ -164,7 +182,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_SEASON>(entity =>
         {
-            entity.HasKey(e => e.SEASON_ID).HasName("PK__tb_SEASO__CC8E723CE6B4DF67");
+            entity.HasKey(e => e.SEASON_ID).HasName("PK__tb_SEASO__CC8E723C185FC2A9");
 
             entity.ToTable("tb_SEASON");
 
@@ -183,7 +201,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_SERIE>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_SERIE__475DFD2E99905055");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_SERIE__475DFD2E529FD0D2");
 
             entity.ToTable("tb_SERIE");
 
@@ -199,7 +217,7 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_USER>(entity =>
         {
-            entity.HasKey(e => e.USERNAME).HasName("PK__tb_USER__B15BE12F0DA66012");
+            entity.HasKey(e => e.USERNAME).HasName("PK__tb_USER__B15BE12FC8681285");
 
             entity.ToTable("tb_USER");
 
@@ -207,8 +225,9 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false);
             entity.Property(e => e.EMAIL)
-                .HasMaxLength(15)
+                .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.IMG).IsUnicode(false);
             entity.Property(e => e.NAME)
                 .HasMaxLength(50)
                 .IsUnicode(false);

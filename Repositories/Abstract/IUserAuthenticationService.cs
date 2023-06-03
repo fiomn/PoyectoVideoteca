@@ -7,8 +7,10 @@ namespace ProyectoVideoteca.Repositories.Abstract
         Task<Status> LoginAsync(LoginModel model);
 
         Task<Status> RegistrationAsync(RegistrationModel model);
+        Task<Status> RemoveAsync(RegistrationModel model);
+        Task<Status> EditAsync(RegistrationModel model);
 
-        //tareas asincronicas o varias tareas a la vez
+        //tasks asyncs
         Task LogoutAsync();
     }
 }
