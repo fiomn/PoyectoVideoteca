@@ -1,72 +1,90 @@
-﻿const fila = document.querySelector('.contenedor-carousel'); //Movies Carousel
-const peliculas = document.querySelectorAll('.pelicula');
+﻿const carouselContainer = document.querySelector('.carousel-container'); // Movies Carousel
+const movies = document.querySelectorAll('.movie');
 
-const flechaIzquierda = document.getElementById('flecha-izquierda');
-const flechaDerecha = document.getElementById('flecha-derecha');
+const leftArrow = document.getElementById('left-arrow');
+const rightArrow = document.getElementById('right-arrow');
 
-//Event Listener For Right Angle
-flechaDerecha.addEventListener('click', () => {
-    fila.scrollLeft += fila.offsetWidth;
+// Event Listener For Right Arrow
+rightArrow.addEventListener('click', () => {
+    carouselContainer.scrollLeft += carouselContainer.offsetWidth;
 
-    const indicadorActivo = document.querySelector('.indicadores .activo');
-    if (indicadorActivo.nextSibling) {
-        indicadorActivo.nextElementSibling.classList.add('activo');
-        indicadorActivo.classList.remove('activo');
+    const activeIndicator = document.querySelector('.indicators .active');
+    if (activeIndicator.nextSibling) {
+        activeIndicator.nextElementSibling.classList.add('active');
+        activeIndicator.classList.remove('active');
     }
-})
+});
 
-//Event Listener For Left Angle
-flechaIzquierda.addEventListener('click', () => {
-    fila.scrollLeft -= fila.offsetWidth;
+// Event Listener For Left Arrow
+leftArrow.addEventListener('click', () => {
+    carouselContainer.scrollLeft -= carouselContainer.offsetWidth;
 
-    const indicadorActivo = document.querySelector('.indicadores .activo');
-    if (indicadorActivo.previousSibling) {
-        indicadorActivo.previousElementSibling.classList.add('activo');
-        indicadorActivo.classList.remove('activo');
+    const activeIndicator = document.querySelector('.indicators .active');
+    if (activeIndicator.previousSibling) {
+        activeIndicator.previousElementSibling.classList.add('active');
+        activeIndicator.classList.remove('active');
     }
-})
+});
 
-//Pagination
+// Pagination
+const numberOfPages = Math.ceil(movies.length / 5); // Get number of blocks for pagination
+for (let i = 0; i < numberOfPages; i++) {
+    const indicator = document.createElement('button');
 
-//Math.ceil = round up
-const numeroPaginas = Math.ceil(peliculas.length / 5);  //Get number blocks for pagination 
-for (let i = 0; i < numeroPaginas; i++) {
-    const indicador = document.createElement('button');
-
-    if (i == 0) {
-        indicador.classList.add('activo');
+    if (i === 0) {
+        indicator.classList.add('active');
     }
 
-    document.querySelector('.indicadores').appendChild(indicador);
-    indicador.addEventListener('click', (e) => {
+    document.querySelector('.indicators').appendChild(indicator);
+    indicator.addEventListener('click', (e) => {
+        carouselContainer.scrollLeft = i * carouselContainer.offsetWidth;
 
-        fila.scrollLeft = i * fila.offsetWidth;
-
-        document.querySelector('.indicadores .activo').classList.remove('activo');
-        e.target.classList.add('activo');
+        document.querySelector('.indicators .active').classList.remove('active');
+        e.target.classList.add('active');
     });
 }
 
-//Image Hover
-peliculas.forEach((pelicula) => {
-    pelicula.addEventListener('mouseenter', (e) => {
-        const elemento = e.currentTarget;
+// Image Hover
+movies.forEach((movie) => {
+    movie.addEventListener('mouseenter', (e) => {
+        const element = e.currentTarget;
         setTimeout(() => {
-            peliculas.forEach(pelicula => pelicula.classList.remove('hover'));
-            elemento.classList.add('hover');
+            movies.forEach((movie) => movie.classList.remove('hover'));
+            element.classList.add('hover');
         }, 300);
     });
 });
 
-//When you get out of the carousel, all images hover are removed
-fila.addEventListener('mouseleave', () => {
-    peliculas.forEach(pelicula => pelicula.classList.remove('hover'));
+// Remove hover class from all images when leaving the carousel
+carouselContainer.addEventListener('mouseleave', () => {
+    movies.forEach((movie) => movie.classList.remove('hover'));
 });
 
-function openPopup() {
-    document.getElementById("popup").style.display = "block";
-}
+// Video Section
 
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
+// Video Test
+
+const thumbnails = document.querySelectorAll('.video-thumbnail');
+
+thumbnails.forEach((thumbnail) => {
+    const videoOverlay = thumbnail.querySelector('.video-overlay');
+    const videoPlayer = thumbnail.querySelector('iframe');
+
+    let timeoutId;
+    let timeoutFinal;
+
+    thumbnail.addEventListener('mouseover', () => {
+        timeoutId = setTimeout(() => {
+            videoOverlay.style.opacity = '1';
+            videoPlayer.src = 'https://www.youtube.com/embed/LYS2O1nl9iM';
+        }, 2000);
+    });
+
+    thumbnail.addEventListener('mouseout', () => {
+        clearTimeout(timeoutId);
+        timeoutFinal = setTimeout(() => {
+            videoOverlay.style.opacity = '0';
+            videoPlayer.src = '';
+        }, 500);
+    });
+});
