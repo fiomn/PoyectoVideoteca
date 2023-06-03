@@ -71,21 +71,6 @@ namespace ProyectoVideoteca.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-        //Admin register
-        public async Task<IActionResult> RegAdmin()
-        {
-            var model = new RegistrationModel
-            {
-                UserName = "Admin",
-                Name = "Administrator",
-                Email = "fio.mn1911@gmail.com",
-                Password = "Admin2023!",
-            };
-            model.Role = "admin";
-            var result = await _service.RegistrationAsync(model);
-            return Ok(result);
-        }
-
         //superAdmin register
         public async Task<IActionResult> RegSuperAdmin()
         {

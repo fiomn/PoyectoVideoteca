@@ -28,7 +28,7 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult Display()
         {
             var userList = new List<tb_USER>();
-            userList = db.tb_USER.FromSqlRaw("exec dbo.getUser").ToList();
+            userList = db.tb_USER.FromSqlRaw("exec dbo.GetAdmins").ToList();
             return View(userList);
         }
 
@@ -48,7 +48,7 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
-                return View(nameof(Display));
+                return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
@@ -56,29 +56,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        //GET DETAILS
-        public ActionResult Details(string userName)
-        {
-            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
-            return View(user);
-        }
-
-        //GET EDIT
-        public ActionResult Edit(string userName)
-        {
-            var user = db.tb_USER.Find(userName);
-            return View(user);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(tb_USER user)
-        {
-            db.Update(user);
-            db.SaveChanges();
-            return View();
-        }
-
+        //GET
         public ActionResult Delete(string userName)
         {
             var person = db.tb_USER.Find(userName);
@@ -88,11 +66,21 @@ namespace ProyectoVideoteca.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(tb_USER user)
+        public async Task<IActionResult> Delete(tb_USER user, RegistrationModel model)
         {
-            db.tb_USER.Remove(user);
-            db.SaveChanges();
-            return View();
+            try
+            {
+                var result = await _service.RemoveAsync(model);
+
+                db.tb_USER.Remove(user);
+                db.SaveChanges();
+                return RedirectToAction(nameof(Display));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
         }
 
         //download and generate PDF
@@ -100,7 +88,7 @@ namespace ProyectoVideoteca.Controllers
         public IActionResult DownloadPDF()
         {
             var userList = new List<tb_USER>();
-            userList = db.tb_USER.FromSqlRaw("exec dbo.getUser").ToList();
+            userList = db.tb_USER.FromSqlRaw("exec dbo.GetAdmins").ToList();
 
             var documentpdf = Document.Create(container =>
             {

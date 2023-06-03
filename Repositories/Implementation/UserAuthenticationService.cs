@@ -157,7 +157,6 @@ namespace ProyectoVideoteca.Repositories.Implementation
 
             userExists.Email= model.Email;
             userExists.Name=model.Name;
-            userExists.PasswordHash = model.Password;
             var result = await userManager.UpdateAsync(userExists); //updated user
 
             if (result.Succeeded)

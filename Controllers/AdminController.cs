@@ -52,7 +52,7 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
-                return View(nameof(Display));
+                return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Update(user); //save users in testUCR
                 db.SaveChanges();
-                return View(nameof(Display));
+                return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Remove(user);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
