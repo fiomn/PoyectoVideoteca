@@ -2,153 +2,116 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/main_page.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
-          rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="~/css/main_page.css">
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+		  rel="stylesheet">
+	<title>Netflix</title>
 </head>
 
 <body>
-    <header>
-        <div class="contenedor">
-            <h2 class="logotipo">QSTREAM</h2>
-            <nav>
-                <a href="#">Start</a>
-                <a href="#">Movies</a>
-                <a href="#">Series</a>
-                <a asp-controller="Client" asp-action="editProfile">Profile</a>
-                <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-            </nav>
-        </div>
-    </header>
+	<header>
+		<div class="container">
+			<h2 class="logo">QSTREAM</h2>
+			<nav>
+				<a href="#">Home</a>
+				<a href="#">Movies</a>
+				<a href="#">Series</a>
+				<a asp-controller="Client" asp-action="editProfile">Profile</a>
+				<a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
+			</nav>
+		</div>
+	</header>
 
-    <main>
-        <div class="pelicula-principal">
-            <div class="contenedor">
-                <h3 class="titulo">Interestellar</h3>
-                <p class="descripcion">
-                    Narra las aventuras de un grupo de exploradores que hacen uso de un agujero de gusano recientemente
-                    descubierto para superar las limitaciones de los viajes espaciales tripulados y vencer las inmensas
-                    distancias que tiene un viaje interestelar.
-                </p>
-                <button role="button" class="boton"><i class="fas fa-play"></i>Reproducir</button>
-                <button role="button" class="boton"><i class="fas fa-info-circle"></i>Más información</button>
-            </div>
-        </div>
+	<main>
+		<div class="main-movie">
+			<div class="container">
+				<h3 class="title">Interstellar</h3>
+				<p class="description">
+					Interstellar follows a group of explorers who utilize a newly discovered wormhole to overcome the limitations of human space travel and conquer the vast distances involved in interstellar voyages.
+				</p>
+				<button role="button" class="button"><i class="fas fa-play"></i>Play</button>
+				<button role="button" class="button"><i class="fas fa-info-circle"></i>More Information</button>
+			</div>
+		</div>
 
-        <!-- Recommended Movies Carousel-->
-        <div class="peliculas-recomendadas contenedor">
-            <div class="contenedor-titulo-controles">
-                <h3>Películas Recomendadas</h3>
-                <div class="indicadores"></div>
-            </div>
+		<!-- Recommended Movies Carousel-->
+		<div class="recommended-movies container">
+			<div class="title-controls-container">
+				<h3>Recommended Movies</h3>
+				<div class="indicators"></div>
+			</div>
 
-            <div class="contenedor-principal">
-                <button role="button" id="flecha-izquierda" class="flecha-izquierda">
-                    <i class="fas fa-angle-left"></i>
-                </button>
+			<div class="main-container">
+				<button role="button" id="left-arrow" class="left-arrow"><i class="fas fa-angle-left"></i></button>
 
-                <!--Movie Carousel-->
-                <div class="contenedor-carousel">
-                    <div class="carousel">
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/1.png" alt="image 1"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/2.png" alt="image 2"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/3.png" alt="image 3"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/4.png" alt="image 4"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/5.png" alt="image 5"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/6.png" alt="image 6"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/7.png" alt="image 7"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/1.png" alt="image 5"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/2.png" alt="image 6"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/3.png" alt="image 7"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/1.png" alt="image 1"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/2.png" alt="image 2"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/3.png" alt="image 3"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/4.png" alt="image 4"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/5.png" alt="image 5"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/6.png" alt="image 6"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/7.png" alt="image 7"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/1.png" alt="image 5"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/2.png" alt="image 6"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/3.png" alt="image 7"></a>
-                        </div>
-                        <div class="pelicula">
-                            <!--go to the selected movie-->
-                            <a href="#"><img src="~/img/1.png" alt="image 5"></a>
-                        </div>
-                    </div>
-                </div>
+				<!-- Movie Carousel -->
+				<div class="carousel-container">
+					<div class="carousel">
+						<div class="movie">
+							<div class="video-thumbnail">
+								<a href="#"><img src="~/img/1.png"></a>
+								<div class="video-overlay">
+									<div class="video-player">
+										<iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="movie">
+							<div class="video-thumbnail">
+								<a href="#"><img src="~/img/2.png"></a>
+								<div class="video-overlay">
+									<div class="video-player">
+										<iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/3.png" alt="image 3"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/4.png" alt="image 4"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/5.png" alt="image 5"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/6.png" alt="image 6"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/7.png" alt="image 7"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/1.png" alt="image 5"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/2.png" alt="image 6"></a>
+						</div>
+						<div class="movie">
+							<!-- Go to the selected movie -->
+							<a href="#"><img src="~/img/3.png" alt="image 7"></a>
+						</div>
+					</div>
+				</div>
 
 
-                <button role="button" id="flecha-derecha" class="flecha-derecha">
-                    <i class="fas fa-angle-right"></i>
-                </button>
-            </div>
-        </div>
-    </main>
+				<button role="button" id="right-arrow" class="right-arrow"><i class="fas fa-angle-right"></i></button>
+			</div>
+		</div>
+	</main>
 
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <script src="~/js/main_page.js"></script>
+	<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+	<script src="~/js/main_page.js"></script>
 </body>
 
 </html>
