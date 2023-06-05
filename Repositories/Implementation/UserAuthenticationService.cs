@@ -157,13 +157,6 @@ namespace ProyectoVideoteca.Repositories.Implementation
 
             userExists.Email= model.Email;
             userExists.Name=model.Name;
-
-            //change encrypt password
-            if (!string.IsNullOrEmpty(model.Password))
-            {
-                userExists.PasswordHash = userManager.PasswordHasher.HashPassword(userExists, model.Password);
-            }
-
             var result = await userManager.UpdateAsync(userExists); //updated user
 
             if (result.Succeeded)
