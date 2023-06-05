@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using System.Net.Mail;
+using System.Net;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -35,6 +37,44 @@ namespace ProyectoVideoteca.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        public IActionResult RecoveryPassword()
+        {
+            return View();
+        }
+
+        
+        //recovery password by email
+        public void sendEmail(string email)
+        {
+            string emailSend = "fio.mn1911@gmail.com";
+            string pwdSend = "Navarro19!!!";
+
+            var fromAddress = new MailAddress(emailSend);
+            var toAddress = new MailAddress(email);
+            string subject = "Password recovery";
+            string body = "This is your new password for QStream";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smt.gamil.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = true,
+                Credentials = new NetworkCredential(emailSend, pwdSend)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body,
+            })
+            {
+                message.IsBodyHtml = false;
+                smtp.Send(message);
+            }
         }
 
         [HttpPost]
