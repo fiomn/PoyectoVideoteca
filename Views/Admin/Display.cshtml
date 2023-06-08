@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ROLE)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMG)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,6 +42,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ROLE)
+                </td>
+                <td>
+                    <img src="data:image/jpg;base64,@Html.DisplayFor(model => item.IMG)" />
                 </td>
                 <td>
                     @Html.ActionLink("Edit","Edit", new {userName = @item.USERNAME})

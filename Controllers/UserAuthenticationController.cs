@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using System.Net;
+using System.Net.Mail;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -84,6 +86,44 @@ namespace ProyectoVideoteca.Controllers
             model.Role = "superAdmin";
             var result = await _service.RegistrationAsync(model);
             return Ok(result);
+        }
+
+        [HttpGet]
+        public ActionResult recoveryPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public void sendEmail(string email)
+        {
+            string emailSend = "fio.mn1911@gmail.com";
+            string psw = "Navarro19!!!";
+            var fromAddress = new MailAddress(emailSend);
+            var toAddress = new MailAddress(email);
+
+            string subject = "Recovery password";
+            string body = "This is your new password!!";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smt.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = true,
+                Credentials = new NetworkCredential(emailSend, psw)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                message.IsBodyHtml = true;
+                smtp.Send(message);
+            }
         }
     }
 }

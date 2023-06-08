@@ -49,7 +49,7 @@ namespace ProyectoVideoteca.Controllers
             try
             {
                 var result = await _service.RegistrationAsync(model); //save users in dataBaseContext
-
+                ManagementUsers.users = user;
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
                 return RedirectToAction(nameof(Display));

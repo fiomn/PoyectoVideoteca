@@ -1,16 +1,15 @@
 ﻿@model ProyectoVideoteca.Models.tb_USER
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "edit";
 }
 
-<h1>Edit</h1>
-
+<h1>Edit Profile</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="USERNAME" />
             <div class="form-group">
@@ -25,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="EMAIL" class="control-label"></label>
-                <input asp-for="EMAIL" class="form-control" />
+                <input asp-for="EMAIL" class="form-control"/>
                 <span asp-validation-for="EMAIL" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,9 +33,8 @@
                 <span asp-validation-for="PASSWORD_CONFIRM" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ROLE" class="control-label"></label>
-                <input asp-for="ROLE" class="form-control" />
-                <span asp-validation-for="ROLE" class="text-danger"></span>
+                <input type="button" asp-for="IMG" class="form-control" value="Change picture" onclick="@("window.location.href='" + @Url.Action("ChangeProfilePicture", "client") + "'");" />
+                <span asp-validation-for="IMG" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -50,5 +48,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
