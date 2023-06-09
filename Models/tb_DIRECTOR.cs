@@ -11,5 +11,7 @@ public partial class tb_DIRECTOR
 
     public string LAST_NAME { get; set; } = null!;
 
-    public virtual ICollection<tb_AUDIOVISUAL_PRODUCTION> tb_AUDIOVISUAL_PRODUCTIONs { get; set; } = new List<tb_AUDIOVISUAL_PRODUCTION>();
+    public virtual ICollection<tb_MOVIE> tb_MOVIEs { get; set; } = new List<tb_MOVIE>();
+
+    public virtual ICollection<tb_SERIE> tb_SERIEs { get; set; } = new List<tb_SERIE>();
 }

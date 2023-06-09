@@ -7,7 +7,7 @@ public partial class tb_EPISODE
 {
     public int EPISODE_ID { get; set; }
 
-    public string NAME { get; set; } = null!;
+    public string NAME_EPISODE { get; set; } = null!;
 
     public int NUMBER { get; set; }
 

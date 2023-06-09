@@ -18,13 +18,9 @@ public partial class TestUCRContext : DbContext
 
     public virtual DbSet<tb_ACTOR> tb_ACTOR { get; set; }
 
-    public virtual DbSet<tb_AUDIOVISUAL_PRODUCTION> tb_AUDIOVISUAL_PRODUCTION { get; set; }
-
     public virtual DbSet<tb_DIRECTOR> tb_DIRECTOR { get; set; }
 
     public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
-
-    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
 
     public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
 
@@ -44,7 +40,7 @@ public partial class TestUCRContext : DbContext
     {
         modelBuilder.Entity<tb_ACTOR>(entity =>
         {
-            entity.HasKey(e => e.ACTOR_ID).HasName("PK__tb_ACTOR__1ED72ACE43291722");
+            entity.HasKey(e => e.ACTOR_ID).HasName("PK__tb_ACTOR__1ED72ACEA205E3C8");
 
             entity.ToTable("tb_ACTOR");
 
@@ -56,46 +52,9 @@ public partial class TestUCRContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<tb_AUDIOVISUAL_PRODUCTION>(entity =>
-        {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_AUDIO__475DFD2E4A6F508D");
-
-            entity.ToTable("tb_AUDIOVISUAL_PRODUCTION");
-
-            entity.Property(e => e.TITLE)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.CLASSIFICATION)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.FRONT_PAGE)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.GENRE_NAME)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.RELEASE_DATE).HasColumnType("date");
-            entity.Property(e => e.SYNOPSIS).HasColumnType("text");
-
-            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
-                .HasForeignKey(d => d.ACTOR_ID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_ACTOR_ID");
-
-            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
-                .HasForeignKey(d => d.DIRECTOR_ID)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_DIRECTOR_ID");
-
-            entity.HasOne(d => d.GENRE_NAMENavigation).WithMany(p => p.tb_AUDIOVISUAL_PRODUCTIONs)
-                .HasForeignKey(d => d.GENRE_NAME)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_GENRE_NAME");
-        });
-
         modelBuilder.Entity<tb_DIRECTOR>(entity =>
         {
-            entity.HasKey(e => e.DIRECTOR_ID).HasName("PK__tb_DIREC__71410F6B50C64459");
+            entity.HasKey(e => e.DIRECTOR_ID).HasName("PK__tb_DIREC__71410F6BDE21667C");
 
             entity.ToTable("tb_DIRECTOR");
 
@@ -109,11 +68,11 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_EPISODE>(entity =>
         {
-            entity.HasKey(e => e.EPISODE_ID).HasName("PK__tb_EPISO__8960B3EFCB79B7E3");
+            entity.HasKey(e => e.EPISODE_ID).HasName("PK__tb_EPISO__8960B3EF65341B2A");
 
             entity.ToTable("tb_EPISODE");
 
-            entity.Property(e => e.NAME)
+            entity.Property(e => e.NAME_EPISODE)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.SYNOPSIS).HasColumnType("text");
@@ -123,41 +82,46 @@ public partial class TestUCRContext : DbContext
                 .HasConstraintName("fk_SEASON");
         });
 
-        modelBuilder.Entity<tb_GENRE>(entity =>
-        {
-            entity.HasKey(e => e.GENRE_NAME).HasName("PK__tb_GENRE__0E30AB4A5A1DBD8E");
-
-            entity.ToTable("tb_GENRE");
-
-            entity.Property(e => e.GENRE_NAME)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.DESCRIPTION).HasColumnType("text");
-        });
-
         modelBuilder.Entity<tb_MOVIE>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E8C9CE220");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E1289BF72");
 
             entity.ToTable("tb_MOVIE");
 
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.CLASS)
+                .HasMaxLength(5)
+                .IsUnicode(false);
+            entity.Property(e => e.GENRE)
+                .HasMaxLength(25)
+                .IsUnicode(false);
+            entity.Property(e => e.ID).ValueGeneratedOnAdd();
+            entity.Property(e => e.IMG).IsUnicode(false);
+            entity.Property(e => e.RELEASE_DATE)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.SYNOPSIS).IsUnicode(false);
 
-            entity.HasOne(d => d.TITLENavigation).WithOne(p => p.tb_MOVIE)
-                .HasForeignKey<tb_MOVIE>(d => d.TITLE)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIEs)
+                .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_MOVIE_TITLE");
+                .HasConstraintName("fk_ACTOR_ID");
+
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIEs)
+                .HasForeignKey(d => d.DIRECTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_DIRECTOR_ID");
         });
 
         modelBuilder.Entity<tb_RATING>(entity =>
         {
-            entity.HasKey(e => e.RATING_ID).HasName("PK__tb_RATIN__1068AE720F1B138F");
+            entity.HasKey(e => e.RATING_ID).HasName("PK__tb_RATIN__1068AE721669667F");
 
             entity.ToTable("tb_RATING");
 
-            entity.HasIndex(e => new { e.TITLE, e.USERNAME }, "UQ__tb_RATIN__AC48433D47860B29").IsUnique();
+            entity.HasIndex(e => new { e.TITLE, e.USERNAME }, "UQ__tb_RATIN__AC48433D41FD748D").IsUnique();
 
             entity.Property(e => e.COMMENT)
                 .HasMaxLength(100)
@@ -169,11 +133,6 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_RATINGs)
-                .HasForeignKey(d => d.TITLE)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_TITLE");
-
             entity.HasOne(d => d.USERNAMENavigation).WithMany(p => p.tb_RATINGs)
                 .HasForeignKey(d => d.USERNAME)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -182,14 +141,10 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_SEASON>(entity =>
         {
-            entity.HasKey(e => e.SEASON_ID).HasName("PK__tb_SEASO__CC8E723C185FC2A9");
+            entity.HasKey(e => e.SEASON_ID).HasName("PK__tb_SEASO__CC8E723CB64A2445");
 
             entity.ToTable("tb_SEASON");
 
-            entity.Property(e => e.RELEASE_YEAR)
-                .HasMaxLength(4)
-                .IsUnicode(false)
-                .IsFixedLength();
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -201,18 +156,35 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_SERIE>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_SERIE__475DFD2E529FD0D2");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_SERIE__475DFD2E5F9AB7CB");
 
             entity.ToTable("tb_SERIE");
 
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.CLASS)
+                .HasMaxLength(5)
+                .IsUnicode(false);
+            entity.Property(e => e.GENRE)
+                .HasMaxLength(25)
+                .IsUnicode(false);
+            entity.Property(e => e.ID).ValueGeneratedOnAdd();
+            entity.Property(e => e.IMG).IsUnicode(false);
+            entity.Property(e => e.RELEASE_DATE)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.SYNOPSIS).IsUnicode(false);
 
-            entity.HasOne(d => d.TITLENavigation).WithOne(p => p.tb_SERIE)
-                .HasForeignKey<tb_SERIE>(d => d.TITLE)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIEs)
+                .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_SERIE_TITLE");
+                .HasConstraintName("fk_ACTOR_IDSERIE");
+
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_SERIEs)
+                .HasForeignKey(d => d.DIRECTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_DIRECTOR_IDSERIE");
         });
 
         modelBuilder.Entity<tb_USER>(entity =>

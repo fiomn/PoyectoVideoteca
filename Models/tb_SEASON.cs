@@ -9,8 +9,6 @@ public partial class tb_SEASON
 
     public int NUMBER { get; set; }
 
-    public string RELEASE_YEAR { get; set; } = null!;
-
     public string TITLE { get; set; } = null!;
 
     public virtual tb_SERIE TITLENavigation { get; set; } = null!;

@@ -11,11 +11,9 @@ public partial class tb_RATING
 
     public string USERNAME { get; set; } = null!;
 
-    public int RATING { get; set; }
+    public double RATING { get; set; }
 
     public string COMMENT { get; set; } = null!;
-
-    public virtual tb_AUDIOVISUAL_PRODUCTION TITLENavigation { get; set; } = null!;
 
     public virtual tb_USER USERNAMENavigation { get; set; } = null!;
 }
