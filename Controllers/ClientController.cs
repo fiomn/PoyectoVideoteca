@@ -29,12 +29,12 @@ namespace ProyectoVideoteca.Controllers
 
             movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
 
-            //var exteriorColors = new List<ExteriorColorBD>();
-            //exteriorColors = _context.ExteriorColors.FromSqlRaw(@"exec dbo.GetExteriorColor rav4").ToList();
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            //VehicleInformation vehicleInformation = new VehicleInformation(vehicleList.First(), exteriorColors);
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
 
-            return View(movies);
+            return View(moviesAndGenres);
         }
 
 
