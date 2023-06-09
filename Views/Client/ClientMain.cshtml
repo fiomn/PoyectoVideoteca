@@ -7,20 +7,27 @@
 	<link rel="stylesheet" href="~/css/main_page.css">
 	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
 		  rel="stylesheet">
-	<title>Netflix</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
 </head>
 
 <body>
-	<header>
+	<header>		
 		<div class="container">
 			<h2 class="logo">QSTREAM</h2>
-			<nav>
+			<nav>				
 				<a href="#">Home</a>
 				<a href="#">Movies</a>
 				<a href="#">Series</a>
 				<a asp-controller="client" asp-action="editProfile">Profile</a>
-				<a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
+				<a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>				
 			</nav>
+		</div>
+		<div class="containerB">
+			<input type="text" placeholder="Search">
+			<div class="btn">
+				<i class="fa fa-search"></i>
+			</div>
 		</div>
 	</header>
 

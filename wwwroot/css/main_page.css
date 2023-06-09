@@ -14,6 +14,19 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+input {
+    outline: none;
+    box-sizing: border-box;
+    height: 60px;
+    width: 0px;
+    padding: 0 20px;
+    color: black;
+    border-radius: 50px;
+    font-size: 20px;
+    border: 1px solid #0f413e;
+    transition: all .7s ease;
+}
+
 .container {
     width: 90%;
     margin: auto;
@@ -23,29 +36,105 @@ header {
     padding: 30px 0;
 }
 
-    header .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-family: 'Bebas Neue', cursive;
+    font-weight: normal;
+    color: var(--red);
+    font-size: 40px;
+}
+
+header nav a {
+    color: #AAA;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+    header nav a:hover,
+    header nav a.active {
+        color: #FFF;
     }
 
-    header .logo {
-        font-family: 'Bebas Neue', cursive;
-        font-weight: normal;
-        color: var(--red);
-        font-size: 40px;
+.containerB {
+    position: absolute;
+    left: 48%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+    .containerB:hover input {
+        width: 350px;
     }
 
-    header nav a {
-        color: #AAA;
-        text-decoration: none;
-        margin-right: 20px;
+    .containerB:hover i {
+        transform: rotate(-360deg);
     }
 
-        header nav a:hover,
-        header nav a.active {
-            color: #FFF;
-        }
+.btn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 80px;
+    height: 80px;
+    background: red;
+    line-height: 80px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s;
+}
+
+    .btn i {
+        font-size: 20px;
+        color: white;
+        line-height: 80px;
+        transition: all .7s ease;
+    }
+
+    .btn:before {
+        content: '';
+        background: linear-gradient(45deg, #03d9f5, #e30b94);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -2;
+        filter: blur(5px);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        animation: glowing 20s linear infinite;
+        transition: opacity .5s ease-in-out;
+        border-radius: 100%;
+    }
+
+    .btn:hover:before {
+        opacity: 5;
+    }
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.btn:hover {
+    background: linear-gradient(-135deg, #50c8c2, black);
+}
 
 /* ---- ----- ----- Main Movie ----- ----- ----- */
 .main-movie {

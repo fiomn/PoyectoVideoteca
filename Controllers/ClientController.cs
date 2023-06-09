@@ -39,6 +39,7 @@ namespace ProyectoVideoteca.Controllers
                 var parameter = new SqlParameter("@username", username);
 
                  userByName= db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
+                ManagementUsers.users = userByName;
                 return View(userByName);
             }
             catch (Exception ex)
@@ -90,12 +91,13 @@ namespace ProyectoVideoteca.Controllers
                     }
 
                     // Actualiza la imagen de perfil en el modelo del usuario
+                    var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
+                    userBD.IMG = profilePictureBase64;
                     user.ProfilePicture = profilePictureBase64;
-                    ManagementUsers.users.IMG = profilePictureBase64;
 
                     // Guarda los cambios en la base de datos
                     var result = await _userManager.UpdateAsync(user);
-                    db.tb_USER.Update(ManagementUsers.users);
+                    db.tb_USER.Update(userBD);
                     db.SaveChanges();
                     if (!result.Succeeded)
                     {
