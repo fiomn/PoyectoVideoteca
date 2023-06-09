@@ -22,6 +22,10 @@ public partial class TestUCRContext : DbContext
 
     public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
 
+    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
+
+    public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
+
     public virtual DbSet<tb_RATING> tb_RATING { get; set; }
 
     public virtual DbSet<tb_SEASON> tb_SEASON { get; set; }
@@ -78,6 +82,51 @@ public partial class TestUCRContext : DbContext
             entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODEs)
                 .HasForeignKey(d => d.SEASON_ID)
                 .HasConstraintName("fk_SEASON");
+        });
+
+        modelBuilder.Entity<tb_GENRE>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("tb_GENRE");
+
+            entity.Property(e => e.GENRE_NAME)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<tb_MOVIE>(entity =>
+        {
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E61D839E5");
+
+            entity.ToTable("tb_MOVIE");
+
+            entity.Property(e => e.TITLE)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.CLASS)
+                .HasMaxLength(5)
+                .IsUnicode(false);
+            entity.Property(e => e.GENRE)
+                .HasMaxLength(25)
+                .IsUnicode(false);
+            entity.Property(e => e.ID).ValueGeneratedOnAdd();
+            entity.Property(e => e.IMG).IsUnicode(false);
+            entity.Property(e => e.RELEASE_DATE)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.SYNOPSIS).IsUnicode(false);
+            entity.Property(e => e.VIDEO).IsUnicode(false);
+
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIEs)
+                .HasForeignKey(d => d.ACTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_ACTOR_ID");
+
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIEs)
+                .HasForeignKey(d => d.DIRECTOR_ID)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_DIRECTOR_ID");
         });
 
         modelBuilder.Entity<tb_RATING>(entity =>
