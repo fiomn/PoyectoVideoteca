@@ -22,6 +22,8 @@ public partial class TestUCRContext : DbContext
 
     public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
 
+    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
+
     public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
 
     public virtual DbSet<tb_RATING> tb_RATING { get; set; }
@@ -82,9 +84,20 @@ public partial class TestUCRContext : DbContext
                 .HasConstraintName("fk_SEASON");
         });
 
+        modelBuilder.Entity<tb_GENRE>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("tb_GENRE");
+
+            entity.Property(e => e.GENRE_NAME)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<tb_MOVIE>(entity =>
         {
-            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E1289BF72");
+            entity.HasKey(e => e.TITLE).HasName("PK__tb_MOVIE__475DFD2E61D839E5");
 
             entity.ToTable("tb_MOVIE");
 
@@ -103,6 +116,7 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
+            entity.Property(e => e.VIDEO).IsUnicode(false);
 
             entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIEs)
                 .HasForeignKey(d => d.ACTOR_ID)

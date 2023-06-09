@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using System.Net;
@@ -9,6 +10,7 @@ namespace ProyectoVideoteca.Controllers
 {
     public class UserAuthenticationController : Controller
     {
+        TestUCRContext db= new TestUCRContext();
         private readonly IUserAuthenticationService _service;
         public UserAuthenticationController(IUserAuthenticationService service)
         {
@@ -88,11 +90,11 @@ namespace ProyectoVideoteca.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+       
         public ActionResult recoveryPassword()
         {
             return View();
-        }
+        }        
 
         [HttpPost]
         public void sendEmail(string email)

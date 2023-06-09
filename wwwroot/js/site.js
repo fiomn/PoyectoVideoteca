@@ -1,4 +1,5 @@
-﻿$("#btnSend").click(function sendEmail() {
+﻿//send email
+$("#btnSend").click(function sendEmail() {
     alert('esta en el ajax');
     const email = $("#inInput").val();
     $.ajax({
