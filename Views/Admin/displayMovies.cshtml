@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ProyectoVideoteca.Models.tb_MOVIE>
+
+@{
+    ViewData["Title"] = "displayMovies";
+}
+
+<h1>Movies</h1>
+
+<p>
+    <a asp-action="createMovies">Create Movie</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TITLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SYNOPSIS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLASS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RELEASE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SCORE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GENRE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ACTOR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIRECTOR)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TITLE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SYNOPSIS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLASS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RELEASE_DATE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SCORE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GENRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ACTOR_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DIRECTOR_ID)
+                </td>
+                <td>
+                    @Html.ActionLink("editMovies","editMovies", new {title = item.TITLE})
+                    @Html.ActionLink("detailsMovies","detailsMovies", new {title = item.TITLE})
+                    @Html.ActionLink("deleteMovies","deleteMovies", new {title = item.TITLE})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

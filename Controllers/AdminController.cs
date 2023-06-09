@@ -11,6 +11,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -18,11 +19,13 @@ namespace ProyectoVideoteca.Controllers
     public class AdminController : Controller
     {
         private TestUCRContext db = new TestUCRContext(); //database context
-
         private readonly IUserAuthenticationService _service; //database context authentication
-        public AdminController(IUserAuthenticationService service)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public AdminController(IUserAuthenticationService service, UserManager<ApplicationUser> userManager)
         {
             this._service = service;
+            this._userManager = userManager;
         }
 
         public ActionResult AdminMain()
@@ -178,6 +181,274 @@ namespace ProyectoVideoteca.Controllers
 
             var stream = new MemoryStream(documentpdf); //save pdf in memory
             return File(stream, "application/pdf", "UsersList.pdf"); //name and type of pdf
+        }
+
+        public async Task<ActionResult> editProfile()
+        {
+            try
+            {
+                ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+                string username = user.UserName;
+                var userByName = new tb_USER();
+                var parameter = new SqlParameter("@username", username);
+
+                userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
+                ManagementUsers.users = userByName;
+                return View(userByName);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult editUser(string userName)
+        {
+            var user = db.tb_USER.Find(userName);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editUser(tb_USER user, RegistrationModel model)
+        {
+            try
+            {
+                var result = await _service.EditAsync(model); //save in context auth
+                db.tb_USER.Update(user); //save users in testUCR
+                db.SaveChanges();
+                return RedirectToAction(nameof(editProfile));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            // Obtén el usuario actual
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
+            {
+                // Verifica si se seleccionó un archivo
+                if (file != null && file.Length > 0)
+                {
+                    // Convierte el archivo en una cadena base64
+                    string profilePictureBase64;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        byte[] fileBytes = memoryStream.ToArray();
+                        profilePictureBase64 = Convert.ToBase64String(fileBytes);
+                    }
+
+                    // Actualiza la imagen de perfil en el modelo del usuario
+                    var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
+                    userBD.IMG = profilePictureBase64;
+                    user.ProfilePicture = profilePictureBase64;
+
+                    // Guarda los cambios en la base de datos
+                    var result = await _userManager.UpdateAsync(user);
+                    db.tb_USER.Update(userBD);
+                    db.SaveChanges();
+                    if (!result.Succeeded)
+                    {
+                        // El cambio de correo electrónico no fue exitoso, agrega errores de validación.
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        return View("ChangeProfilePicture");
+                    }
+                }
+            }
+            return RedirectToAction(nameof(editUser));
+        }
+
+        public async Task<IActionResult> ChangeProfilePicture()
+        {
+            // Obtener el usuario actualmente autenticado
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
+            {
+                string profilePictureBase64 = user.ProfilePicture;
+                // Verificar si la imagen de perfil existe
+                if (!string.IsNullOrEmpty(user.ProfilePicture))
+                {
+                    // Convertir la cadena base64 en una URL válida
+                    string imageFormat = "image/png"; // Cambia esto según el formato de imagen que estés utilizando
+                    string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
+                    // Pasar la URL de la imagen de perfil a la vista
+                    ViewBag.ProfilePicture = profilePictureUrl;
+                }
+                else
+                {
+                    ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
+                }
+            }
+
+            return View();
+        }
+
+        //*************************CRUD MOVIES***************************************
+        public ActionResult displayMovies()
+        {
+            var moviesList = new List<tb_MOVIE>();
+            moviesList = db.tb_MOVIE.FromSqlRaw("exec dbo.getMovie").ToList();
+            return View(moviesList);
+        }
+
+        public ActionResult createMovies()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Add(movie); //save movies in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult detailsMovies(string title)
+        {
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
+            return View(movie);
+        }
+
+        public ActionResult editMovies(string title)
+        {
+            var movie = db.tb_MOVIE.Find(title);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Update(movie); //save users in testUCR
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult deleteMovies(string title)
+        {
+            var movie = db.tb_MOVIE.Find(title);
+            return View(movie);
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> deleteMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Remove(movie);
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
+        }
+
+        //*********************************CRUD SERIES************************************************
+        public ActionResult displaySeries()
+        {
+            var seriesList = new List<tb_SERIE>();
+            seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.getSerie").ToList();
+            return View(seriesList);
+        }
+
+        public ActionResult createSeries()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Add(serie); //save movies in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult detailsSeries(string title)
+        {
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
+            return View(serie);
+        }
+
+        public ActionResult editSeries(string title)
+        {
+            var serie = db.tb_SERIE.Find(title);
+            return View(serie);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Update(serie); //save series in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult deleteSeries(string title)
+        {
+            var serie = db.tb_SERIE.Find(title);
+            return View(serie);
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> deleteSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Remove(serie);
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
         }
     }
 }

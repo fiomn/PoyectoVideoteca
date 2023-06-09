@@ -2,8 +2,8 @@
 
 <img id="profileImagePreview" src="@ViewBag.ProfilePicture" alt="Profile picture" />
 
-@using (Html.BeginForm("UploadProfileImage", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{    
+@using (Html.BeginForm("UploadProfileImage", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     <input type="file" name="file" accept="image/*" onchange="previewProfileImage(this)" />
     <button type="submit">Save image</button>
 }
