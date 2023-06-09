@@ -25,7 +25,16 @@ namespace ProyectoVideoteca.Controllers
         }
         public ActionResult ClientMain()
         {
-            return View();
+            var movies = new List<tb_MOVIE>();
+
+            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+
+            return View(moviesAndGenres);
         }
 
 
@@ -38,7 +47,7 @@ namespace ProyectoVideoteca.Controllers
                 var userByName = new tb_USER();
                 var parameter = new SqlParameter("@username", username);
 
-                 userByName= db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
+                userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 ManagementUsers.users = userByName;
                 return View(userByName);
             }
