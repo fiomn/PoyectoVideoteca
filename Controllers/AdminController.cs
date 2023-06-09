@@ -292,5 +292,163 @@ namespace ProyectoVideoteca.Controllers
 
             return View();
         }
+
+        //*************************CRUD MOVIES***************************************
+        public ActionResult displayMovies()
+        {
+            var moviesList = new List<tb_MOVIE>();
+            moviesList = db.tb_MOVIE.FromSqlRaw("exec dbo.getMovie").ToList();
+            return View(moviesList);
+        }
+
+        public ActionResult createMovies()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Add(movie); //save movies in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult detailsMovies(string title)
+        {
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
+            return View(movie);
+        }
+
+        public ActionResult editMovies(string title)
+        {
+            var movie = db.tb_MOVIE.Find(title);
+            return View(movie);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Update(movie); //save users in testUCR
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult deleteMovies(string title)
+        {
+            var movie = db.tb_MOVIE.Find(title);
+            return View(movie);
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> deleteMovies(tb_MOVIE movie)
+        {
+            try
+            {
+                db.tb_MOVIE.Remove(movie);
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
+        }
+
+        //*********************************CRUD SERIES************************************************
+        public ActionResult displaySeries()
+        {
+            var seriesList = new List<tb_SERIE>();
+            seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.getSerie").ToList();
+            return View(seriesList);
+        }
+
+        public ActionResult createSeries()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Add(serie); //save movies in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult detailsSeries(string title)
+        {
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
+            return View(serie);
+        }
+
+        public ActionResult editSeries(string title)
+        {
+            var serie = db.tb_SERIE.Find(title);
+            return View(serie);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Update(serie); //save series in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult deleteSeries(string title)
+        {
+            var serie = db.tb_SERIE.Find(title);
+            return View(serie);
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> deleteSeries(tb_SERIE serie)
+        {
+            try
+            {
+                db.tb_SERIE.Remove(serie);
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+
+        }
     }
 }

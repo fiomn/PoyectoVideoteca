@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ProyectoVideoteca.Models.tb_SERIE>
+
+@{
+    ViewData["Title"] = "displaySeries";
+}
+
+<h1>Series</h1>
+
+<p>
+    <a asp-action="createSeries">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DURATION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RELEASE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SCORE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GENRE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SYNOPSIS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLASS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ACTOR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DIRECTOR)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DURATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RELEASE_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCORE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GENRE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SYNOPSIS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLASS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTOR_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIRECTOR_ID)
+            </td>
+            <td>
+                    @Html.ActionLink("editSeries","editSeries", new {title = item.TITLE})
+                    @Html.ActionLink("detailsSeries","detailsSeries", new {title = item.TITLE})
+                    @Html.ActionLink("deleteSeries","deleteSeries", new {title = item.TITLE})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
