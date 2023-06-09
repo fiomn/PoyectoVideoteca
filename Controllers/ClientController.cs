@@ -25,7 +25,16 @@ namespace ProyectoVideoteca.Controllers
         }
         public ActionResult ClientMain()
         {
-            return View();
+            var movies = new List<tb_MOVIE>();
+
+            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+
+            //var exteriorColors = new List<ExteriorColorBD>();
+            //exteriorColors = _context.ExteriorColors.FromSqlRaw(@"exec dbo.GetExteriorColor rav4").ToList();
+
+            //VehicleInformation vehicleInformation = new VehicleInformation(vehicleList.First(), exteriorColors);
+
+            return View(movies);
         }
 
 
@@ -38,7 +47,7 @@ namespace ProyectoVideoteca.Controllers
                 var userByName = new tb_USER();
                 var parameter = new SqlParameter("@username", username);
 
-                 userByName= db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
+                userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 ManagementUsers.users = userByName;
                 return View(userByName);
             }

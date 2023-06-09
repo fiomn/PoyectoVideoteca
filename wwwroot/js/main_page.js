@@ -73,6 +73,8 @@ thumbnails.forEach((thumbnail) => {
     let timeoutId;
     let timeoutFinal;
 
+
+    //Corregir parte del video
     thumbnail.addEventListener('mouseover', () => {
         timeoutId = setTimeout(() => {
             videoOverlay.style.opacity = '1';
