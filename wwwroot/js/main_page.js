@@ -1,46 +1,67 @@
-﻿const carouselContainer = document.querySelector('.carousel-container'); // Movies Carousel
-const movies = document.querySelectorAll('.movie');
+﻿// Obtener las referencias a los elementos del DOM
+const carouselContainers = document.querySelectorAll('.carousel-container');
+const leftArrows = document.querySelectorAll('.left-arrow');
+const rightArrows = document.querySelectorAll('.right-arrow');
+const indicators = document.querySelectorAll('.indicators');
 
-const leftArrow = document.getElementById('left-arrow');
-const rightArrow = document.getElementById('right-arrow');
+// Recorrer los carousels y asignar los event listeners a los botones
+carouselContainers.forEach((carouselContainer, index) => {
+    const movies = carouselContainer.querySelectorAll('.movie');
+    const numberOfPages = Math.ceil(movies.length / 5);
 
-// Event Listener For Right Arrow
-rightArrow.addEventListener('click', () => {
-    carouselContainer.scrollLeft += carouselContainer.offsetWidth;
+    let currentPage = 0;
 
-    const activeIndicator = document.querySelector('.indicators .active');
-    if (activeIndicator.nextSibling) {
-        activeIndicator.nextElementSibling.classList.add('active');
-        activeIndicator.classList.remove('active');
+    // Crear los indicadores de paginación
+    for (let i = 0; i < numberOfPages; i++) {
+        const indicator = document.createElement('button');
+
+        if (i === 0) {
+            indicator.classList.add('active');
+        }
+
+        indicators[index].appendChild(indicator);
+
+        indicator.addEventListener('click', (e) => {
+            currentPage = i;
+            updateCarouselPosition(carouselContainer, currentPage);
+            updateIndicators(indicators[index], currentPage);
+        });
     }
+
+    // Event Listener para el botón de la flecha izquierda
+    leftArrows[index].addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            updateCarouselPosition(carouselContainer, currentPage);
+            updateIndicators(indicators[index], currentPage);
+        }
+    });
+
+    // Event Listener para el botón de la flecha derecha
+    rightArrows[index].addEventListener('click', () => {
+        if (currentPage < numberOfPages - 1) {
+            currentPage++;
+            updateCarouselPosition(carouselContainer, currentPage);
+            updateIndicators(indicators[index], currentPage);
+        }
+    });
 });
 
-// Event Listener For Left Arrow
-leftArrow.addEventListener('click', () => {
-    carouselContainer.scrollLeft -= carouselContainer.offsetWidth;
+// Update carousel position
+function updateCarouselPosition(carouselContainer, currentPage) {
+    const carouselWidth = carouselContainer.offsetWidth;
+    carouselContainer.scrollLeft = currentPage * carouselWidth;
+}
 
-    const activeIndicator = document.querySelector('.indicators .active');
-    if (activeIndicator.previousSibling) {
-        activeIndicator.previousElementSibling.classList.add('active');
-        activeIndicator.classList.remove('active');
-    }
-});
-
-// Pagination
-const numberOfPages = Math.ceil(movies.length / 5); // Get number of blocks for pagination
-for (let i = 0; i < numberOfPages; i++) {
-    const indicator = document.createElement('button');
-
-    if (i === 0) {
-        indicator.classList.add('active');
-    }
-
-    document.querySelector('.indicators').appendChild(indicator);
-    indicator.addEventListener('click', (e) => {
-        carouselContainer.scrollLeft = i * carouselContainer.offsetWidth;
-
-        document.querySelector('.indicators .active').classList.remove('active');
-        e.target.classList.add('active');
+//Update Pagination Indicators
+function updateIndicators(indicatorsContainer, currentPage) {
+    const indicators = indicatorsContainer.querySelectorAll('button');
+    indicators.forEach((indicator, index) => {
+        if (index === currentPage) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
     });
 }
 

@@ -1,4 +1,8 @@
 ﻿@model ProyectoVideoteca.Models.tb_MOVIESANDGENRES
+
+@{
+    int indicatorCounter = 1;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,43 +37,47 @@
     </header>
 
     <main>
-        <!-- Carousels -->
+        <<!-- Carousels -->
         @foreach (var genre in Model.genres)
         {
-            @foreach (var movie in Model.movies)
-            {
-                @if (movie.GENRE.Equals(genre.GENRE_NAME))
-                {
-                    <div class="title-controls-container">
-                        <h3>@movie.GENRE</h3>
-                    </div>
-
-                    <div class="main-container">
-                        <button role="button" id="left-arrow" class="left-arrow"><i class="fas fa-angle-left"></i></button>
-        
+            string indicatorName = "indicator" + indicatorCounter;
+            <div class="movies-container">
+                <div class="title-controls-container">
+                    <h3>@genre.GENRE_NAME</h3>
+                    <div class="indicators @indicatorName"></div>
+                </div>
+                @{
+                    indicatorCounter++;
+                }
+                <div class="main-container">
+                    <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
                     <!-- Movie Carousel -->
                     <div class="carousel-container">
                         <div class="carousel">
-                            <div class="movie">
-                                <div class="video-thumbnail">
-                                    <a href="#"><img src="@movie.IMG"></a>
-                                    <div class="video-overlay">
-                                        <div class="video-player">
-                                            <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+                            @foreach (var movie in Model.movies)
+                            {
+                                if (movie.GENRE.Equals(genre.GENRE_NAME))
+                                {
+                                    <div class="movie">
+                                        <div class="video-thumbnail">
+                                            <a href="#"><img src="@movie.IMG" class="carouselImg"></a>
+                                            <div class="video-overlay">
+                                                <div class="video-player">
+                                                    <iframe src="" frameborder="0" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                }
+                            }
                         </div>
                     </div>
-
-
-
-                    <button role="button" id="right-arrow" class="right-arrow"><i class="fas fa-angle-right"></i></button>
+                    <button role="button" class="right-arrow"><i class="fas fa-angle-right"></i></button>
                 </div>
-                }
-            }
+            </div>
         }
+
+
     </main>
 
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
