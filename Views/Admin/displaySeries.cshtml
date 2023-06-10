@@ -31,10 +31,10 @@
                 @Html.DisplayNameFor(model => model.CLASS)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ACTOR)
+                @Html.DisplayNameFor(model => model.ACTOR_NAME)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DIRECTOR)
+                @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
             </th>
             <th></th>
         </tr>
@@ -62,10 +62,10 @@
                     @Html.DisplayFor(modelItem => item.CLASS)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ACTOR_ID)
+                    @Html.DisplayFor(modelItem => item.ACTOR_NAME)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DIRECTOR_ID)
+                    @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
                 </td>
                 <td>
                     @Html.ActionLink("editSeries","editSeries", new {title = item.TITLE})
