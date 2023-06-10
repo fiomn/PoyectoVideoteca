@@ -37,29 +37,29 @@ header {
 }
 
 
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header .logo {
-    font-family: 'Bebas Neue', cursive;
-    font-weight: normal;
-    color: var(--red);
-    font-size: 40px;
-}
-
-header nav a {
-    color: #AAA;
-    text-decoration: none;
-    margin-right: 20px;
-}
-
-    header nav a:hover,
-    header nav a.active {
-        color: #FFF;
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
+
+    header .logo {
+        font-family: 'Bebas Neue', cursive;
+        font-weight: normal;
+        color: var(--red);
+        font-size: 40px;
+    }
+
+    header nav a {
+        color: #AAA;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+
+        header nav a:hover,
+        header nav a.active {
+            color: #FFF;
+        }
 
 .containerB {
     position: absolute;
@@ -136,59 +136,6 @@ header nav a {
     background: linear-gradient(-135deg, white, white);
 }
 
-/* ---- ----- ----- Main Movie ----- ----- ----- */
-.main-movie {
-    font-size: 16px;
-    min-height: 40.62em;
-    color: #fff;
-    background: linear-gradient(rgba(0, 0, 0, .50) 0%, rgba(0,0,0,.50) 100%), url(../img/backdrop.jpg);
-    background-position: center center;
-    background-size: cover;
-    margin-bottom: 3.12em;
-    display: flex;
-    align-items: flex-end;
-}
-
-    .main-movie .container {
-        margin: 0 auto;
-        margin-bottom: 6.25em;
-    }
-
-    .main-movie .title {
-        font-weight: 600;
-        font-size: 3.12em;
-        margin-bottom: 0.4em;
-    }
-
-    .main-movie .description {
-        font-weight: normal;
-        font-size: 1em;
-        line-height: 1.75em;
-        max-width: 50%;
-        margin-bottom: 1.25em;
-    }
-
-    .main-movie .button {
-        background: rgba(0,0,0, 0.5);
-        border: none;
-        border-radius: 0.31em;
-        padding: 0.93em 1.87em;
-        color: #fff;
-        margin-right: 1.25em;
-        cursor: pointer;
-        transition: .3s ease all;
-        font-size: 1.12em;
-    }
-
-        .main-movie .button:hover {
-            background: #fff;
-            color: #000;
-        }
-
-        .main-movie .button i {
-            margin-right: 1.25em;
-        }
-
 
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
 .title-controls-container {
@@ -218,18 +165,18 @@ header nav a {
 
 
 /* ---- ----- ----- Main Container and Arrows ----- ----- ----- */
-.recommended-movies {
+.movies-container {
     margin-bottom: 70px;
 }
 
-    .recommended-movies .main-container {
+    .movies-container .main-container {
         display: flex;
         align-items: center;
         position: relative;
     }
 
-        .recommended-movies .main-container .left-arrow,
-        .recommended-movies .main-container .right-arrow {
+        .movies-container .main-container .left-arrow,
+        .movies-container .main-container .right-arrow {
             position: absolute;
             border: none;
             background: rgba(0, 0, 0, 0.3);
@@ -244,45 +191,45 @@ header nav a {
             transition: .2s ease all;
         }
 
-            .recommended-movies .main-container .left-arrow:hover,
-            .recommended-movies .main-container .right-arrow:hover {
+            .movies-container .main-container .left-arrow:hover,
+            .movies-container .main-container .right-arrow:hover {
                 background: rgba(0, 0, 0, 0.9);
             }
 
-        .recommended-movies .main-container .left-arrow {
+        .movies-container .main-container .left-arrow {
             left: 0;
         }
 
-        .recommended-movies .main-container .right-arrow {
+        .movies-container .main-container .right-arrow {
             right: 0;
         }
 
 
     /* ---- ----- ----- Carousel ----- ----- ----- */
-    .recommended-movies .carousel-container {
+    .movies-container .carousel-container {
         width: 100%;
         padding: 20px 0;
         overflow: hidden;
         scroll-behavior: smooth;
     }
 
-        .recommended-movies .carousel-container .carousel {
+        .movies-container .carousel-container .carousel {
             display: flex;
             flex-wrap: nowrap;
         }
 
-            .recommended-movies .carousel-container .carousel .movie {
+            .movies-container .carousel-container .carousel .movie {
                 min-width: 20%;
                 transition: .3s ease all;
                 box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
             }
 
-                .recommended-movies .carousel-container .carousel .movie.hover {
+                .movies-container .carousel-container .carousel .movie.hover {
                     transform: scale(1.2);
                     transform-origin: center;
                 }
 
-                .recommended-movies .carousel-container .carousel .movie img {
+                .movies-container .carousel-container .carousel .movie img {
                     width: 100%;
                     vertical-align: top;
                 }
@@ -307,19 +254,19 @@ header nav a {
             max-width: 100%;
         }
 
-    .recommended-movies .carousel-container {
+    .movies-container .carousel-container {
         overflow: visible;
     }
 
-        .recommended-movies .carousel-container .carousel {
+        .movies-container .carousel-container .carousel {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-    .recommended-movies .indicators,
-    .recommended-movies .left-arrow,
-    .recommended-movies .right-arrow {
+    .movies-container .indicators,
+    .movies-container .left-arrow,
+    .movies-container .right-arrow {
         display: none;
     }
 }
