@@ -235,8 +235,8 @@ header {
                 }
 
                 .movies-container .carousel-container .carousel .movie img {
-                    width: 100%;
-                    vertical-align: top;
+                    /*width: 100%;  
+                    vertical-align: top; */
                 }
 
 /* ---- ----- ----- Media Queries ----- ----- ----- */
