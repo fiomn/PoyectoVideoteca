@@ -1,8 +1,5 @@
 ﻿@model ProyectoVideoteca.Models.tb_MOVIESANDGENRES
 
-@{
-    int indicatorCounter = 1;
-}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,11 +16,10 @@
 <body>
     <header>
         <div class="container">
-            <h2 class="logo">QSTREAM</h2>
+            <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
             <nav>
-                <a href="#">Home</a>
-                <a href="#">Movies</a>
-                <a href="#">Series</a>
+                <a asp-controller="client" asp-action="ClientMain">Movies</a>
+                <a asp-controller="client" asp-action="displaySeries">Series</a>
                 <a asp-controller="client" asp-action="editProfile">Profile</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
@@ -40,15 +36,11 @@
         <<!-- Carousels -->
         @foreach (var genre in Model.genres)
         {
-            string indicatorName = "indicator" + indicatorCounter;
             <div class="movies-container">
                 <div class="title-controls-container">
                     <h3>@genre.GENRE_NAME</h3>
-                    <div class="indicators @indicatorName"></div>
+                    <div class="indicators"></div>
                 </div>
-                @{
-                    indicatorCounter++;
-                }
                 <div class="main-container">
                     <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
                     <!-- Movie Carousel -->

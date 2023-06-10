@@ -37,6 +37,21 @@ namespace ProyectoVideoteca.Controllers
             return View(moviesAndGenres);
         }
 
+        public ActionResult DisplaySeries()
+        {
+
+            var series = new List<tb_SERIE>();
+
+            series = db.tb_SERIE.FromSqlRaw(@"exec dbo.GetSeries").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+
+            return View(seriesAndGenres);
+        }
+
 
         public async Task<ActionResult> editProfile()
         {

@@ -1,4 +1,4 @@
-﻿@model ProyectoVideoteca.Models.tb_MOVIESANDGENRES
+﻿@model ProyectoVideoteca.Models.tb_SERIESANDGENRES
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,13 +16,14 @@
 <body>
     <header>
         <div class="container">
-            <a class="logo" asp-controller="SuperAdmin" asp-action="SuperAdminMain">QSTREAM</a>
+            <a class="logo" asp-controller="Admin" asp-action="AdminMain">QSTREAM</a>
             <nav>
-                <a asp-controller="SuperAdmin" asp-action="Display">User Management</a>
-                <a asp-controller="SuperAdmin" asp-action="SuperAdminMain">Movies</a>
-                <a asp-controller="SuperAdmin" asp-action="DisplaySeriesSuperAdmin">Series</a>
-                <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>
-                <a href="#">Global settings</a>
+                <a asp-controller="Admin" asp-action="Display">User Management</a>
+                <a asp-controller="Admin" asp-action="DisplayMovies">Movies Management</a>
+                <a asp-controller="Admin" asp-action="DisplaySeries">Series Management</a>
+                <a asp-controller="Admin" asp-action="AdminMain">Movies</a>
+                <a asp-controller="Admin" asp-action="DisplaySeriesAdmin">Series</a>
+                <a asp-controller="Admin" asp-action="editProfile">Profile</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
@@ -45,16 +46,16 @@
                 </div>
                 <div class="main-container">
                     <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
-                    <!-- Movie Carousel -->
+                    <!-- Series Carousel -->
                     <div class="carousel-container">
                         <div class="carousel">
-                            @foreach (var movie in Model.movies)
+                            @foreach (var serie in Model.series)
                             {
-                                if (movie.GENRE.Equals(genre.GENRE_NAME))
+                                if (serie.GENRE.Equals(genre.GENRE_NAME))
                                 {
                                     <div class="movie">
                                         <div class="video-thumbnail">
-                                            <a href="#"><img src="@movie.IMG" class="carouselImg"></a>
+                                            <a href="#"><img src="@serie.IMG" class="carouselImg"></a>
                                             <div class="video-overlay">
                                                 <div class="video-player">
                                                     <iframe src="" frameborder="0" allowfullscreen></iframe>

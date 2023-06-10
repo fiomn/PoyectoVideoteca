@@ -30,7 +30,31 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult AdminMain()
         {
-            return View();
+            var movies = new List<tb_MOVIE>();
+
+            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+
+            return View(moviesAndGenres);
+        }
+
+        public ActionResult DisplaySeriesAdmin()
+        {
+
+            var series = new List<tb_SERIE>();
+
+            series = db.tb_SERIE.FromSqlRaw(@"exec dbo.GetSeries").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+
+            return View(seriesAndGenres);
         }
 
         public ActionResult Display()
@@ -71,7 +95,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //GET: AdminController/Edit/5
-  
+
         public ActionResult Edit(string userName)
         {
             var user = db.tb_USER.Find(userName);
@@ -119,7 +143,7 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View();
             }
-            
+
         }
 
         //download and generate PDF
