@@ -3,6 +3,10 @@
     --background: #141414;
 }
 
+a {
+    text-decoration: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -48,6 +52,7 @@ header {
         font-weight: normal;
         color: var(--red);
         font-size: 40px;
+        text-decoration: none;
     }
 
     header nav a {
@@ -239,6 +244,7 @@ header {
     header .logo {
         margin-bottom: 10px;
         font-size: 30px;
+        text-decoration: none;
     }
 
     header .container {

@@ -1,106 +1,82 @@
-﻿<!DOCTYPE html>
+﻿@model ProyectoVideoteca.Models.tb_MOVIESANDGENRES
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="~/css/main_page.css">
-	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
-		  rel="stylesheet">
-	<title>Netflix</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/main_page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
 </head>
 
 <body>
-	<header>
-		<div class="container">
-			<h2 class="logo">QSTREAM</h2>
-			<nav>
-				<a asp-controller="Admin" asp-action="Display">Management Users</a>
-				<a asp-controller="Admin" asp-action="editProfile">Profile</a>
-				<a asp-controller="Admin" asp-action="displayMovies">Movies</a>
-				<a asp-controller="Admin" asp-action="displaySeries">Seies</a>
-				<a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-			</nav>
-		</div>
-	</header>
+    <header>
+        <div class="container">
+            <a class="logo" asp-controller="Admin" asp-action="AdminMain">QSTREAM</a>
+            <nav>
+                <a asp-controller="Admin" asp-action="Display">User Management</a>
+                <a asp-controller="Admin" asp-action="DisplayMovies">Movies Management</a>
+                <a asp-controller="Admin" asp-action="DisplaySeries">Series Management</a>
+                <a asp-controller="Admin" asp-action="AdminMain">Movies</a>
+                <a asp-controller="Admin" asp-action="DisplaySeriesAdmin">Series</a>
+                <a asp-controller="Admin" asp-action="editProfile">Profile</a>
+                <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
+            </nav>
+        </div>
+        <div class="containerB">
+            <input type="text" placeholder="Search">
+            <div class="btn">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+    </header>
 
-	<main>
-		<!-- Recommended Movies Carousel-->
-		<div class="movies-container">
-			<div class="title-controls-container">
-				<h3>Recommended Movies</h3>
-				<div class="indicators"></div>
-			</div>
-
-			<div class="main-container">
-				<button role="button" id="left-arrow" class="left-arrow"><i class="fas fa-angle-left"></i></button>
-
-				<!-- Movie Carousel -->
-				<div class="carousel-container">
-					<div class="carousel">
-						<div class="movie">
-							<div class="video-thumbnail">
-								<a href="#"><img src="~/img/1.png"></a>
-								<div class="video-overlay">
-									<div class="video-player">
-										<iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="movie">
-							<div class="video-thumbnail">
-								<a href="#"><img src="~/img/2.png"></a>
-								<div class="video-overlay">
-									<div class="video-player">
-										<iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/3.png" alt="image 3"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/4.png" alt="image 4"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/5.png" alt="image 5"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/6.png" alt="image 6"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/7.png" alt="image 7"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/1.png" alt="image 5"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/2.png" alt="image 6"></a>
-						</div>
-						<div class="movie">
-							<!-- Go to the selected movie -->
-							<a href="#"><img src="~/img/3.png" alt="image 7"></a>
-						</div>
-					</div>
-				</div>
+    <main>
+        <<!-- Carousels -->
+        @foreach (var genre in Model.genres)
+        {
+            <div class="movies-container">
+                <div class="title-controls-container">
+                    <h3>@genre.GENRE_NAME</h3>
+                    <div class="indicators"></div>
+                </div>
+                <div class="main-container">
+                    <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
+                    <!-- Movie Carousel -->
+                    <div class="carousel-container">
+                        <div class="carousel">
+                            @foreach (var movie in Model.movies)
+                            {
+                                if (movie.GENRE.Equals(genre.GENRE_NAME))
+                                {
+                                    <div class="movie">
+                                        <div class="video-thumbnail">
+                                            <a href="#"><img src="@movie.IMG" class="carouselImg"></a>
+                                            <div class="video-overlay">
+                                                <div class="video-player">
+                                                    <iframe src="" frameborder="0" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <button role="button" class="right-arrow"><i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        }
 
 
-				<button role="button" id="right-arrow" class="right-arrow"><i class="fas fa-angle-right"></i></button>
-			</div>
-		</div>
-	</main>
+    </main>
 
-	<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-	<script src="~/js/main_page.js"></script>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="~/js/main_page.js"></script>
 </body>
 
 </html>

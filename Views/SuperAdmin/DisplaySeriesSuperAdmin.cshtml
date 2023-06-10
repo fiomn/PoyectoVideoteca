@@ -1,4 +1,4 @@
-﻿@model ProyectoVideoteca.Models.tb_MOVIESANDGENRES
+﻿@model ProyectoVideoteca.Models.tb_SERIESANDGENRES
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,16 +45,16 @@
                 </div>
                 <div class="main-container">
                     <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
-                    <!-- Movie Carousel -->
+                    <!-- Series Carousel -->
                     <div class="carousel-container">
                         <div class="carousel">
-                            @foreach (var movie in Model.movies)
+                            @foreach (var serie in Model.series)
                             {
-                                if (movie.GENRE.Equals(genre.GENRE_NAME))
+                                if (serie.GENRE.Equals(genre.GENRE_NAME))
                                 {
                                     <div class="movie">
                                         <div class="video-thumbnail">
-                                            <a href="#"><img src="@movie.IMG" class="carouselImg"></a>
+                                            <a href="#"><img src="@serie.IMG" class="carouselImg"></a>
                                             <div class="video-overlay">
                                                 <div class="video-player">
                                                     <iframe src="" frameborder="0" allowfullscreen></iframe>
