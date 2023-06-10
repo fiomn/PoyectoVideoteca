@@ -9,8 +9,6 @@ public partial class tb_SERIE
 
     public string TITLE { get; set; } = null!;
 
-    public int DURATION { get; set; }
-
     public string? IMG { get; set; }
 
     public string? RELEASE_DATE { get; set; }
@@ -26,6 +24,10 @@ public partial class tb_SERIE
     public string? SYNOPSIS { get; set; }
 
     public string? CLASS { get; set; }
+
+    public int QTY_SEASONS { get; set; }
+
+    public string? VIDEO { get; set; }
 
     public virtual tb_ACTOR ACTOR { get; set; } = null!;
 

@@ -17,5 +17,9 @@ public partial class tb_EPISODE
 
     public int SEASON_ID { get; set; }
 
+    public string? IMG { get; set; }
+
+    public string? VIDEO { get; set; }
+
     public virtual tb_SEASON SEASON { get; set; } = null!;
 }

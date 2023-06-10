@@ -32,7 +32,4 @@ public partial class tb_MOVIE
     public virtual tb_ACTOR ACTOR { get; set; } = null!;
 
     public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
-
 }
-
-

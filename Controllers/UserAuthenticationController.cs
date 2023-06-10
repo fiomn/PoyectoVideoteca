@@ -6,11 +6,12 @@ using ProyectoVideoteca.Repositories.Abstract;
 using System.Net;
 using System.Net.Mail;
 
+
 namespace ProyectoVideoteca.Controllers
 {
     public class UserAuthenticationController : Controller
     {
-        TestUCRContext db= new TestUCRContext();
+        TestUCRContext db = new TestUCRContext();
         private readonly IUserAuthenticationService _service;
         public UserAuthenticationController(IUserAuthenticationService service)
         {
@@ -90,42 +91,70 @@ namespace ProyectoVideoteca.Controllers
             return Ok(result);
         }
 
-       
+
         public ActionResult recoveryPassword()
         {
             return View();
-        }        
+        }
 
-        [HttpPost]
         public void sendEmail(string email)
         {
-            string emailSend = "fio.mn1911@gmail.com";
-            string psw = "Navarro19!!!";
-            var fromAddress = new MailAddress(emailSend);
-            var toAddress = new MailAddress(email);
-
-            string subject = "Recovery password";
-            string body = "This is your new password!!";
-
-            var smtp = new SmtpClient
+            try
             {
-                Host = "smt.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = true,
-                Credentials = new NetworkCredential(emailSend, psw)
-            };
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("fio.mn1911@gmail.com", "htxqodidqnvjdlhd");
 
-            using (var message = new MailMessage(fromAddress, toAddress)
+                    using (MailMessage mail = new MailMessage())
+                    {
+                        mail.From = new MailAddress("fio.mn1911@gmail.com");
+                        mail.To.Add(email);
+                        mail.Subject = "Prueba";
+                        mail.Body = "Esto es una prueba";
+
+                        smtpClient.Send(mail);
+                    }
+                }
+                Console.WriteLine("Correo enviado exitosamente.");
+            }
+            catch (SmtpException ex)
             {
-                Subject = subject,
-                Body = body
-            })
-            {
-                message.IsBodyHtml = true;
-                smtp.Send(message);
+                Console.WriteLine("Error al enviar el correo: " + ex.Message);
             }
         }
+
+
+        //[HttpPost]
+        //public void sendEmail(string email)
+        //{
+        //    string emailSend = "fio.mn1911@gmail.com";
+        //    string psw = "Navarro19!!!";
+        //    var fromAddress = new MailAddress(emailSend);
+        //    var toAddress = new MailAddress(email);
+
+        //    string subject = "Recovery password";
+        //    string body = "This is your new password!!";
+
+        //    var smtp = new SmtpClient
+        //    {
+        //        Host = "smt.gmail.com",
+        //        Port = 587,
+        //        EnableSsl = true,
+        //        DeliveryMethod = SmtpDeliveryMethod.Network,
+        //        UseDefaultCredentials = true,
+        //        Credentials = new NetworkCredential(emailSend, psw)
+        //    };
+
+        //    using (var message = new MailMessage(fromAddress, toAddress)
+        //    {
+        //        Subject = subject,
+        //        Body = body
+        //    })
+        //    {
+        //        message.IsBodyHtml = true;
+        //        smtp.Send(message);
+        //    }
+        //}
     }
 }

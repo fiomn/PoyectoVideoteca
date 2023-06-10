@@ -293,7 +293,7 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        //*************************CRUD MOVIES***************************************
+        //*****************************CRUD MOVIES***************************************
         public ActionResult displayMovies()
         {
             var moviesList = new List<tb_MOVIE>();

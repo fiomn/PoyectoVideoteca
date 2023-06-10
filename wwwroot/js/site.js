@@ -5,7 +5,7 @@ $("#btnSend").click(function sendEmail() {
     $.ajax({
         url: "/userAuthentication/sendEmail",
         type: "post",
-        data: { "str": email}, //parametros
+        data: { "email": email}, //parametros
         success: function () {
             alert('Correo enviado');
         }

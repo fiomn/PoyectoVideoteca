@@ -74,10 +74,12 @@ public partial class TestUCRContext : DbContext
 
             entity.ToTable("tb_EPISODE");
 
+            entity.Property(e => e.IMG).IsUnicode(false);
             entity.Property(e => e.NAME_EPISODE)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.SYNOPSIS).HasColumnType("text");
+            entity.Property(e => e.VIDEO).IsUnicode(false);
 
             entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODEs)
                 .HasForeignKey(d => d.SEASON_ID)
@@ -162,6 +164,7 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.VIDEO).IsUnicode(false);
 
             entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASONs)
                 .HasForeignKey(d => d.TITLE)
@@ -189,6 +192,7 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
+            entity.Property(e => e.VIDEO).IsUnicode(false);
 
             entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIEs)
                 .HasForeignKey(d => d.ACTOR_ID)
