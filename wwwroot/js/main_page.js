@@ -1,36 +1,4 @@
-﻿
-window.search = function () {
-    alert('entro al ajax');
-    const inputSearch = $("#inputSearch").val();
-    $.ajax({
-        url: "/Client/search",
-        type: "get",
-        data: { "inputSearch": inputSearch }, //parámetros
-        datatype: 'text',
-        success: function (data) {
-            var dataList = JSON.parse(data);
-            //llama al select de html
-            var selectElement = $('#mySelect');
-            selectElement.empty();
-            selectElement.append($('<option>', {
-                text: 'Select'
-            }));
-
-            //recorre la lista de pokemones y los mete en un select
-            $.each(dataList, function (i, op) {
-                selectElement.append($('<option>', {
-                    value: op.value,
-                    text: dataList[i].TITLE
-                }));
-            });
-
-            //cambiar el slide segun el pokemon elegido
-            replaceHTML(dataList);
-        }
-    });
-}
-
-// Obtener las referencias a los elementos del DOM
+﻿// Obtener las referencias a los elementos del DOM
 const carouselContainers = document.querySelectorAll('.carousel-container');
 const leftArrows = document.querySelectorAll('.left-arrow');
 const rightArrows = document.querySelectorAll('.right-arrow');
@@ -143,5 +111,3 @@ thumbnails.forEach((thumbnail) => {
         }, 500);
     });
 });
-
-

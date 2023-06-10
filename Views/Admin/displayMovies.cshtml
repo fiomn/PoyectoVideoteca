@@ -31,10 +31,10 @@
                 @Html.DisplayNameFor(model => model.GENRE)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ACTOR_NAME)
+                @Html.DisplayNameFor(model => model.ACTOR)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
+                @Html.DisplayNameFor(model => model.DIRECTOR)
             </th>
             <th></th>
         </tr>
@@ -62,10 +62,10 @@
                     @Html.DisplayFor(modelItem => item.GENRE)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ACTOR_NAME)
+                    @Html.DisplayFor(modelItem => item.ACTOR_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
+                    @Html.DisplayFor(modelItem => item.DIRECTOR_ID)
                 </td>
                 <td>
                     @Html.ActionLink("editMovies","editMovies", new {title = item.TITLE})

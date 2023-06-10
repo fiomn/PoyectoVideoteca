@@ -17,11 +17,6 @@
 </head>
 
 <body>
-    <div class="searchDiv">
-        <input id="inputSearch" placeholder="Search movie">
-        <button id="btnSearch" onclick="search()">Search</button>
-        <select id="mySelect"></select>
-    </div>
     <header>
         <div class="container">
             <h2 class="logo">QSTREAM</h2>
@@ -33,7 +28,12 @@
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
-
+        <div class="containerB">
+            <input type="text" placeholder="Search">
+            <div class="btn">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
     </header>
 
     <main>

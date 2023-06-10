@@ -46,7 +46,6 @@ public partial class TestUCRContext : DbContext
 
             entity.ToTable("tb_ACTOR");
 
-            entity.Property(e => e.FULLNAME).IsUnicode(false);
             entity.Property(e => e.LAST_NAME)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -61,7 +60,6 @@ public partial class TestUCRContext : DbContext
 
             entity.ToTable("tb_DIRECTOR");
 
-            entity.Property(e => e.FULLNAME).IsUnicode(false);
             entity.Property(e => e.LAST_NAME)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -108,11 +106,9 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ACTOR_NAME).IsUnicode(false);
             entity.Property(e => e.CLASS)
                 .HasMaxLength(5)
                 .IsUnicode(false);
-            entity.Property(e => e.DIRECTOR_NAME).IsUnicode(false);
             entity.Property(e => e.GENRE)
                 .HasMaxLength(25)
                 .IsUnicode(false);
@@ -184,11 +180,9 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.ACTOR_NAME).IsUnicode(false);
             entity.Property(e => e.CLASS)
                 .HasMaxLength(5)
                 .IsUnicode(false);
-            entity.Property(e => e.DIRECTOR_NAME).IsUnicode(false);
             entity.Property(e => e.GENRE)
                 .HasMaxLength(25)
                 .IsUnicode(false);

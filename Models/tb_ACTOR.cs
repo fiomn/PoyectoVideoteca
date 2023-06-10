@@ -11,8 +11,6 @@ public partial class tb_ACTOR
 
     public string LAST_NAME { get; set; } = null!;
 
-    public string? FULLNAME { get; set; }
-
     public virtual ICollection<tb_MOVIE> tb_MOVIEs { get; set; } = new List<tb_MOVIE>();
 
     public virtual ICollection<tb_SERIE> tb_SERIEs { get; set; } = new List<tb_SERIE>();
