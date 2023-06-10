@@ -298,6 +298,7 @@ namespace ProyectoVideoteca.Controllers
         {
             var moviesList = new List<tb_MOVIE>();
             moviesList = db.tb_MOVIE.FromSqlRaw("exec dbo.getMovie").ToList();
+            MoviesList.list = moviesList;
             return View(moviesList);
         }
 

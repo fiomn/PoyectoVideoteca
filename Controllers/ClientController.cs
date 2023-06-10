@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
@@ -33,7 +34,7 @@ namespace ProyectoVideoteca.Controllers
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
             tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
-
+            MoviesList.list = movies;
             return View(moviesAndGenres);
         }
 
@@ -148,5 +149,14 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
+        //search by name and genre
+        public string search(string inputSearch)
+        {
+            if (inputSearch != null)
+            {                
+                return JsonConvert.SerializeObject(MoviesList.list.Where(m => m.TITLE.Contains(inputSearch)).ToList());              
+            }
+            return JsonConvert.SerializeObject(MoviesList.list);
+        }
     }
 }
