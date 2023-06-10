@@ -18,7 +18,14 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-input {
+.searchDiv {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%
+}
+
+/*input {
     outline: none;
     box-sizing: border-box;
     height: 30px;
@@ -29,7 +36,7 @@ input {
     font-size: 20px;
     border: 1px solid #0f413e;
     transition: all .7s ease;
-}
+}*/
 
 .container {
     width: 90%;
