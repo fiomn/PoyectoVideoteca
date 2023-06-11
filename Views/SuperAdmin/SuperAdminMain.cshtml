@@ -14,7 +14,10 @@
 </head>
 
 <body>
+    <input class="inp" id="inputSearch" placeholder="Search movie">
     <header>
+        <button id="btnSearch" onclick="search()">Search</button>
+        <select id="mySelect"></select>
         <div class="container">
             <a class="logo" asp-controller="SuperAdmin" asp-action="SuperAdminMain">QSTREAM</a>
             <nav>
@@ -25,12 +28,6 @@
                 <a href="#">Global settings</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
-        </div>
-        <div class="containerB">
-            <input type="text" placeholder="Search">
-            <div class="btn">
-                <i class="fa fa-search"></i>
-            </div>
         </div>
     </header>
 

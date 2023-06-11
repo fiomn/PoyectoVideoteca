@@ -140,7 +140,6 @@ namespace ProyectoVideoteca.Controllers
                     db.SaveChanges();
                     if (!result.Succeeded)
                     {
-                        // El cambio de correo electrónico no fue exitoso, agrega errores de validación.
                         foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
@@ -179,13 +178,17 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //search by name and genre
+        [HttpGet]
         public string search(string inputSearch)
         {
+            var movies = new List<tb_MOVIE>();
             if (inputSearch != null)
-            {
-                return JsonConvert.SerializeObject(MoviesList.list.Where(m => m.TITLE.Contains(inputSearch) || m.GENRE.Contains(inputSearch)).ToList());
+            {                
+                movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+                return JsonConvert.SerializeObject(movies.Where(x => x.TITLE.Contains(inputSearch)).ToList());    
+                
             }
-            return JsonConvert.SerializeObject(MoviesList.list);
+            return "fallo";
         }
 
     }

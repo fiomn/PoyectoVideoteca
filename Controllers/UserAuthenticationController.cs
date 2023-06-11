@@ -1,22 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoVideoteca.Data;
+using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using System.Net;
 using System.Net.Mail;
-
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ProyectoVideoteca.Controllers
 {
     public class UserAuthenticationController : Controller
     {
         TestUCRContext db = new TestUCRContext();
-        private readonly IUserAuthenticationService _service;
-        public UserAuthenticationController(IUserAuthenticationService service)
+        private readonly IUserAuthenticationService _service; //database context authentication
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public UserAuthenticationController(IUserAuthenticationService service, UserManager<ApplicationUser> userManager)
         {
             this._service = service;
+            this._userManager = userManager;
         }
+
+        //for recovery password
+        private const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        private static readonly RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
 
         public IActionResult Registration()
         {
@@ -96,27 +106,31 @@ namespace ProyectoVideoteca.Controllers
         {
             return View();
         }
-
-        public void sendEmail(string email)
+        
+        public async Task sendEmail(string email, string username)
         {
             try
             {
+                ApplicationUser user = await _userManager.FindByNameAsync(username); //to know the authenticated user
                 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
                 {
                     smtpClient.EnableSsl = true;
-                    smtpClient.Credentials = new NetworkCredential("fio.mn1911@gmail.com", "htxqodidqnvjdlhd");
+                    smtpClient.Credentials = new NetworkCredential("qstream2023@gmail.com", "dacgtkkijjtwqknj"); //credentials
+                    string newPassword = GenerateRandomPassword();
+
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user); //generate token
+                    var result = await _userManager.ResetPasswordAsync(user, token, newPassword); //update password
 
                     using (MailMessage mail = new MailMessage())
                     {
-                        mail.From = new MailAddress("fio.mn1911@gmail.com");
+                        mail.From = new MailAddress("qstream2023@gmail.com");
                         mail.To.Add(email);
-                        mail.Subject = "Prueba";
-                        mail.Body = "Esto es una prueba";
+                        mail.Subject = "Recovery password";
+                        mail.Body = "This is your new password: " + newPassword;
 
-                        smtpClient.Send(mail);
+                        smtpClient.Send(mail); //send email
                     }
                 }
-                Console.WriteLine("Correo enviado exitosamente.");
             }
             catch (SmtpException ex)
             {
@@ -124,37 +138,24 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //method to generate random password
+        public string GenerateRandomPassword()
+        {
+            const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-        //[HttpPost]
-        //public void sendEmail(string email)
-        //{
-        //    string emailSend = "fio.mn1911@gmail.com";
-        //    string psw = "Navarro19!!!";
-        //    var fromAddress = new MailAddress(emailSend);
-        //    var toAddress = new MailAddress(email);
+            Random random = new Random();
+            StringBuilder password = new StringBuilder();
 
-        //    string subject = "Recovery password";
-        //    string body = "This is your new password!!";
+            for (int i = 0; i < 8; i++) //password of 8 characters
+            {
+                password.Append(validChars[random.Next(validChars.Length)]);
+            }
 
-        //    var smtp = new SmtpClient
-        //    {
-        //        Host = "smt.gmail.com",
-        //        Port = 587,
-        //        EnableSsl = true,
-        //        DeliveryMethod = SmtpDeliveryMethod.Network,
-        //        UseDefaultCredentials = true,
-        //        Credentials = new NetworkCredential(emailSend, psw)
-        //    };
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password.ToString()); //string 64bytes
+            string newPass = Convert.ToBase64String(passwordBytes); //convert to string
 
-        //    using (var message = new MailMessage(fromAddress, toAddress)
-        //    {
-        //        Subject = subject,
-        //        Body = body
-        //    })
-        //    {
-        //        message.IsBodyHtml = true;
-        //        smtp.Send(message);
-        //    }
-        //}
+            return newPass;
+        }
+
     }
 }

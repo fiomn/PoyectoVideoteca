@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
@@ -296,5 +297,6 @@ namespace ProyectoVideoteca.Controllers
 
             return View();
         }
+
     }
 }
