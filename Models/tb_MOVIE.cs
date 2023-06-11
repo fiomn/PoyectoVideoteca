@@ -25,13 +25,13 @@ public partial class tb_MOVIE
 
     public string GENRE { get; set; } = null!;
 
-    public int DURATION { get; set; }
-
     public string VIDEO { get; set; } = null!;
 
     public string? DIRECTOR_NAME { get; set; }
 
     public string? ACTOR_NAME { get; set; }
+
+    public string? DURATION { get; set; }
 
     public virtual tb_ACTOR ACTOR { get; set; } = null!;
 

@@ -113,6 +113,9 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(5)
                 .IsUnicode(false);
             entity.Property(e => e.DIRECTOR_NAME).IsUnicode(false);
+            entity.Property(e => e.DURATION)
+                .HasMaxLength(8)
+                .IsUnicode(false);
             entity.Property(e => e.GENRE)
                 .HasMaxLength(25)
                 .IsUnicode(false);
