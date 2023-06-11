@@ -1,6 +1,5 @@
 ﻿//send email
 $("#btnSend").click(function sendEmail() {
-    alert('esta en el ajax');
     const email = $("#inEmail").val();
     const username = $("#inUserName").val();
     $.ajax({
@@ -26,31 +25,74 @@ function previewProfileImage(input) {
 }
 
 //search by name and genre
-window.search = function () {
-    alert('entro al ajax');
-    const inputSearch = $("#inputSearch").val();
-    $.ajax({
-        url: "/Client/search",
-        type: "get",
-        data: { "inputSearch": inputSearch }, //parámetros
-        datatype: 'json',
-        success: function (data) {
-            console.log(data);
-            //var dataList = JSON.parse(data);
-            //llama al select de html
-            var dataList = data;
-            var selectElement = $('#mySelect');
-            selectElement.empty();
-            selectElement.append($('<option>', {
-                text: 'select'
-            }));
-            //recorre la lista de pokemones y los mete en un select
-            $.each(dataList, function (i, op) {
+//show carousel of search results
+document.addEventListener("DOMContentLoaded", function () {
+    var btnSearch = document.getElementById("btnSearch");
+
+    //search by name and genre
+    function search() {
+        const inputSearch = $("#inputSearch").val(); //string input
+        $.ajax({
+            url: "/Client/search",
+            type: "get",
+            data: { "inputSearch": inputSearch }, //parameters
+            datatype: 'text',
+            success: function (data) {
+                var dataList = JSON.parse(data);
+
+                //call the select of main view
+                var selectElement = $('#mySelect');
+                selectElement.empty();
                 selectElement.append($('<option>', {
-                    value: op.value,
-                    text: dataList[i].TITLE
+                    text: 'select'
                 }));
-            });
-        }
-    });
+
+                //traverse the list and add to options
+                $.each(dataList, function (i, movie) {
+                    selectElement.append($('<option>', {
+                        value: movie.ID,
+                        text: movie.TITLE
+                    }));
+                });
+                replaceHTML(dataList);
+                showCarousel();  
+            }
+        });
+    }
+    
+    //call two functions for button btnSearch
+    btnSearch.addEventListener("click", function () {
+        search();       
+    });    
+});
+
+//show results in carousel
+function showCarousel() {
+    document.getElementById('carRe').style.display = 'flex';
+}
+
+function replaceHTML(data) {
+    var carousel = "<div class='movies-container' id='carRe'>" +
+        "<div class='title-controls-container'>" +
+        "<h3>Results</h3>" +
+        "<div class='indicators'></div>"+
+        "</div>"+
+    "<div class='main-container'>" +
+        "<button role='button' class='left-arrow'><i class='fas fa-angle-left'></i></button>" +
+        "<div class='carousel-container'>" +
+        "<div class='carousel'>";
+    for (movie in data) {
+        carousel += "<div class='movie'>" +
+            "<div class='video-thumbnail'>" +
+                "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'></a>" +
+            "</div>" +
+            "</div>";
+    }
+    carousel += "</div>" +
+        "</div>" +
+        "<button role='button' class='right-arrow'><i class='fas fa-angle-right'></i></button>" +
+        "</div>" +
+        "</div>";
+
+    $("#carRe").replaceWith(carousel);
 }

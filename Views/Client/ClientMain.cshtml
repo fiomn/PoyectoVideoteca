@@ -16,7 +16,7 @@
 <body>
     <input class="inp" id="inputSearch" placeholder="Search movie">
     <header>
-        <button id="btnSearch" onclick="search()">Search</button>
+        <button id="btnSearch">Search</button>
         <select id="mySelect"></select>
 
         <div class="container">
@@ -31,7 +31,33 @@
     </header>
 
     <main>
-        <<!-- Carousels -->
+        <!-- Carousel Result -->
+        <div class="movies-container" id="carRe">            
+            <div class="title-controls-container"> 
+                <h3>Results</h3>
+                <div class="indicators"></div>
+            </div>
+            <div class="main-container">
+                <button role="button" class="left-arrow"><i class="fas fa-angle-left"></i></button>
+                <!-- Movie Carousel -->
+                <div class="carousel-container">
+                    <div class="carousel">
+                        @foreach (var movie in Model.movies)
+                        {
+                            <div class="movie">
+                                <div class="video-thumbnail">
+                                    <a asp-controller="client" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg"></a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+                <button role="button" class="right-arrow"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Carousels -->
         @foreach (var genre in Model.genres)
         {
             <div class="movies-container">

@@ -184,11 +184,14 @@ namespace ProyectoVideoteca.Controllers
             var movies = new List<tb_MOVIE>();
             if (inputSearch != null)
             {                
-                movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
-                return JsonConvert.SerializeObject(movies.Where(x => x.TITLE.Contains(inputSearch)).ToList());    
+                //bring movies
+                movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.getMovie").ToList();
+
+                //compare dont matter Upper and lower case
+                return JsonConvert.SerializeObject(movies.Where(m => m.TITLE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase) || m.GENRE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase)).ToList());    
                 
             }
-            return "fallo";
+            return JsonConvert.SerializeObject(movies);
         }
 
     }
