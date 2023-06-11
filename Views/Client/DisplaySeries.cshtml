@@ -52,12 +52,7 @@
                                 {
                                     <div class="movie">
                                         <div class="video-thumbnail">
-                                            <a href="#"><img src="@serie.IMG" class="carouselImg"></a>
-                                            <div class="video-overlay">
-                                                <div class="video-player">
-                                                    <iframe src="" frameborder="0" allowfullscreen></iframe>
-                                                </div>
-                                            </div>
+                                            <a asp-controller="client" asp-action="detailsSerie" asp-route-TITLE="@serie.TITLE"><img src="@serie.IMG" class="carouselImg"></a>
                                         </div>
                                     </div>
                                 }

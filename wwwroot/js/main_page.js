@@ -36,6 +36,7 @@ const carouselContainers = document.querySelectorAll('.carousel-container');
 const leftArrows = document.querySelectorAll('.left-arrow');
 const rightArrows = document.querySelectorAll('.right-arrow');
 const indicators = document.querySelectorAll('.indicators');
+const movies = document.querySelectorAll('.movie');
 
 // Recorrer los carousels y asignar los event listeners a los botones
 carouselContainers.forEach((carouselContainer, index) => {

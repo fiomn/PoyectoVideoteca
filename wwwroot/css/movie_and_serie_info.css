@@ -1,0 +1,58 @@
+﻿:root {
+    --red: #E50914;
+    --background: #141414;
+}
+
+body {
+    background: var(--background);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.movie-details {
+    display: flex;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.movie-details__poster {
+    flex: 0 0 200px;
+    margin-right: 20px;
+}
+
+    .movie-details__poster img {
+        width: 100%;
+    }
+
+.movie-details__content {
+    flex: 1;
+    padding: 20px;
+    color: #AAA;
+}
+
+.movie-details__title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #AAA;
+}
+
+.movie-details__info p {
+    margin-bottom: 10px;
+    color: #AAA;
+}
+
+.movie-details__trailer {
+    margin-top: 20px;
+}
+
+    .movie-details__trailer iframe {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+    }
+
+    .movie-details__trailer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }

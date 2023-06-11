@@ -345,10 +345,10 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        public ActionResult detailsMovies(string title)
+        public ActionResult detailsMovies(string TITLE)
         {
-            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
-            return View(movie);
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            return View("detailsMovies", movie);
         }
 
         public ActionResult editMovies(string title)
