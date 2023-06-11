@@ -18,25 +18,9 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-.searchDiv {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    width: 100%
+.inp{
+    width:30%;
 }
-
-/*input {
-    outline: none;
-    box-sizing: border-box;
-    height: 30px;
-    width: 0px;
-    padding: 0 20px;
-    color: black;
-    border-radius: 50px;
-    font-size: 20px;
-    border: 1px solid #0f413e;
-    transition: all .7s ease;
-}*/
 
 .container {
     width: 90%;

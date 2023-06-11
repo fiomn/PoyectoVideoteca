@@ -12,6 +12,7 @@ using QuestPDF.Helpers;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -474,5 +475,6 @@ namespace ProyectoVideoteca.Controllers
             }
 
         }
+
     }
 }
