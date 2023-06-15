@@ -59,6 +59,24 @@ namespace ProyectoVideoteca.Controllers
             return View(seriesAndGenres);
         }
 
+        //When User clicks a movie
+        public ActionResult detailsMovies(string TITLE)
+        {
+            tb_MOVIE.currentMovie = TITLE;
+
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 5);
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages);
+
+
+
+            return View("detailsMovies", movieAndComments);
+        }
+
         //************************** USERS MANAGEMENT *****************************************
         public ActionResult Display()
         {
@@ -350,11 +368,11 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        public ActionResult detailsMovies(string TITLE)
-        {
-            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-            return View("detailsMovies", movie);
-        }
+        //public ActionResult detailsMovies(string TITLE)
+        //{
+        //    var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+        //    return View("detailsMovies", movie);
+        //}
 
         public ActionResult editMovies(string title)
         {

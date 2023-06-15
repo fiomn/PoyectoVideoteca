@@ -27,6 +27,8 @@ namespace ProyectoVideoteca.Controllers
             this._service = service;
             this._userManager = userManager;
         }
+
+        //*************************** SERIES AND MOVIES *********************************
         public ActionResult ClientMain()
         {
             var movies = new List<tb_MOVIE>();
@@ -81,12 +83,10 @@ namespace ProyectoVideoteca.Controllers
             return user;
         }
 
-        //Comment Section
         [HttpPost]
-        public IActionResult UserCommentAsync(string comment, string score)
+        public IActionResult userComment(string comment, string score)
         {
-
-            // Obtén el usuario actual
+            //get the current user
             var user = GetCurrentUserAsync().Result;
 
             db.tb_RATING.FromSqlRaw(@"exec InsertComment @Title, @Username, @Rating, @Comment",
@@ -106,8 +106,32 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsSeries", serie);
         }
 
+        //search by name and genre with an APi
+        [HttpGet]
+        public string search(string inputSearch)
+        {
+            var movies = new List<tb_MOVIE>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:7053/Search/inputSearch");
+                var responseTask = client.GetAsync(inputSearch);
+                responseTask.Wait();
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadFromJsonAsync<List<tb_MOVIE>>();
+                    readTask.Wait();
+
+                    movies = readTask.Result;
+                    return JsonConvert.SerializeObject(movies);
+                }
+                return JsonConvert.SerializeObject(movies);
+            }
+        }
 
 
+        //****************************** PROFILE USER **************************
         public async Task<ActionResult> editProfile()
         {
             try
@@ -213,32 +237,9 @@ namespace ProyectoVideoteca.Controllers
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
-
             return View();
         }
 
-        //search by name and genre with an APi
-        [HttpGet]
-        public string search(string inputSearch)
-        {
-            var movies = new List<tb_MOVIE>();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:7053/Search/inputSearch");
-                var responseTask = client.GetAsync(inputSearch);
-                responseTask.Wait();
-                var result = responseTask.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadFromJsonAsync<List<tb_MOVIE>>();
-                    readTask.Wait();
-
-                    movies = readTask.Result;
-                    return JsonConvert.SerializeObject(movies);
-                }
-                return JsonConvert.SerializeObject(movies);
-            }
-        }
+        
     }
 }

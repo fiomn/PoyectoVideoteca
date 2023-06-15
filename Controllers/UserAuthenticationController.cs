@@ -9,7 +9,6 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using WebApplicationV.Models;
 
 namespace ProyectoVideoteca.Controllers
 {
