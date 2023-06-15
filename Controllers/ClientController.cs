@@ -9,6 +9,7 @@ using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using System.Diagnostics;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -178,21 +179,25 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //search by name and genre
-        [HttpGet]
-        public string search(string inputSearch)
-        {
-            var movies = new List<tb_MOVIE>();
-            if (inputSearch != null)
-            {                
-                //bring movies
-                movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.getMovie").ToList();
+        //[HttpGet]
+        //public string search(string inputSearch)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri("https://localhost:7013/Cars");
+        //        var responseTask = client.GetAsync("");
+        //        responseTask.Wait();
+        //        var result = responseTask.Result;
 
-                //compare dont matter Upper and lower case
-                return JsonConvert.SerializeObject(movies.Where(m => m.TITLE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase) || m.GENRE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase)).ToList());    
-                
-            }
-            return JsonConvert.SerializeObject(movies);
-        }
+        //        if (result.IsSuccessStatusCode)
+        //        {
+        //            var readTask = result.Content.ReadFromJsonAsync<List<Cars>>();
+        //            readTask.Wait();
+
+        //            carList = readTask.Result;
+        //        }
+        //    }
+        //}
 
     }
 }

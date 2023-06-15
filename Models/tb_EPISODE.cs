@@ -13,13 +13,13 @@ public partial class tb_EPISODE
 
     public string SYNOPSIS { get; set; } = null!;
 
-    public int DURATION { get; set; }
-
     public int SEASON_ID { get; set; }
 
     public string? IMG { get; set; }
 
     public string? VIDEO { get; set; }
+
+    public string? DURATION { get; set; }
 
     public virtual tb_SEASON SEASON { get; set; } = null!;
 }

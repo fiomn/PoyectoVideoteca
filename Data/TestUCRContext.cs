@@ -76,6 +76,9 @@ public partial class TestUCRContext : DbContext
 
             entity.ToTable("tb_EPISODE");
 
+            entity.Property(e => e.DURATION)
+                .HasMaxLength(8)
+                .IsUnicode(false);
             entity.Property(e => e.IMG).IsUnicode(false);
             entity.Property(e => e.NAME_EPISODE)
                 .HasMaxLength(100)
