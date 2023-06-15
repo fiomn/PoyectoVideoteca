@@ -25,7 +25,6 @@ function previewProfileImage(input) {
 }
 
 //search by name and genre
-//show carousel of search results
 document.addEventListener("DOMContentLoaded", function () {
     var btnSearch = document.getElementById("btnSearch");
 

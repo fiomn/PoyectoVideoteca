@@ -202,22 +202,28 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        //search by name and genre
+        //search by name and genre with an APi
         [HttpGet]
         public string search(string inputSearch)
         {
             var movies = new List<tb_MOVIE>();
-            if (inputSearch != null)
+            using (var client = new HttpClient())
             {
-                //bring movies
-                movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.getMovie").ToList();
+                client.BaseAddress = new Uri("https://localhost:7053/Search/inputSearch");
+                var responseTask = client.GetAsync(inputSearch);
+                responseTask.Wait();
+                var result = responseTask.Result;
 
-                //compare dont matter Upper and lower case
-                return JsonConvert.SerializeObject(movies.Where(m => m.TITLE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase) || m.GENRE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase)).ToList());
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadFromJsonAsync<List<tb_MOVIE>>();
+                    readTask.Wait();
 
+                    movies = readTask.Result;
+                    return JsonConvert.SerializeObject(movies);
+                }
+                return JsonConvert.SerializeObject(movies);
             }
-            return JsonConvert.SerializeObject(movies);
         }
-
     }
 }

@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using WebApplicationV.Models;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -111,6 +112,7 @@ namespace ProyectoVideoteca.Controllers
         {
             try
             {
+                TestUCRContext db = new TestUCRContext();
                 ApplicationUser user = await _userManager.FindByNameAsync(username); //to know the authenticated user
                 using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
                 {
@@ -120,6 +122,12 @@ namespace ProyectoVideoteca.Controllers
 
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user); //generate token
                     var result = await _userManager.ResetPasswordAsync(user, token, newPassword); //update password
+
+                    var userDB=db.tb_USER.Find(username); 
+                    userDB.PASSWORD=newPassword;
+                    userDB.PASSWORD_CONFIRM = newPassword;
+                    db.tb_USER.Update(userDB);
+                    db.SaveChanges(); //update password in testUCR
 
                     using (MailMessage mail = new MailMessage())
                     {

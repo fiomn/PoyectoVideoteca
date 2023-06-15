@@ -29,6 +29,7 @@ namespace ProyectoVideoteca.Controllers
             this._userManager = userManager;
         }
 
+        //**********************************MOVIES AND SERIES*********************************
         public ActionResult AdminMain()
         {
             var movies = new List<tb_MOVIE>();
@@ -58,6 +59,7 @@ namespace ProyectoVideoteca.Controllers
             return View(seriesAndGenres);
         }
 
+        //************************** USERS MANAGEMENT *****************************************
         public ActionResult Display()
         {
             var userList = new List<tb_USER>();
@@ -147,6 +149,7 @@ namespace ProyectoVideoteca.Controllers
 
         }
 
+        //******************************* PDF *****************************************
         //download and generate PDF
         //is like an APi
         public IActionResult DownloadPDF()
@@ -208,6 +211,7 @@ namespace ProyectoVideoteca.Controllers
             return File(stream, "application/pdf", "UsersList.pdf"); //name and type of pdf
         }
 
+        // ************************* PROFILE ***************************
         public async Task<ActionResult> editProfile()
         {
             try
@@ -401,7 +405,7 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult displaySeries()
         {
             var seriesList = new List<tb_SERIE>();
-            seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.getSerie").ToList();
+            seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.GetSeries").ToList();
             return View(seriesList);
         }
 

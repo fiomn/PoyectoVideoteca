@@ -1,15 +1,15 @@
 ﻿@model ProyectoVideoteca.Models.tb_USER
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "editUser";
 }
 
-<h1>Edit</h1>
+<h1>Edit user</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="editUser">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="USERNAME" />
             <div class="form-group">
@@ -38,8 +38,7 @@
                 <span asp-validation-for="ROLE" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IMG" class="control-label"></label>
-                <input asp-for="IMG" class="form-control" />
+                <input type="button" asp-for="IMG" class="form-control" value="Change picture" onclick="@("window.location.href='" + @Url.Action("ChangeProfilePicture", "SuperAdmin") + "'");" />
                 <span asp-validation-for="IMG" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,7 +49,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Display">Back to List</a>
 </div>
 
 @section Scripts {
