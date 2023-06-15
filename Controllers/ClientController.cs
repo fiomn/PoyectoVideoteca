@@ -13,6 +13,7 @@ using System.Diagnostics;
 
 namespace ProyectoVideoteca.Controllers
 {
+
     [Authorize] //everyone can use this controller
     public class ClientController : Controller
     {
@@ -58,6 +59,8 @@ namespace ProyectoVideoteca.Controllers
         //When User clicks a movie
         public ActionResult detailsMovies(string TITLE)
         {
+            tb_MOVIE.currentMovie = TITLE;
+
             var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
@@ -67,21 +70,26 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsMovies", movieAndComments);
         }
 
-        //Comment Section
-        [HttpPost]
-        public async Task<ActionResult> UserCommentAsync(string title, string comment, string score)
+        public async Task<string> GetCurrentUserAsync()
         {
             // Obtén el usuario actual
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            return user.UserName;
+        }
+
+        //Comment Section
+        [HttpPost]
+        public IActionResult UserCommentAsync(string comment, string score)
+        {
 
             db.tb_RATING.FromSqlRaw(@"exec InsertComment @Title, @Username, @Rating, @Comment",
-                new SqlParameter("@Title", title),
-                new SqlParameter("@Username", user.UserName), //Falta obtener el username
+                new SqlParameter("@Title", tb_MOVIE.currentMovie),
+                new SqlParameter("@Username", GetCurrentUserAsync),
                 new SqlParameter("@Rating", score),
                 new SqlParameter("@Comment", comment));
             db.SaveChanges();
 
-            return RedirectToAction("detailsMovies");
+            return RedirectToAction("detailsMovies", "client");
         }
 
 

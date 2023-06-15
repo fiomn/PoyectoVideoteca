@@ -3,6 +3,19 @@
     --background: #141414;
 }
 
+/* Text Area */
+#commentTA {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    color: black;
+}
+
+#score {
+    color: black;
+}
+
+
 body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
@@ -68,15 +81,9 @@ body {
     width: 100px;
 }
 
-/* Text Area */
-#commentTA {
-    display: inline-block;
-    width: 200px;
-    vertical-align: top;
-}
 
 .submitBTN {
-    background-color: #8c8c8c;
+    background-color: #b3b3b3;
     border: none;
     color: black;
     padding: 10px 20px;

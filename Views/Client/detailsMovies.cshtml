@@ -26,6 +26,7 @@
                 <p><strong>Duration:</strong>@Model.movie.DURATION</p>
                 <p><strong>Release Date:</strong>@Model.movie.RELEASE_DATE</p>
                 <p><strong>Score:</strong>@Model.movie.SCORE/10</p>
+                <p><strong>QSTREAM Score:</strong>@Model.movie.QSTREAM_SCORE/10</p>
             </div>
             <!-- Comment Section -->
             <div class="comment-section">
@@ -49,18 +50,14 @@
                 </div>
                 }
                 }
-                <form action="/user-comment" method="post">
-                    <!-- TEMP TITLE -->
-                    <div class="comment-section">
-                        <input type="text" id="title" name="title" value="@Model.movie.TITLE">
-                    </div>
+                <form asp-controller="client" asp-action="UserCommentAsync" method="post">
                     <div class="comment-section">
                         <label for="comment" class="commentLB">Comment:</label>
-                        <textarea id="commentTA" name="comment" required></textarea>
+                        <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
                     </div>
                     <div class="comment-section">
                         <label for="score">Score:</label>
-                        <input type="text" id="score" name="score" required>
+                        <input type="text" id="score" name="score" required style="color: black;">
                     </div>
                     <div class="comment-section">
                         <button type="submit" class="submitBTN">Submit Comment</button>
