@@ -27,6 +27,8 @@ namespace ProyectoVideoteca.Controllers
             this._service = service;
             this._userManager = userManager;
         }
+
+        //*****************Movies and series**************************
         public ActionResult SuperAdminMain()
         {
             var movies = new List<tb_MOVIE>();
@@ -68,7 +70,8 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsSeries", serie);
         }
 
-
+        //*********************************USERS***********************************
+        //display users
         public ActionResult Display()
         {
             var userList = new List<tb_USER>();
@@ -100,6 +103,34 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        public ActionResult Edit(string userName)
+        {
+            var user = db.tb_USER.Find(userName);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(tb_USER user, RegistrationModel model)
+        {
+            try
+            {
+                var result = await _service.EditAsync(model); //save in context auth
+                db.tb_USER.Update(user); //save users in testUCR
+                db.SaveChanges();
+                return RedirectToAction(nameof(editProfile));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Details(string userName)
+        {
+            var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
+            return View(user);
+        }
+
         //GET
         public ActionResult Delete(string userName)
         {
@@ -127,6 +158,7 @@ namespace ProyectoVideoteca.Controllers
 
         }
 
+        //******************************* PDF **************************************
         //download and generate PDF
         //is like an APi
         public IActionResult DownloadPDF()
@@ -188,6 +220,7 @@ namespace ProyectoVideoteca.Controllers
             return File(stream, "application/pdf", "UsersList.pdf"); //name and type of pdf
         }
 
+        //****************************** PROFILE ************************************************
         public async Task<ActionResult> editProfile()
         {
             try
@@ -207,28 +240,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        public ActionResult editUser(string userName)
-        {
-            var user = db.tb_USER.Find(userName);
-            return View(user);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> editUser(tb_USER user, RegistrationModel model)
-        {
-            try
-            {
-                var result = await _service.EditAsync(model); //save in context auth
-                db.tb_USER.Update(user); //save users in testUCR
-                db.SaveChanges();
-                return RedirectToAction(nameof(editProfile));
-            }
-            catch (Exception ex)
-            {
-                return View();
-            }
-        }
-
+        
         [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
@@ -269,7 +281,7 @@ namespace ProyectoVideoteca.Controllers
                     }
                 }
             }
-            return RedirectToAction(nameof(editUser));
+            return RedirectToAction(nameof(Edit));
         }
 
         public async Task<IActionResult> ChangeProfilePicture()

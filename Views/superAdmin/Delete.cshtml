@@ -44,13 +44,13 @@
             @Html.DisplayNameFor(model => model.IMG)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IMG)
+            <img src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="USERNAME" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Display">Back to List</a>
     </form>
 </div>

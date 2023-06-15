@@ -49,5 +49,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("edit","edit", new {userName = Model.USERNAME})
+    @Html.ActionLink("edit","edit", new {userName = Model.USERNAME}) |
+    <a asp-action="editProfile">Back to List</a>
 </div>
