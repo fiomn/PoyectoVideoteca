@@ -16,4 +16,5 @@ public partial class tb_RATING
     public string COMMENT { get; set; } = null!;
 
     public virtual tb_USER USERNAMENavigation { get; set; } = null!;
+
 }

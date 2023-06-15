@@ -54,11 +54,35 @@ namespace ProyectoVideoteca.Controllers
             return View(seriesAndGenres);
         }
 
+        //When User clicks a movie
         public ActionResult detailsMovies(string TITLE)
         {
             var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-            return View("detailsMovies", movie);
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments);
+
+            return View("detailsMovies", movieAndComments);
         }
+
+        //Comment Section
+        [HttpPost]
+        public async Task<ActionResult> UserCommentAsync(string title, string comment, string score)
+        {
+            // Obtén el usuario actual
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+
+            db.tb_RATING.FromSqlRaw(@"exec InsertComment @Title, @Username, @Rating, @Comment",
+                new SqlParameter("@Title", title),
+                new SqlParameter("@Username", user.UserName), //Falta obtener el username
+                new SqlParameter("@Rating", score),
+                new SqlParameter("@Comment", comment));
+            db.SaveChanges();
+
+            return RedirectToAction("detailsMovies");
+        }
+
 
         public ActionResult detailsSerie(string TITLE)
         {
@@ -183,13 +207,13 @@ namespace ProyectoVideoteca.Controllers
         {
             var movies = new List<tb_MOVIE>();
             if (inputSearch != null)
-            {                
+            {
                 //bring movies
                 movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.getMovie").ToList();
 
                 //compare dont matter Upper and lower case
-                return JsonConvert.SerializeObject(movies.Where(m => m.TITLE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase) || m.GENRE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase)).ToList());    
-                
+                return JsonConvert.SerializeObject(movies.Where(m => m.TITLE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase) || m.GENRE.Contains(inputSearch, StringComparison.OrdinalIgnoreCase)).ToList());
+
             }
             return JsonConvert.SerializeObject(movies);
         }

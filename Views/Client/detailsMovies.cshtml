@@ -1,4 +1,4 @@
-﻿@model ProyectoVideoteca.Models.tb_MOVIE
+﻿@model ProyectoVideoteca.Models.tb_MOVIEANDCOMMENTS
 
 @{
     ViewData["Title"] = "detailsMovies";
@@ -14,21 +14,59 @@
 <body>
     <div class="movie-details">
         <div class="movie-details__poster">
-            <img src="@Model.IMG" alt="Movie Image">
+            <img src="@Model.movie.IMG" alt="Movie Image">
         </div>
         <div class="movie-details__content">
-            <h1 class="movie-details__title">@Model.TITLE</h1>
+            <h1 class="movie-details__title">@Model.movie.TITLE</h1>
             <div class="movie-details__info">
-                <p><strong>Director:</strong>@Model.DIRECTOR_NAME</p>
-                <p><strong>Actors:</strong>@Model.ACTOR_NAME</p>
-                <p><strong>Synopsis:</strong>@Model.SYNOPSIS</p>
-                <p><strong>Classification:</strong>@Model.CLASS</p>
-                <p><strong>Duration:</strong>@Model.DURATION</p>
-                <p><strong>Release Date:</strong>@Model.RELEASE_DATE</p>
-                <p><strong>Score:</strong>@Model.SCORE/10</p>
+                <p><strong>Director:</strong>@Model.movie.DIRECTOR_NAME</p>
+                <p><strong>Actors:</strong>@Model.movie.ACTOR_NAME</p>
+                <p><strong>Synopsis:</strong>@Model.movie.SYNOPSIS</p>
+                <p><strong>Classification:</strong>@Model.movie.CLASS</p>
+                <p><strong>Duration:</strong>@Model.movie.DURATION</p>
+                <p><strong>Release Date:</strong>@Model.movie.RELEASE_DATE</p>
+                <p><strong>Score:</strong>@Model.movie.SCORE/10</p>
             </div>
-            <div class="movie-details__trailer">
-                <iframe width="820" height="308" src="https://www.youtube.com/embed/3inw26U-os4" title="Grupo Frontera x Bad Bunny - un x100to (Video Oficial)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <!-- Comment Section -->
+            <div class="comment-section">
+                <h1 class="movie-details__title">Comment Section</h1>
+                <!-- ALL COMMENTS -->
+                @if (Model.comments.Count != 0) { 
+                @foreach(var comment in Model.comments){
+                <div class="comment-section">
+                    <div class="comment-section">
+                        <label>Username:</label>
+                        <label>@comment.USERNAME</label>
+                    </div>
+                    <div class="comment-section">
+                        <label>Comment:</label>
+                        <label>@comment.COMMENT</label>
+                    </div>
+                    <div class="comment-section">
+                        <label>Score:</label>
+                        <label>@comment.RATING</label>
+                    </div>
+                </div>
+                }
+                }
+                <form action="/user-comment" method="post">
+                    <!-- TEMP TITLE -->
+                    <div class="comment-section">
+                        <input type="text" id="title" name="title" value="@Model.movie.TITLE">
+                    </div>
+                    <div class="comment-section">
+                        <label for="comment" class="commentLB">Comment:</label>
+                        <textarea id="commentTA" name="comment" required></textarea>
+                    </div>
+                    <div class="comment-section">
+                        <label for="score">Score:</label>
+                        <input type="text" id="score" name="score" required>
+                    </div>
+                    <div class="comment-section">
+                        <button type="submit" class="submitBTN">Submit Comment</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
