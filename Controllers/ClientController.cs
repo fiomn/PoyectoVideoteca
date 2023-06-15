@@ -9,6 +9,7 @@ using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using QuestPDF.Helpers;
 using System.Diagnostics;
 
 namespace ProyectoVideoteca.Controllers
@@ -65,16 +66,19 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
 
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments);
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 5);
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages);
+
+
 
             return View("detailsMovies", movieAndComments);
         }
 
-        public async Task<string> GetCurrentUserAsync()
+        private async Task<ApplicationUser> GetCurrentUserAsync()
         {
-            // Obtén el usuario actual
-            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
-            return user.UserName;
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            return user;
         }
 
         //Comment Section
@@ -82,14 +86,17 @@ namespace ProyectoVideoteca.Controllers
         public IActionResult UserCommentAsync(string comment, string score)
         {
 
+            // Obtén el usuario actual
+            var user = GetCurrentUserAsync().Result;
+
             db.tb_RATING.FromSqlRaw(@"exec InsertComment @Title, @Username, @Rating, @Comment",
                 new SqlParameter("@Title", tb_MOVIE.currentMovie),
-                new SqlParameter("@Username", GetCurrentUserAsync),
+                new SqlParameter("@Username", user.UserName),
                 new SqlParameter("@Rating", score),
                 new SqlParameter("@Comment", comment));
             db.SaveChanges();
 
-            return RedirectToAction("detailsMovies", "client");
+            return RedirectToAction("ClientMain");
         }
 
 

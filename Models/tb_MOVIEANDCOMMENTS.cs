@@ -7,12 +7,14 @@
 
         public List<tb_RATING> comments { get; set; }
 
-        public tb_MOVIEANDCOMMENTS(tb_MOVIE movie, List<tb_RATING> comments)
+        public int totalPages { get; set; }
+
+        public tb_MOVIEANDCOMMENTS(tb_MOVIE movie, List<tb_RATING> comments, int totalPages)
         {
 
             this.movie = movie;
             this.comments = comments;
-
+            this.totalPages = totalPages;
         }
     }
 }

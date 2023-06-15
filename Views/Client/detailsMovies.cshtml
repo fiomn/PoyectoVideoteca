@@ -32,24 +32,49 @@
             <div class="comment-section">
                 <h1 class="movie-details__title">Comment Section</h1>
                 <!-- ALL COMMENTS -->
-                @if (Model.comments.Count != 0) { 
-                @foreach(var comment in Model.comments){
-                <div class="comment-section">
+                @if (Model.comments.Count != 0) {
                     <div class="comment-section">
-                        <label>Username:</label>
-                        <label>@comment.USERNAME</label>
+                        <!-- Mostrar los comentarios -->
+                        @foreach (var comment in Model.comments)
+                        {
+                            <div class="comment-section">
+                                <label>Username:</label>
+                                <label>@comment.USERNAME</label>
+                            </div>
+                            <div class="comment-section">
+                                <label>Comment:</label>
+                                <label>@comment.COMMENT</label>
+                            </div>
+                            <div class="comment-section">
+                                <label>Score:</label>
+                                <label>@comment.RATING</label>
+                            </div>
+                        }
                     </div>
-                    <div class="comment-section">
-                        <label>Comment:</label>
-                        <label>@comment.COMMENT</label>
+
+                    <!-- Controles de paginación -->
+                    <div id="pagination">
+                        @if (Model.comments.Count <= 5)
+                        {
+                            // Solo hay 1 página, mostrar el enlace sin iterar
+                            <a href="/comments?page=1">1</a>
+                        }
+                        else
+                        {
+                            @for (int i = 1; i <= Model.totalPages; i++)
+                            {
+                                if (i % 5 == 1)
+                                {
+                                    // Mostrar el enlace para la página actual
+                                    <a href="/comments?page=@i">@i</a>
+                                }
+                            }
+                        }
                     </div>
-                    <div class="comment-section">
-                        <label>Score:</label>
-                        <label>@comment.RATING</label>
-                    </div>
-                </div>
                 }
-                }
+
+            </div>
+            <div class="comment-section">
                 <form asp-controller="client" asp-action="UserCommentAsync" method="post">
                     <div class="comment-section">
                         <label for="comment" class="commentLB">Comment:</label>
@@ -63,7 +88,6 @@
                         <button type="submit" class="submitBTN">Submit Comment</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
