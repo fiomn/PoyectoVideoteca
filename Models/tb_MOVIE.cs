@@ -33,6 +33,8 @@ public partial class tb_MOVIE
 
     public string? DURATION { get; set; }
 
+    public double? QSTREAM_SCORE { get; set; }
+
     public virtual tb_ACTOR ACTOR { get; set; } = null!;
 
     public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
