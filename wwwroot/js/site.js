@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 replaceHTML(dataList);
                 showCarousel();  
+                slickSlide();
             }
         });
     }
@@ -72,27 +73,48 @@ function showCarousel() {
 }
 
 function replaceHTML(data) {
-    var carousel = "<div class='movies-container' id='carRe'>" +
-        "<div class='title-controls-container'>" +
-        "<h3>Results</h3>" +
-        "<div class='indicators'></div>"+
-        "</div>"+
-    "<div class='main-container'>" +
-        "<button role='button' class='left-arrow'><i class='fas fa-angle-left'></i></button>" +
-        "<div class='carousel-container'>" +
-        "<div class='carousel'>";
+    var carousel = "<div id = 'carRe'>";        
     for (movie in data) {
         carousel += "<div class='movie'>" +
             "<div class='video-thumbnail'>" +
-                "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'></a>" +
+            "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'></a>" +
             "</div>" +
             "</div>";
     }
     carousel += "</div>" +
-        "</div>" +
-        "<button role='button' class='right-arrow'><i class='fas fa-angle-right'></i></button>" +
-        "</div>" +
         "</div>";
 
-    $("#carRe").replaceWith(carousel);
+    $("#carRe").replaceWith(carousel);;
+    
+}
+
+$(document).ready(function () {
+    slickSlide();  //Genera el carrousel
+});
+
+function slickSlide() {
+    $('#carRe').slick({
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
 }

@@ -15,6 +15,8 @@ public partial class tb_RATING
 
     public string COMMENT { get; set; } = null!;
 
+    public double? QSTREAM_SCORE { get; set; }
+
     public virtual tb_USER USERNAMENavigation { get; set; } = null!;
 
 }

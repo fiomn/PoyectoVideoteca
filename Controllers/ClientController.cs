@@ -9,6 +9,7 @@ using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using System.Diagnostics;
 
 namespace ProyectoVideoteca.Controllers
 {
