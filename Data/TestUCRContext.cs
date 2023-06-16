@@ -16,27 +16,27 @@ public partial class TestUCRContext : DbContext
     {
     }
 
-    public virtual DbSet<tb_ACTOR> tb_ACTORs { get; set; }
+    public virtual DbSet<tb_ACTOR> tb_ACTOR { get; set; }
 
-    public virtual DbSet<tb_DIRECTOR> tb_DIRECTORs { get; set; }
+    public virtual DbSet<tb_DIRECTOR> tb_DIRECTOR { get; set; }
 
-    public virtual DbSet<tb_EPISODE> tb_EPISODEs { get; set; }
+    public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
 
-    public virtual DbSet<tb_GENRE> tb_GENREs { get; set; }
+    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
 
-    public virtual DbSet<tb_MOVIE> tb_MOVIEs { get; set; }
+    public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
 
-    public virtual DbSet<tb_RATING> tb_RATINGs { get; set; }
+    public virtual DbSet<tb_RATING> tb_RATING { get; set; }
 
-    public virtual DbSet<tb_SEASON> tb_SEASONs { get; set; }
+    public virtual DbSet<tb_SEASON> tb_SEASON { get; set; }
 
-    public virtual DbSet<tb_SECONDARY_ACTOR> tb_SECONDARY_ACTORs { get; set; }
+    public virtual DbSet<tb_SECONDARY_ACTOR> tb_SECONDARY_ACTOR { get; set; }
 
-    public virtual DbSet<tb_SECONDARY_GENRE> tb_SECONDARY_GENREs { get; set; }
+    public virtual DbSet<tb_SECONDARY_GENRE> tb_SECONDARY_GENRE { get; set; }
 
-    public virtual DbSet<tb_SERIE> tb_SERIEs { get; set; }
+    public virtual DbSet<tb_SERIE> tb_SERIE { get; set; }
 
-    public virtual DbSet<tb_USER> tb_USERs { get; set; }
+    public virtual DbSet<tb_USER> tb_USER { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -90,7 +90,7 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).HasColumnType("text");
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODEs)
+            entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODE)
                 .HasForeignKey(d => d.SEASON_ID)
                 .HasConstraintName("fk_SEASON");
         });
@@ -134,12 +134,12 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIEs)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIE)
                 .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ACTOR_ID");
 
-            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIEs)
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIE)
                 .HasForeignKey(d => d.DIRECTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_DIRECTOR_ID");
@@ -163,7 +163,7 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.USERNAMENavigation).WithMany(p => p.tb_RATINGs)
+            entity.HasOne(d => d.USERNAMENavigation).WithMany(p => p.tb_RATING)
                 .HasForeignKey(d => d.USERNAME)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_USERNAME");
@@ -180,7 +180,7 @@ public partial class TestUCRContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASONs)
+            entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASON)
                 .HasForeignKey(d => d.TITLE)
                 .HasConstraintName("fk_SERIE");
         });
@@ -248,12 +248,12 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIEs)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIE)
                 .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ACTOR_IDSERIE");
 
-            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_SERIEs)
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_SERIE)
                 .HasForeignKey(d => d.DIRECTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_DIRECTOR_IDSERIE");
