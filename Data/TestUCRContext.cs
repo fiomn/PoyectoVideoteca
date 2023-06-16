@@ -16,27 +16,31 @@ public partial class TestUCRContext : DbContext
     {
     }
 
-    public virtual DbSet<tb_ACTOR> tb_ACTOR { get; set; }
+    public virtual DbSet<tb_ACTOR> tb_ACTORs { get; set; }
 
-    public virtual DbSet<tb_DIRECTOR> tb_DIRECTOR { get; set; }
+    public virtual DbSet<tb_DIRECTOR> tb_DIRECTORs { get; set; }
 
-    public virtual DbSet<tb_EPISODE> tb_EPISODE { get; set; }
+    public virtual DbSet<tb_EPISODE> tb_EPISODEs { get; set; }
 
-    public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
+    public virtual DbSet<tb_GENRE> tb_GENREs { get; set; }
 
-    public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
+    public virtual DbSet<tb_MOVIE> tb_MOVIEs { get; set; }
 
-    public virtual DbSet<tb_RATING> tb_RATING { get; set; }
+    public virtual DbSet<tb_RATING> tb_RATINGs { get; set; }
 
-    public virtual DbSet<tb_SEASON> tb_SEASON { get; set; }
+    public virtual DbSet<tb_SEASON> tb_SEASONs { get; set; }
 
-    public virtual DbSet<tb_SERIE> tb_SERIE { get; set; }
+    public virtual DbSet<tb_SECONDARY_ACTOR> tb_SECONDARY_ACTORs { get; set; }
 
-    public virtual DbSet<tb_USER> tb_USER { get; set; }
+    public virtual DbSet<tb_SECONDARY_GENRE> tb_SECONDARY_GENREs { get; set; }
+
+    public virtual DbSet<tb_SERIE> tb_SERIEs { get; set; }
+
+    public virtual DbSet<tb_USER> tb_USERs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=163.178.173.130;Database=IF4101_2023_VFFN;User ID=basesdedatos; Password=rpbases.2022;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=163.178.173.130;Database=IF4101_2023_VFFN;user id=basesdedatos;password=rpbases.2022;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -179,6 +183,44 @@ public partial class TestUCRContext : DbContext
             entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASONs)
                 .HasForeignKey(d => d.TITLE)
                 .HasConstraintName("fk_SERIE");
+        });
+
+        modelBuilder.Entity<tb_SECONDARY_ACTOR>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("tb_SECONDARY_ACTOR");
+
+            entity.Property(e => e.ACTOR_NAME).IsUnicode(false);
+            entity.Property(e => e.MOVIE_TITLE)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.ACTOR).WithMany()
+                .HasForeignKey(d => d.ACTOR_ID)
+                .HasConstraintName("fk_Actor_Id_Second");
+
+            entity.HasOne(d => d.MOVIE_TITLENavigation).WithMany()
+                .HasForeignKey(d => d.MOVIE_TITLE)
+                .HasConstraintName("fk_Movie_Id");
+        });
+
+        modelBuilder.Entity<tb_SECONDARY_GENRE>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("tb_SECONDARY_GENRE");
+
+            entity.Property(e => e.GENRE_NAME)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.MOVIE_TITLE)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.MOVIE_TITLENavigation).WithMany()
+                .HasForeignKey(d => d.MOVIE_TITLE)
+                .HasConstraintName("fk_Movie_Iitle");
         });
 
         modelBuilder.Entity<tb_SERIE>(entity =>
