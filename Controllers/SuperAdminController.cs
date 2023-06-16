@@ -310,5 +310,11 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
+        //**************** GLOBAL SETTINGS *******************
+        public ActionResult globalSettings()
+        {
+            return View();
+        }
+
     }
 }

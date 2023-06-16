@@ -25,14 +25,14 @@
                 <a asp-controller="SuperAdmin" asp-action="SuperAdminMain">Movies</a>
                 <a asp-controller="SuperAdmin" asp-action="DisplaySeriesSuperAdmin">Series</a>
                 <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>
-                <a href="#">Global settings</a>
+                <a asp-controller="SuperAdmin" asp-action="globalSettings">Global Settings</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <<!-- Carousel Results -->
+        <!-- Carousel Results -->
         <div class="title-controls-container">
             <h3>Results</h3>
             <div class="indicators"></div>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <<!-- Carousels -->
+        <!-- Carousels -->
         @foreach (var genre in Model.genres)
         {
             <div class="movies-container">

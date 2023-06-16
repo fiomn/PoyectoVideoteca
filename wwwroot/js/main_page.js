@@ -128,3 +128,19 @@ $("#btnComment").click(function addComent() {
         }
     });
 });
+
+//change color of background
+//$("#btnColor").click(function changeColor() {
+//    var content = document.getElementById("content");
+//    var color = prompt("Introduce un color (en inglés)");  // Solicita un color al usuario
+
+//    if (color) {
+//        content.style.backgroundColor = color;
+//    }
+//});
+
+const btnColor = document.querySelector('#btnColor');
+btnColor.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    btnColor.classList.toggle('active');
+});
