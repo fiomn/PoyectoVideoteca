@@ -54,16 +54,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     }));
                 });
                 replaceHTML(dataList);
-                showCarousel();  
+                showCarousel();
                 slickSlide();
             }
         });
     }
-    
+
     //call two functions for button btnSearch
     btnSearch.addEventListener("click", function () {
-        search();       
-    });    
+        search();
+    });
 });
 
 //show results in carousel
@@ -72,7 +72,7 @@ function showCarousel() {
 }
 
 function replaceHTML(data) {
-    var carousel = "<div id = 'carRe'>";        
+    var carousel = "<div id = 'carRe'>";
     for (movie in data) {
         carousel += "<div class='movie'>" +
             "<div class='video-thumbnail'>" +
@@ -84,7 +84,7 @@ function replaceHTML(data) {
         "</div>";
 
     $("#carRe").replaceWith(carousel);;
-    
+
 }
 
 $(document).ready(function () {
@@ -117,3 +117,38 @@ function slickSlide() {
         ]
     });
 }
+
+const body = document.querySelector('body');
+const toggle = document.getElementById('toggle');
+toggle.onclick = function () {
+    toggle.classList.toggle('active');
+    body.classList.toggle('active');
+
+    const modo = body.classList.contains('active') ? 'oscuro' : 'claro';
+    localStorage.setItem('modo', modo); //save mode in local storage
+    $.ajax({
+        url: "/SuperAdmin/saveMode",
+        type: "post",
+        data: { "mode": modo }, //parametros
+        success: function () {
+            alert('Saved mode');
+        }
+    });
+}
+
+$.ajax({
+    url: "/client/getMode",
+    type: "get",
+    success: function (color) {
+        if (color === 'claro') {
+            body.classList.add('active');
+        }
+    }
+});
+
+//recovery mode
+const saveMode = localStorage.getItem('modo');
+if (saveMode === 'oscuro') {
+    body.classList.add('active');
+}
+

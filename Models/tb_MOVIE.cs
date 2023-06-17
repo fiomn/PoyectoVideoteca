@@ -45,4 +45,11 @@ public partial class tb_MOVIE
     }
 
     public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
+
+    private static string? currentMovieValue;
+    public static string currentMovie
+    {
+        get { return currentMovieValue; }
+        set { currentMovieValue = value; }
+    }
 }
