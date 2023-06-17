@@ -86,6 +86,8 @@ namespace ProyectoVideoteca.Controllers
             return user;
         }
 
+
+        [HttpPost]
         public IActionResult userComment(string comment, string score)
         {
             //get the current user
@@ -94,7 +96,7 @@ namespace ProyectoVideoteca.Controllers
             float scoreF = float.Parse(score);
             scoreF = (float)Math.Round(scoreF, 2);
 
-            db.Database.ExecuteSqlRaw(@"exec InsertCommentMovie @Title, @Username,@Comment, @Rating",
+            db.Database.ExecuteSqlRaw(@"exec InsertCommentMovie @Title, @Username, @Comment, @Rating",
                 new SqlParameter("@Title", tb_MOVIE.currentMovie),
                 new SqlParameter("@Username", user.UserName),
                 new SqlParameter("@Comment", comment),
@@ -107,11 +109,44 @@ namespace ProyectoVideoteca.Controllers
         }
 
 
-        public ActionResult detailsSerie(string TITLE)
+        public ActionResult detailsSerie(string TITLE, int? page)
         {
-            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-            return View("detailsSeries", serie);
+            tb_SERIE.currentSerie = TITLE;
+
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+
+            return View("detailsSerie", serieAndComments);
         }
+
+        [HttpPost]
+        public IActionResult userCommentSerie(string comment, string score)
+        {
+            //get the current user
+            var user = GetCurrentUserAsync().Result;
+
+            float scoreF = float.Parse(score);
+            scoreF = (float)Math.Round(scoreF, 2);
+
+            db.Database.ExecuteSqlRaw(@"exec InsertCommentSerie @Title, @Username, @Comment, @Rating",
+                new SqlParameter("@Title", tb_SERIE.currentSerie),
+                new SqlParameter("@Username", user.UserName),
+                new SqlParameter("@Comment", comment),
+                new SqlParameter("@Rating", scoreF));
+
+            db.SaveChanges();
+
+            return RedirectToAction("detailsSerie", "Client", new { TITLE = tb_SERIE.currentSerie });
+
+        }
+
 
         //search by name and genre with an APi
         [HttpGet]

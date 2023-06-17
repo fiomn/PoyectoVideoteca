@@ -1,7 +1,7 @@
-﻿@model ProyectoVideoteca.Models.tb_MOVIEANDCOMMENTS
+﻿@model ProyectoVideoteca.Models.tb_SERIEANDCOMMENTS
 
 @{
-    ViewData["Title"] = "detailsMovies";
+    ViewData["Title"] = "detailsSeries";
 }
 
 <!DOCTYPE html>
@@ -14,19 +14,19 @@
 <body>
     <div class="movie-details">
         <div class="movie-details__poster">
-            <img src="@Model.movie.IMG" alt="Movie Image">
+            <img src="@Model.serie.IMG" alt="Movie Image">
         </div>
         <div class="movie-details__content">
-            <h1 class="movie-details__title">@Model.movie.TITLE</h1>
+            <h1 class="movie-details__title">@Model.serie.TITLE</h1>
             <div class="movie-details__info">
-                <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
-                <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
-                <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
-                <p><strong>Classification: </strong>@Model.movie.CLASS</p>
-                <p><strong>Duration: </strong>@Model.movie.DURATION</p>
-                <p><strong>Release Date: </strong>@Model.movie.RELEASE_DATE</p>
-                <p><strong>Score: </strong>@Model.movie.SCORE/10</p>
-                <p><strong>QSTREAM Score: </strong>@Model.movie.QSTREAM_SCORE/10</p>
+                <p><strong>Director: </strong>@Model.serie.DIRECTOR_NAME</p>
+                <p><strong>Actors: </strong>@Model.serie.ACTOR_NAME</p>
+                <p><strong>Number of Seasons: </strong>@Model.serie.QTY_SEASONS</p>
+                <p><strong>Synopsis: </strong>@Model.serie.SYNOPSIS</p>
+                <p><strong>Classification: </strong>@Model.serie.CLASS</p>
+                <p><strong>Release Date: </strong>@Model.serie.RELEASE_DATE</p>
+                <p><strong>Score: </strong>@Model.serie.SCORE/10</p>
+                <p><strong>QSTREAM Score: </strong>@Model.serie.QSTREAM_SCORE/10</p>
             </div>
 
 
@@ -68,7 +68,7 @@
                         {
                             @for (int i = 1; i <= Model.totalPages; i++)
                             {
-                                <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
+                                <a href="@Url.Action("detailsSerie", "Client", new { TITLE = Model.serie.TITLE, page = i })">@i</a>
                             }
                         }
                     </div>
@@ -77,20 +77,20 @@
         </div>
     </div>
 
-    <form action="@Url.Action("userComment", "Client")" method="POST">
-            <div class="write-comment-section">
-                <div class="comment-section">
-                    <label for="comment" class="commentLB">Comment:</label>
-                    <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
-                </div>
-                <div class="comment-section">
-                    <label for="score">Score:</label>
-                    <input type="text" id="score" name="score" required style="color: black;">
-                </div>
-                <div class="comment-section">
-                    <button id="btnComment" type="submit" class="submitBTN">Submit Comment</button>
-                </div>
+    <form action="@Url.Action("userCommentSerie", "Client")" method="POST">
+        <div class="write-comment-section">
+            <div class="comment-section">
+                <label for="comment" class="commentLB">Comment:</label>
+                <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
             </div>
+            <div class="comment-section">
+                <label for="score">Score:</label>
+                <input type="text" id="score" name="score" required style="color: black;">
+            </div>
+            <div class="comment-section">
+                <button id="btnComment" type="submit" class="submitBTN">Submit Comment</button>
+            </div>
+        </div>
     </form>
 
 
