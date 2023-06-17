@@ -115,20 +115,6 @@
     });
 }
 
-//function to addComment
-$("#btnComment").click(function addComent() {
-    const comment = $("#commentTA").val();
-    const score = $("#score").val();
-    $.ajax({
-        url: "/Client/userComment",
-        type: "post",
-        data: { "comment": comment, "score": score }, //parametros
-        success: function () {
-            alert('Added comment');
-        }
-    });
-});
-
 function toggleDarkMode() {
     var body = document.body;
     body.classList.toggle("dark-mode");

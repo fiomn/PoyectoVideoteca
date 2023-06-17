@@ -62,13 +62,16 @@ namespace ProyectoVideoteca.Controllers
         //When User clicks a movie
         public ActionResult detailsMovies(string TITLE)
         {
-            tb_MOVIE.currentMovie = TITLE;
+            if (tb_MOVIE.currentMovie == null)
+            {
+                tb_MOVIE.currentMovie = TITLE;
+            }
 
-            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", tb_MOVIE.currentMovie)).ToList().FirstOrDefault();
 
-            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_MOVIE.currentMovie)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 5);
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
 
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages);
 
@@ -88,11 +91,13 @@ namespace ProyectoVideoteca.Controllers
             //get the current user
             var user = GetCurrentUserAsync().Result;
 
-            db.tb_RATING.Add(new tb_RATING(tb_MOVIE.currentMovie, user.UserName, comment, float.Parse(score)));
+            db.tb_RATING.FromSqlRaw(@"exec InsertCommentMovie @Title, @Username,@Comment, @Rating",
+                new SqlParameter("@Title", tb_MOVIE.currentMovie),
+                new SqlParameter("@Username", user.UserName),
+                new SqlParameter("@Comment", comment),
+                new SqlParameter("@Rating", float.Parse(score)));
             db.SaveChanges();
 
-
-            ModelState.Clear(); //Clean View
             return RedirectToAction("detailsMovies", "Client");
         }
 

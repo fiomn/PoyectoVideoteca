@@ -38,6 +38,7 @@
                         <!-- Mostrar los comentarios -->
                         @foreach (var comment in Model.comments)
                         {
+                            <div class="commentInList">
                             <div class="comment-section">
                                 <label>Username:</label>
                                 <label>@comment.USERNAME</label>
@@ -50,12 +51,13 @@
                                 <label>Score:</label>
                                 <label>@comment.RATING</label>
                             </div>
+                            </div>
                         }
                     </div>
 
                     <!-- Controles de paginación -->
                     <div id="pagination">
-                        @if (Model.comments.Count <= 5)
+                        @if (Model.comments.Count <= 3)
                         {
                             // Solo hay 1 página, mostrar el enlace sin iterar
                             <a href="/comments?page=1">1</a>
@@ -64,7 +66,7 @@
                         {
                             @for (int i = 1; i <= Model.totalPages; i++)
                             {
-                                if (i % 5 == 1)
+                                if (i % 3 == 0)
                                 {
                                     // Mostrar el enlace para la página actual
                                     <a href="/comments?page=@i">@i</a>

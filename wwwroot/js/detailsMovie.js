@@ -7,11 +7,15 @@ function addComent() {
         type: "GET",
         data: { comment: comment, score: score }, //parametros
         success: function (response) {
-            alert('Added comment');
+            alert('Comment Added Succesfully');
+            $("#commentTA").val("");
+            $("#score").val("");
         },
         error: function (error) {
             $(this).remove();
             alert(error);
         }
     });
+
+
 }
