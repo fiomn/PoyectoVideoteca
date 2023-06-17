@@ -3,32 +3,6 @@
     --background: #141414;
 }
 
-.commentInList {
-    border-bottom: 1px solid white;
-    padding: 15px;
-}
-
-.comment-section {
-    margin-top: 30px;
-    width: 550px;
-}
-
-.write-comment-section {
-    margin-top: 80px;
-    margin-left: 40px;
-}
-
-    .write-comment-section label{
-        color: #AAA;
-    }
-
-
-.all-comment-section {
-    margin-top: 50px;
-    margin-bottom: 100px;
-}
-
-
 /* Text Area */
 #commentTA {
     display: inline-block;
@@ -46,6 +20,11 @@ body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
 }
+
+    body.active {
+        font-family: 'Open Sans', sans-serif;
+        background: #ebeff5;
+    }
 
 .movie-details {
     display: flex;
@@ -74,17 +53,38 @@ body {
     color: #AAA;
 }
 
-.movie-details__info {
-    margin-bottom: 100px;
+.movie-details__info p {
+    margin-bottom: 10px;
     color: #AAA;
 }
 
-#pagination {
-    font-size: 18px;
-    margin-top: 30px;
+.movie-details__trailer {
+    margin-top: 20px;
 }
 
+    .movie-details__trailer iframe {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+    }
 
+    .movie-details__trailer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+
+
+.all-comment-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.comment-section {
+    margin-top: 25px;
+}
 
 .commentLB {
     display: inline-block;
