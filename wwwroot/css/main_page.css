@@ -13,41 +13,21 @@ a {
     box-sizing: border-box;
 }
 
-/*body {
-    background: var(--background);
-    font-family: 'Open Sans', sans-serif;
-}*/
-
-
 body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
-    transition: .3s ease all;
+    background-color:white;
 }
 
-body .dark{
-    background-color:black;
+.dark-mode {
+    background-color: #000;
+    color: #fff;
 }
 
-
-.switch {
-    background: #343D5B;
-    border-radius: 1000px;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    outline: none;
-}
-
-    .switch .span {
-        width: 38px;
-        height: 30px;
-        line-height: 30px;
-        display: block;
-        background: none;
+    .dark-mode h1 {
         color: #fff;
     }
+
 
 .inp {
     width: 30%;

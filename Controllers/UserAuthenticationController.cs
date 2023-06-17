@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoVideoteca.Data;
+using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
@@ -37,11 +38,21 @@ namespace ProyectoVideoteca.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationModel model)
         {
+            var user = new tb_USER();
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            user.USERNAME = model.UserName;
+            user.PASSWORD=model.Password;
+            user.EMAIL = model.Email;
+            user.NAME = model.Name;
+            user.PASSWORD_CONFIRM= model.PasswordConfirm;
+            user.ROLE = "user";
             model.Role = "user";
+
+            db.tb_USER.Add(user);
+            db.SaveChanges();
             var result = await _service.RegistrationAsync(model);
             TempData["msg"] = result.Message;
             return RedirectToAction(nameof(Registration));

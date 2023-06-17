@@ -114,7 +114,7 @@ namespace ProyectoVideoteca.Controllers
             var movies = new List<tb_MOVIE>();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7053/Search/inputSearch");
+                client.BaseAddress = new Uri("https://localhost:7181/Search/inputSearch");
                 var responseTask = client.GetAsync(inputSearch);
                 responseTask.Wait();
                 var result = responseTask.Result;
