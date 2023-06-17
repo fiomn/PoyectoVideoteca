@@ -40,7 +40,7 @@ public partial class TestUCRContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=163.178.173.130;Database=IF4101_2023_VFFN;user id=basesdedatos;password=rpbases.2022;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=163.178.173.130;Database=IF4101_2023_VFFN;User ID=basesdedatos; Password=rpbases.2022;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -90,7 +90,7 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).HasColumnType("text");
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODE)
+            entity.HasOne(d => d.SEASON).WithMany(p => p.tb_EPISODEs)
                 .HasForeignKey(d => d.SEASON_ID)
                 .HasConstraintName("fk_SEASON");
         });
@@ -134,12 +134,12 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIE)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_MOVIEs)
                 .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ACTOR_ID");
 
-            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIE)
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_MOVIEs)
                 .HasForeignKey(d => d.DIRECTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_DIRECTOR_ID");
@@ -163,7 +163,7 @@ public partial class TestUCRContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.USERNAMENavigation).WithMany(p => p.tb_RATING)
+            entity.HasOne(d => d.USERNAMENavigation).WithMany(p => p.tb_RATINGs)
                 .HasForeignKey(d => d.USERNAME)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_USERNAME");
@@ -180,7 +180,7 @@ public partial class TestUCRContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASON)
+            entity.HasOne(d => d.TITLENavigation).WithMany(p => p.tb_SEASONs)
                 .HasForeignKey(d => d.TITLE)
                 .HasConstraintName("fk_SERIE");
         });
@@ -248,12 +248,12 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.SYNOPSIS).IsUnicode(false);
             entity.Property(e => e.VIDEO).IsUnicode(false);
 
-            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIE)
+            entity.HasOne(d => d.ACTOR).WithMany(p => p.tb_SERIEs)
                 .HasForeignKey(d => d.ACTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_ACTOR_IDSERIE");
 
-            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_SERIE)
+            entity.HasOne(d => d.DIRECTOR).WithMany(p => p.tb_SERIEs)
                 .HasForeignKey(d => d.DIRECTOR_ID)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_DIRECTOR_IDSERIE");

@@ -72,8 +72,13 @@ body {
 
 
 
+.all-comment-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 .comment-section {
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .commentLB {

@@ -33,9 +33,11 @@ public partial class tb_SERIE
 
     public string? ACTOR_NAME { get; set; }
 
+    public double? QSTREAM_SCORE { get; set; }
+
     public virtual tb_ACTOR ACTOR { get; set; } = null!;
 
     public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
 
-    public virtual ICollection<tb_SEASON> tb_SEASON { get; set; } = new List<tb_SEASON>();
+    public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
 }

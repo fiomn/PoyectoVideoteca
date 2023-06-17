@@ -13,7 +13,7 @@ public partial class tb_DIRECTOR
 
     public string? FULLNAME { get; set; }
 
-    public virtual ICollection<tb_MOVIE> tb_MOVIE { get; set; } = new List<tb_MOVIE>();
+    public virtual ICollection<tb_MOVIE> tb_MOVIEs { get; set; } = new List<tb_MOVIE>();
 
-    public virtual ICollection<tb_SERIE> tb_SERIE { get; set; } = new List<tb_SERIE>();
+    public virtual ICollection<tb_SERIE> tb_SERIEs { get; set; } = new List<tb_SERIE>();
 }

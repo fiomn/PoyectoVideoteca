@@ -19,5 +19,5 @@ public partial class tb_USER
 
     public string? IMG { get; set; }
 
-    public virtual ICollection<tb_RATING> tb_RATING { get; set; } = new List<tb_RATING>();
+    public virtual ICollection<tb_RATING> tb_RATINGs { get; set; } = new List<tb_RATING>();
 }

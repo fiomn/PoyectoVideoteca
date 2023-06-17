@@ -83,21 +83,17 @@ namespace ProyectoVideoteca.Controllers
             return user;
         }
 
-        [HttpPost]
         public IActionResult userComment(string comment, string score)
         {
             //get the current user
             var user = GetCurrentUserAsync().Result;
 
-            db.tb_RATING.FromSqlRaw(@"exec InsertComment @Title, @Username, @Comment, @Rating",
-                new SqlParameter("@Title", tb_MOVIE.currentMovie),
-                new SqlParameter("@Username", user.UserName),
-                new SqlParameter("@Comment", comment),
-                new SqlParameter("@Rating", float.Parse(score)));
+            db.tb_RATING.Add(new tb_RATING(tb_MOVIE.currentMovie, user.UserName, comment, float.Parse(score)));
             db.SaveChanges();
 
+
             ModelState.Clear(); //Clean View
-            return RedirectToAction("ClientMain", "Client");
+            return RedirectToAction("detailsMovies", "Client");
         }
 
 

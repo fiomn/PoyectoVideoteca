@@ -16,4 +16,14 @@ public partial class tb_RATING
     public double? RATING { get; set; }
 
     public virtual tb_USER USERNAMENavigation { get; set; } = null!;
+
+    public tb_RATING() { }
+
+    public tb_RATING(string TITLE, string USERNAME, string COMMENT, double RATING)
+    {
+        this.TITLE = TITLE;
+        this.USERNAME = USERNAME;
+        this.COMMENT = COMMENT;
+        this.RATING = RATING;
+    }
 }

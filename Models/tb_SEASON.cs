@@ -17,5 +17,5 @@ public partial class tb_SEASON
 
     public virtual tb_SERIE TITLENavigation { get; set; } = null!;
 
-    public virtual ICollection<tb_EPISODE> tb_EPISODE { get; set; } = new List<tb_EPISODE>();
+    public virtual ICollection<tb_EPISODE> tb_EPISODEs { get; set; } = new List<tb_EPISODE>();
 }
