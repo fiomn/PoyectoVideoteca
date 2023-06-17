@@ -18,18 +18,15 @@
     <header>
         <button id="btnSearch">Search</button>
         <select id="mySelect"></select>
-        <div id="toggle">
-            <i class="indicator"></i>
-        </div>
         <div class="container">
             <a class="logo" asp-controller="SuperAdmin" asp-action="SuperAdminMain">QSTREAM</a>
             <nav>
                 <a asp-controller="SuperAdmin" asp-action="Display">User Management</a>
                 <a asp-controller="SuperAdmin" asp-action="SuperAdminMain">Movies</a>
                 <a asp-controller="SuperAdmin" asp-action="DisplaySeriesSuperAdmin">Series</a>
-                <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>                
+                <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>
+                <a asp-controller="SuperAdmin" asp-action="globalSettings">Global Settings</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-               
             </nav>
         </div>
     </header>

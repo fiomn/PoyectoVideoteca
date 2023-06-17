@@ -311,15 +311,10 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //**************** GLOBAL SETTINGS *******************
-        public void saveMode(string mode)
+        public ActionResult globalSettings()
         {
-            var setting = new tb_GLOBALSETTING();
-            if (mode != null)
-            {
-                setting.mode = mode;
-                db.tb_GLOBALSETTING.Add(setting);
-                db.SaveChanges();
-            }
+            return View();
         }
+
     }
 }

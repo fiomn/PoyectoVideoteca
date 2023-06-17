@@ -24,8 +24,6 @@ public partial class TestUCRContext : DbContext
 
     public virtual DbSet<tb_GENRE> tb_GENRE { get; set; }
 
-    public virtual DbSet<tb_GLOBALSETTING> tb_GLOBALSETTING { get; set; }
-
     public virtual DbSet<tb_MOVIE> tb_MOVIE { get; set; }
 
     public virtual DbSet<tb_RATING> tb_RATING { get; set; }
@@ -105,17 +103,6 @@ public partial class TestUCRContext : DbContext
 
             entity.Property(e => e.GENRE_NAME)
                 .HasMaxLength(20)
-                .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<tb_GLOBALSETTING>(entity =>
-        {
-            entity.HasKey(e => e.idColor).HasName("PK__tb_GLOBA__504A3B88ECD21F0C");
-
-            entity.ToTable("tb_GLOBALSETTINGS");
-
-            entity.Property(e => e.mode)
-                .HasMaxLength(15)
                 .IsUnicode(false);
         });
 
