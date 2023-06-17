@@ -8,6 +8,21 @@
     padding: 15px;
 }
 
+.comment-section {
+    margin-top: 30px;
+    width: 550px;
+}
+
+.write-comment-section {
+    margin-top: 80px;
+    margin-left: 40px;
+}
+
+    .write-comment-section label{
+        color: #AAA;
+    }
+
+
 .all-comment-section {
     margin-top: 50px;
     margin-bottom: 100px;
@@ -69,10 +84,7 @@ body {
     margin-top: 30px;
 }
 
-.comment-section {
-    margin-top: 30px;
-    width: 550px;
-}
+
 
 .commentLB {
     display: inline-block;

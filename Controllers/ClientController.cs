@@ -11,6 +11,7 @@ using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using QuestPDF.Helpers;
 using System.Diagnostics;
+using static QuestPDF.Helpers.Colors;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -60,12 +61,11 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //When User clicks a movie
-        public ActionResult detailsMovies(string TITLE)
+        public ActionResult detailsMovies(string TITLE, int? page)
         {
-            if (tb_MOVIE.currentMovie == null)
-            {
-                tb_MOVIE.currentMovie = TITLE;
-            }
+
+            tb_MOVIE.currentMovie = TITLE;
+
 
             var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", tb_MOVIE.currentMovie)).ToList().FirstOrDefault();
 
@@ -73,9 +73,9 @@ namespace ProyectoVideoteca.Controllers
 
             int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
 
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages);
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
 
             return View("detailsMovies", movieAndComments);
         }
@@ -91,14 +91,19 @@ namespace ProyectoVideoteca.Controllers
             //get the current user
             var user = GetCurrentUserAsync().Result;
 
-            db.tb_RATING.FromSqlRaw(@"exec InsertCommentMovie @Title, @Username,@Comment, @Rating",
+            float scoreF = float.Parse(score);
+            scoreF = (float)Math.Round(scoreF, 2);
+
+            db.Database.ExecuteSqlRaw(@"exec InsertCommentMovie @Title, @Username,@Comment, @Rating",
                 new SqlParameter("@Title", tb_MOVIE.currentMovie),
                 new SqlParameter("@Username", user.UserName),
                 new SqlParameter("@Comment", comment),
-                new SqlParameter("@Rating", float.Parse(score)));
+                new SqlParameter("@Rating", scoreF));
+
             db.SaveChanges();
 
-            return RedirectToAction("detailsMovies", "Client");
+            return RedirectToAction("detailsMovies", "Client", new { TITLE = tb_MOVIE.currentMovie });
+
         }
 
 

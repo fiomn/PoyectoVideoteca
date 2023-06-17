@@ -60,7 +60,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //When User clicks a movie
-        public ActionResult detailsMovies(string TITLE)
+        public ActionResult detailsMovies(string TITLE, int? page)
         {
             tb_MOVIE.currentMovie = TITLE;
 
@@ -68,9 +68,11 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 5);
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
 
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages);
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
 
 
 

@@ -9,12 +9,14 @@
 
         public int totalPages { get; set; }
 
-        public tb_MOVIEANDCOMMENTS(tb_MOVIE movie, List<tb_RATING> comments, int totalPages)
-        {
+        public int currentPage { get; set; }
 
+        public tb_MOVIEANDCOMMENTS(tb_MOVIE movie, List<tb_RATING> comments, int totalPages, int currentPage)
+        {
             this.movie = movie;
             this.comments = comments;
             this.totalPages = totalPages;
+            this.currentPage = currentPage;
         }
     }
 }

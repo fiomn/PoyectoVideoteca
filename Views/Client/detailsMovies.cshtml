@@ -19,15 +19,17 @@
         <div class="movie-details__content">
             <h1 class="movie-details__title">@Model.movie.TITLE</h1>
             <div class="movie-details__info">
-                <p><strong>Director:</strong>@Model.movie.DIRECTOR_NAME</p>
-                <p><strong>Actors:</strong>@Model.movie.ACTOR_NAME</p>
-                <p><strong>Synopsis:</strong>@Model.movie.SYNOPSIS</p>
-                <p><strong>Classification:</strong>@Model.movie.CLASS</p>
-                <p><strong>Duration:</strong>@Model.movie.DURATION</p>
-                <p><strong>Release Date:</strong>@Model.movie.RELEASE_DATE</p>
-                <p><strong>Score:</strong>@Model.movie.SCORE/10</p>
-                <p><strong>QSTREAM Score:</strong>@Model.movie.QSTREAM_SCORE/10</p>
+                <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
+                <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
+                <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
+                <p><strong>Classification: </strong>@Model.movie.CLASS</p>
+                <p><strong>Duration: </strong>@Model.movie.DURATION</p>
+                <p><strong>Release Date: </strong>@Model.movie.RELEASE_DATE</p>
+                <p><strong>Score: </strong>@Model.movie.SCORE/10</p>
+                <p><strong>QSTREAM Score: </strong>@Model.movie.QSTREAM_SCORE/10</p>
             </div>
+
+
             <!-- Comment Section -->
             <div class="all-comment-section">
                 <h1 class="movie-details__title">Comment Section</h1>
@@ -35,49 +37,46 @@
                 @if (Model.comments.Count != 0)
                 {
                     <div class="comment-section">
-                        <!-- Mostrar los comentarios -->
-                        @foreach (var comment in Model.comments)
+                        <!-- Mostrar los comentarios de la página actual -->
+                        @for (int i = (Model.currentPage - 1) * 3; i < Math.Min(Model.currentPage * 3, Model.comments.Count); i++)
                         {
+                            var comment = Model.comments[i];
                             <div class="commentInList">
-                            <div class="comment-section">
-                                <label>Username:</label>
-                                <label>@comment.USERNAME</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Comment:</label>
-                                <label>@comment.COMMENT</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Score:</label>
-                                <label>@comment.RATING</label>
-                            </div>
+                                <div class="comment-section">
+                                    <label>Username:</label>
+                                    <label>@comment.USERNAME</label>
+                                </div>
+                                <div class="comment-section">
+                                    <label>Comment:</label>
+                                    <label>@comment.COMMENT</label>
+                                </div>
+                                <div class="comment-section">
+                                    <label>Score:</label>
+                                    <label>@comment.RATING</label>
+                                </div>
                             </div>
                         }
                     </div>
 
                     <!-- Controles de paginación -->
                     <div id="pagination">
-                        @if (Model.comments.Count <= 3)
+                        @if (Model.totalPages <= 1)
                         {
-                            // Solo hay 1 página, mostrar el enlace sin iterar
-                            <a href="/comments?page=1">1</a>
+                            // Solo hay 1 página, no se muestra la paginación
                         }
                         else
                         {
                             @for (int i = 1; i <= Model.totalPages; i++)
                             {
-                                if (i % 3 == 0)
-                                {
-                                    // Mostrar el enlace para la página actual
-                                    <a href="/comments?page=@i">@i</a>
-                                }
+                                <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
                             }
                         }
                     </div>
                 }
-
             </div>
-            <div class="comment-section">
+        </div>
+    </div>
+            <div class="write-comment-section">
                 <div class="comment-section">
                     <label for="comment" class="commentLB">Comment:</label>
                     <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
@@ -90,8 +89,7 @@
                     <button id="btnComment" type="submit" class="submitBTN" onclick="addComent()">Submit Comment</button>
                 </div>
             </div>
-        </div>
-    </div>
+
 
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <script src="~/js/detailsMovie.js"></script>
