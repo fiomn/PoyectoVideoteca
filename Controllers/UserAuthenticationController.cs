@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
@@ -71,6 +72,10 @@ namespace ProyectoVideoteca.Controllers
                 return View(model);
             }
             var result = await _service.LoginAsync(model);
+            //color mode
+            //string mode = getMode();
+           // ViewBag.Mode = mode;
+
             if ((result.StatusCode == 1) && (model.UserName == "Admin")) //can do it
             {
                 return RedirectToAction("AdminMain", "Admin");
@@ -88,6 +93,15 @@ namespace ProyectoVideoteca.Controllers
                 TempData["msg"] = result.Message; //is like ViewBag message
                 return RedirectToAction(nameof(Login)); //can't register user
             }
+        }
+
+        //get color mode
+        public string getMode()
+        {
+            //get color mode from BD
+            var mode = new tb_GLOBALSETTING();
+            mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
+            return mode.mode;
         }
 
         [Authorize]

@@ -4,6 +4,19 @@
     ViewData["Title"] = "deleteSeries";
 }
 
+<head>
+    @if (ViewBag.Mode == "claro")
+    {
+        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/main_page.css">
+    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <h1>Delete series</h1>
 
 <h3>Are you sure you want to delete this serie?</h3>

@@ -4,6 +4,19 @@
     ViewData["Title"] = "editProfile";
 }
 
+<head>
+    @if (ViewBag.Mode == "claro")
+    {
+        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/main_page.css">
+    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <h1>editProfile</h1>
 
 <div>
@@ -50,5 +63,5 @@
 </div>
 <div>
     @Html.ActionLink("editUser","editUser", new {userName = Model.USERNAME}) |
-    <a asp-action="editProfile">Back to List</a>
+    <a asp-action="AdminMain">Back to List</a>
 </div>

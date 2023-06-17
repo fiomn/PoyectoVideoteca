@@ -4,8 +4,20 @@
     ViewData["Title"] = "createSeries";
 }
 
-<h1>Create a new serie</h1>
+<head>
+    @if (ViewBag.Mode == "claro")
+    {
+        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/main_page.css">
+    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
+<h1>Create a new serie</h1>
 
 <hr />
 <div class="row">

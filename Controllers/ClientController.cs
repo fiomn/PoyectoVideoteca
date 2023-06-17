@@ -41,8 +41,6 @@ namespace ProyectoVideoteca.Controllers
 
             tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
             MoviesList.list = movies;
-
-            //color mode
             string mode = getMode();
             ViewBag.Mode = mode;
 
@@ -52,8 +50,9 @@ namespace ProyectoVideoteca.Controllers
         public string getMode()
         {
             //get color mode from BD
-            string mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").ToString();
-            return mode;
+            var mode = new tb_GLOBALSETTING();
+            mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
+            return mode.mode;
         }
 
         public ActionResult DisplaySeries()
@@ -67,6 +66,8 @@ namespace ProyectoVideoteca.Controllers
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return View(seriesAndGenres);
         }
@@ -87,6 +88,8 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return View("detailsMovies", movieAndComments);
         }
@@ -114,6 +117,8 @@ namespace ProyectoVideoteca.Controllers
                 new SqlParameter("@Rating", scoreF));
 
             db.SaveChanges();
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return RedirectToAction("detailsMovies", "Client", new { TITLE = tb_MOVIE.currentMovie });
 
@@ -133,6 +138,8 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return View("detailsSerie", serieAndComments);
         }
@@ -153,6 +160,8 @@ namespace ProyectoVideoteca.Controllers
                 new SqlParameter("@Rating", scoreF));
 
             db.SaveChanges();
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return RedirectToAction("detailsSerie", "Client", new { TITLE = tb_SERIE.currentSerie });
 
@@ -196,10 +205,14 @@ namespace ProyectoVideoteca.Controllers
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 ManagementUsers.users = userByName;
+                string mode = getMode();
+                ViewBag.Mode = mode;
                 return View(userByName);
             }
             catch (Exception ex)
             {
+                string mode = getMode();
+                ViewBag.Mode = mode;
                 return View();
             }
         }
@@ -207,6 +220,8 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult edit(string userName)
         {
             var user = db.tb_USER.Find(userName);
+            string mode = getMode();
+            ViewBag.Mode = mode;
             return View(user);
         }
 
@@ -290,6 +305,8 @@ namespace ProyectoVideoteca.Controllers
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
+            string mode = getMode();
+            ViewBag.Mode = mode;
             return View();
         }
 

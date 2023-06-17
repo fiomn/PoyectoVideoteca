@@ -4,13 +4,16 @@
 <html lang="en">
 
 <head>
+    @if (ViewBag.Mode=="claro")
+    {
+        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/main_page.css">
+    }
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/main_page.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 </head>
 
 <body>

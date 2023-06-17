@@ -124,30 +124,22 @@ toggle.onclick = function () {
     toggle.classList.toggle('active');
     body.classList.toggle('active');
 
-    const modo = body.classList.contains('active') ? 'oscuro' : 'claro';
+    const modo = body.classList.contains('active') ? 'claro' : 'oscuro';
     localStorage.setItem('modo', modo); //save mode in local storage
     $.ajax({
         url: "/SuperAdmin/saveMode",
         type: "post",
-        data: { "mode": modo }, //parametros
+        data: { mode: modo }, //parametros
         success: function () {
-            alert('Saved mode');
         }
     });
 }
 
-$.ajax({
-    url: "/client/getMode",
-    type: "get",
-    success: function (color) {
-        if (color === 'claro') {
-            body.classList.add('active');
-        }
-    }
-});
-
 //recovery mode
 const saveMode = localStorage.getItem('modo');
-if (saveMode === 'oscuro') {
+if (saveMode === 'claro') {
     body.classList.add('active');
+}
+else {
+    body.classList.remove('active');
 }

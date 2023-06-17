@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --red: #E50914;
     --background: #141414;
 }
@@ -14,25 +14,20 @@ a {
 }
 
 body {
-    background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    background: #ebeff5;
 }
 
-    body.active {
-        font-family: 'Open Sans', sans-serif;
-        background: #ebeff5;
+    body .header nav a {
+        color: black;
+        text-decoration: none;
+        margin-right: 20px;
     }
 
-        body.active header nav a {
-            color: black;
-            text-decoration: none;
-            margin-right: 20px;
-        }
-
-        body.active .title-controls-container h3 {
-            color: black;
-            font-size: 30px;
-        }
+    body .title-controls-container h3 {
+        color: black;
+        font-size: 30px;
+    }
 
 #toggle {
     position: relative;
@@ -92,7 +87,7 @@ header {
     }
 
     header .logo {
-        font-family: 'Bebas Neue', cursive;
+        font-family: 'Bebas Neue', 'Gill Sans';
         font-weight: normal;
         color: var(--red);
         font-size: 40px;
