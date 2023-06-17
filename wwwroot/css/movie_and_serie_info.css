@@ -20,6 +20,10 @@ body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
 }
+    body.active {
+        font-family: 'Open Sans', sans-serif;
+        background: #ebeff5;
+    }
 
 .movie-details {
     display: flex;

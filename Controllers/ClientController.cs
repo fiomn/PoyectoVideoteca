@@ -41,7 +41,17 @@ namespace ProyectoVideoteca.Controllers
             tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
             MoviesList.list = movies;
 
+            string mode = getMode();
+            ViewBag.Mode = mode;
+
             return View(moviesAndGenres);
+        }
+
+        public string getMode()
+        {
+            //get color mode from BD
+            string mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").ToString();
+            return mode;
         }
 
         public ActionResult DisplaySeries()

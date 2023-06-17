@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectoVideoteca.Data;
 using ProyectoVideoteca.Models;
 using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
+using System.Drawing.Imaging;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -58,6 +60,7 @@ namespace ProyectoVideoteca.Controllers
             return RedirectToAction(nameof(Registration));
         }
 
+       
         public IActionResult Login()
         {
             return View();
@@ -70,6 +73,7 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View(model);
             }
+
             var result = await _service.LoginAsync(model);
             if ((result.StatusCode == 1) && (model.UserName == "Admin")) //can do it
             {
