@@ -119,10 +119,12 @@ namespace ProyectoVideoteca.Controllers
                 //ManagementUsers.users = user;
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
+                ViewBag.Message = new Message() { text = "The client was created", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
+                ViewBag.Message = new Message { text = "It was an error", type = Types.danger.ToString()};
                 return View();
             }
         }
@@ -155,10 +157,12 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Update(user); //save users in testUCR
                 db.SaveChanges();
+                ViewBag.Message = new Message() { text = "The client was updated", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
+                ViewBag.Message = new Message() { text = "The client was updated", type = Types.danger.ToString() };
                 return View();
             }
         }
@@ -183,10 +187,12 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Remove(user);
                 db.SaveChanges();
+                ViewBag.Message = new Message() { text = "The client was deleted", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
+                ViewBag.Message = new Message() { text = "The client was created", type = Types.danger.ToString() };
                 return View();
             }
 
@@ -294,10 +300,12 @@ namespace ProyectoVideoteca.Controllers
                 var result = await _service.EditAsync(model); //save in context auth
                 db.tb_USER.Update(user); //save users in testUCR
                 db.SaveChanges();
+                ViewBag.Message = new Message() { text = "Your profile has been updated", type = Types.success.ToString() };
                 return RedirectToAction(nameof(editProfile));
             }
             catch (Exception ex)
             {
+                ViewBag.Message = new Message() { text = "It was an error", type = Types.danger.ToString() };
                 return View();
             }
         }

@@ -1,0 +1,157 @@
+﻿:root {
+    --red: #E50914;
+    --background: #141414;
+}
+
+
+body {
+    background: #ebeff5;
+    font-family: 'Open Sans', sans-serif;
+}
+
+    body.active {
+        font-family: 'Open Sans', sans-serif;
+        background: #ebeff5;
+    }
+
+.movie-details {
+    display: flex;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.movie-details__poster {
+    flex: 0 0 200px;
+    margin-right: 20px;
+}
+
+    .movie-details__poster img {
+        width: 100%;
+    }
+
+.movie-details__content {
+    flex: 1;
+    padding: 20px;
+    color: #AAA;
+}
+
+.movie-details__title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #AAA;
+}
+
+.movie-details__info p {
+    margin-bottom: 10px;
+    color: #AAA;
+}
+
+.all-comment-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.comment-section {
+    margin-top: 25px;
+}
+
+.commentInList {
+    border: 3px solid #AAA;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    width: 80%;
+    padding: 15px 20px 25px 20px
+}
+
+.commentLB {
+    display: inline-block;
+    width: 100px;
+}
+
+
+.submitBTN {
+    background-color: #b3b3b3;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+    .submitBTN:hover {
+        background-color: #595959;
+    }
+
+
+
+/*-------- POP-UP SECTION --------*/
+
+.details-button {
+    margin-top: 25px;
+    display: flex;
+}
+
+
+.pop-up-button,
+.go-back-button {
+    background-color: #b3b3b3;
+    font-size: 20px;
+    border: none;
+    color: black;
+    padding: 20px 20px;
+    margin-left: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 40px; /* Altura del botón */
+    line-height: 0px; /* Centrar verticalmente el texto */
+}
+
+    .pop-button:hover,
+    .go-back-button:hover {
+        background-color: #595959;
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.pop-up-window {
+    color: #AAA;
+    background-color: var(--background);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #AAA;
+    width: 50%;
+}
+
+.close-pop-up {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    width: 2%;
+}
+
+    .close-pop-up:hover,
+    .close-pop-up:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }

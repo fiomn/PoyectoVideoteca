@@ -21,11 +21,7 @@
 </head>
 
 <body>
-    <input class="inp" id="inputSearch" placeholder="Search movie">
-    <header>
-        <button id="btnSearch">Search</button>
-        <select id="mySelect"></select>
-
+    <header>    
         <div class="container">
             <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
             <nav>
@@ -37,12 +33,13 @@
         </div>
     </header>
 
+    <div class="searchNG">
+        <input class="inp" id="inputSearch" placeholder="Search movie">
+        <button id="btnSearch"><i class="fas fa-search"></i></button>
+    </div>
+
     <main>
         <!-- Carousel Result -->
-        <div class="title-controls-container">
-            <h3>Results</h3>
-            <div class="indicators"></div>
-        </div>
         <div class="d-felx flex-column justify-content-center align-items-center text-center">
             <div id="carRe">
                 @foreach (var movie in Model.movies)

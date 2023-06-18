@@ -6,7 +6,7 @@ $("#btnSend").click(function sendEmail() {
     $.ajax({
         url: "/userAuthentication/sendEmail",
         type: "post",
-        data: { "email": email, "username": username }, //parametros
+        data: { "email": email, "username": username }, //parameters
         success: function () {
             alert('Correo enviado');
         }
@@ -15,7 +15,7 @@ $("#btnSend").click(function sendEmail() {
 
 //function to have a preview image
 function previewProfileImage(input) {
-    if (input.files && input.files[0]) { //si se ha seleccionado al menos un archivo
+    if (input.files && input.files[0]) { 
         var reader = new FileReader();
 
         reader.onload = function (e) {
@@ -39,21 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
             datatype: 'text',
             success: function (data) {
                 var dataList = JSON.parse(data);
-
-                //call the select of main view
-                var selectElement = $('#mySelect');
-                selectElement.empty();
-                selectElement.append($('<option>', {
-                    text: 'select'
-                }));
-
-                //traverse the list and add to options
-                $.each(dataList, function (i, movie) {
-                    selectElement.append($('<option>', {
-                        value: movie.ID,
-                        text: movie.TITLE
-                    }));
-                });
                 replaceHTML(dataList);
                 showCarousel();  
                 slickSlide();
@@ -89,7 +74,7 @@ function replaceHTML(data) {
 }
 
 $(document).ready(function () {
-    slickSlide();  //Genera el carrousel
+    slickSlide();  //generate carousel
 });
 
 function slickSlide() {
@@ -129,7 +114,7 @@ toggle.onclick = function () {
     $.ajax({
         url: "/SuperAdmin/saveMode",
         type: "post",
-        data: { mode: modo }, //parametros
+        data: { mode: modo }, //parameters
         success: function () {
         }
     });
