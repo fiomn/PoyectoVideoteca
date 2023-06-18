@@ -1,4 +1,5 @@
-﻿//send email
+﻿
+//send email
 $("#btnSend").click(function sendEmail() {
     const email = $("#inEmail").val();
     const username = $("#inUserName").val();
@@ -125,7 +126,6 @@ toggle.onclick = function () {
     body.classList.toggle('active');
 
     const modo = body.classList.contains('active') ? 'claro' : 'oscuro';
-    localStorage.setItem('modo', modo); //save mode in local storage
     $.ajax({
         url: "/SuperAdmin/saveMode",
         type: "post",
@@ -133,13 +133,11 @@ toggle.onclick = function () {
         success: function () {
         }
     });
+    if (modo === 'claro') {
+        document.getElementById('theme').href = 'lightMode.css';
+    }
+    else {
+        document.getElementById('theme').href = 'main_page.css';
+    }
 }
 
-//recovery mode
-const saveMode = localStorage.getItem('modo');
-if (saveMode === 'claro') {
-    body.classList.add('active');
-}
-else {
-    body.classList.remove('active');
-}

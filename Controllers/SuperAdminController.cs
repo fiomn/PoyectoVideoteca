@@ -39,6 +39,8 @@ namespace ProyectoVideoteca.Controllers
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
             tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            string mode = getMode();
+            ViewBag.Mode = mode;
 
             return View(moviesAndGenres);
         }

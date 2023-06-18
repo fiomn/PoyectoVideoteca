@@ -81,9 +81,12 @@
                     @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
                 </td>
                 <td>
-                    @Html.ActionLink("editMovies","editMovies", new {title = item.TITLE})
-                    @Html.ActionLink("detailsMovies","detailsMovies", new {title = item.TITLE})
-                    @Html.ActionLink("deleteMovies","deleteMovies", new {title = item.TITLE})
+                    <select onchange="redirectToView(this)">
+                        <option value="" selected>Select an option</option>
+                        <option value="@Url.Action("editMovies", new { title = item.TITLE })">Edit</option>
+                        <option value="@Url.Action("detailsMovies", new { title = item.TITLE })">Details</option>
+                        <option value="@Url.Action("deleteMovies", new { title = item.TITLE })">Delete</option>
+                    </select>
                 </td>
             </tr>
         }

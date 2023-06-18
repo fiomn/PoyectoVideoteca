@@ -15,56 +15,66 @@
     }
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
 </head>
 
 <h1>Display</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New User</a>
 </p>
 <form asp-controller="Admin" asp-action="DownloadPDF">
     <button class="btn btn-success" type="submit">Report</button>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EMAIL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ROLE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IMG)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<body>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EMAIL)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ROLE)
-                </td>
-                <td>
-                    <img src="data:image/jpg;base64,@Html.DisplayFor(model => item.IMG)" />
-                </td>
-                <td>
-                    @Html.ActionLink("Edit","Edit", new {userName = @item.USERNAME})
-                    @Html.ActionLink("Details","Details", new {userName = @item.USERNAME})
-                    @Html.ActionLink("Delete","Delete", new {userName = @item.USERNAME})
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMAIL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ROLE)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMAIL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ROLE)
+                    </td>
+                    <td>
+                        <select onchange="redirectToView(this)">
+                            <option value="" selected>Select an option</option>
+                            <option value="@Url.Action("Edit", new { userName = @item.USERNAME })">Edit</option>
+                            <option value="@Url.Action("Details", new { userName = @item.USERNAME })">Details</option>
+                            <option value="@Url.Action("Delete", new { userName = @item.USERNAME })">Delete</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div>
+        <a asp-action="AdminMain">Back</a>
+    </div>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="~/js/main_page.js"></script>
+</body>

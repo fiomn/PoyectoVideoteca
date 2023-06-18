@@ -30,16 +30,10 @@
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
-        <div class="containerB">
-            <input type="text" placeholder="Search">
-            <div class="btn">
-                <i class="fa fa-search"></i>
-            </div>
-        </div>
     </header>
 
     <main>
-        <<!-- Carousels -->
+        <!-- Carousels -->
         @foreach (var genre in Model.genres)
         {
             <div class="movies-container">
@@ -69,8 +63,6 @@
                 </div>
             </div>
         }
-
-
     </main>
 
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
