@@ -15,6 +15,8 @@
     {
         <link rel="stylesheet" href="~/css/main_page.css">
     }
+
+    <link rel="stylesheet" href="~/css/movie_and_serie_info.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -86,24 +88,42 @@
         </div>
     </div>
 
-    <form action="@Url.Action("userCommentSerie", "Client")" method="POST">
-        <div class="write-comment-section">
-            <div class="comment-section">
-                <label for="comment" class="commentLB">Comment:</label>
-                <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
-            </div>
-            <div class="comment-section">
-                <label for="score">Score:</label>
-                <input type="text" id="score" name="score" required style="color: black;">
-            </div>
-            <div class="comment-section">
-                <button id="btnComment" type="submit" class="submitBTN">Submit Comment</button>
-            </div>
-        </div>
-    </form>
+    <div class="details-button">
 
+        <button id="pop-up-button" class="pop-up-button">Add Comment</button>
+        <form action="@Url.Action("ClientMain", "Client")" method="GET">
+            <button type="submit" class="go-back-button">
+                Go Back
+            </button>
+        </form>
+
+
+        <div id="modal1" class="modal">
+
+            <div class="pop-up-window">
+                <span class="close-pop-up">&times;</span>
+                <form action="@Url.Action("userCommentSerie", "Client")" method="POST">
+                    <div class="write-comment-section">
+                        <div class="comment-section">
+                            <label for="comment" class="commentLB">Comment:</label>
+                            <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
+                        </div>
+                        <div class="comment-section">
+                            <label for="score">Score:</label>
+                            <input type="text" id="score" name="score" required style="color: black;">
+                        </div>
+                        <div class="comment-section">
+                            <button id="btnComment" type="submit" class="submitBTN">Submit Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="~/js/detailsMoviesAndSeries.js"></script>
 </body>
 </html>
 

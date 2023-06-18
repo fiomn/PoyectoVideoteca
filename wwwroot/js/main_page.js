@@ -4,10 +4,10 @@
     const leftArrows = document.querySelectorAll('.left-arrow');
     const rightArrows = document.querySelectorAll('.right-arrow');
     const indicators = document.querySelectorAll('.indicators');
-    const movies = document.querySelectorAll('.movie');
+    const movieElements = document.querySelectorAll('.movie');
 
     // Recorrer los carousels y asignar los event listeners a los botones
-    carouselContainers.forEach((carouselContainer, index) => {
+    carouselContainers.forEach((carouselContainer, carouselIndex) => {
         const movies = carouselContainer.querySelectorAll('.movie');
         const numberOfPages = Math.ceil(movies.length / 5);
 
@@ -21,30 +21,30 @@
                 indicator.classList.add('active');
             }
 
-            indicators[index].appendChild(indicator);
+            indicators[carouselIndex].appendChild(indicator);
 
             indicator.addEventListener('click', (e) => {
                 currentPage = i;
                 updateCarouselPosition(carouselContainer, currentPage);
-                updateIndicators(indicators[index], currentPage);
+                updateIndicators(indicators[carouselIndex], currentPage);
             });
         }
 
         // Event Listener para el botón de la flecha izquierda
-        leftArrows[index].addEventListener('click', () => {
+        leftArrows[carouselIndex].addEventListener('click', () => {
             if (currentPage > 0) {
                 currentPage--;
                 updateCarouselPosition(carouselContainer, currentPage);
-                updateIndicators(indicators[index], currentPage);
+                updateIndicators(indicators[carouselIndex], currentPage);
             }
         });
 
         // Event Listener para el botón de la flecha derecha
-        rightArrows[index].addEventListener('click', () => {
+        rightArrows[carouselIndex].addEventListener('click', () => {
             if (currentPage < numberOfPages - 1) {
                 currentPage++;
                 updateCarouselPosition(carouselContainer, currentPage);
-                updateIndicators(indicators[index], currentPage);
+                updateIndicators(indicators[carouselIndex], currentPage);
             }
         });
     });
@@ -68,7 +68,7 @@
     }
 
     // Image Hover
-    movies.forEach((movie) => {
+    movieElements.forEach((movie) => {
         movie.addEventListener('mouseenter', (e) => {
             const element = e.currentTarget;
             setTimeout(() => {
