@@ -19,7 +19,7 @@ body {
 }
 
     body .header nav a {
-        color: black;
+        color: green;
         text-decoration: none;
         margin-right: 20px;
     }
@@ -137,7 +137,9 @@ header {
 
 
 /* ---- ----- ----- Main Container and Arrows ----- ----- ----- */
-
+#carRe {
+    display: none;
+}
 .movies-container {
     margin-bottom: 70px;
 }
@@ -178,38 +180,34 @@ header {
         }
 
 
-/* ---- ----- ----- Carousel ----- ----- ----- */
-#carRe {
-    display: none;
-}
-
-.movies-container .carousel-container {
-    width: 100%;
-    padding: 20px 0;
-    overflow: hidden;
-    scroll-behavior: smooth;
-}
-
-    .movies-container .carousel-container .carousel {
-        display: flex;
-        flex-wrap: nowrap;
+    /* ---- ----- ----- Carousel ----- ----- ----- */
+    .movies-container .carousel-container {
+        width: 100%;
+        padding: 20px 0;
+        overflow: hidden;
+        scroll-behavior: smooth;
     }
 
-        .movies-container .carousel-container .carousel .movie {
-            min-width: 20%;
-            transition: .3s ease all;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        .movies-container .carousel-container .carousel {
+            display: flex;
+            flex-wrap: nowrap;
         }
 
-            .movies-container .carousel-container .carousel .movie.hover {
-                transform: scale(1.2);
-                transform-origin: center;
+            .movies-container .carousel-container .carousel .movie {
+                min-width: 20%;
+                transition: .3s ease all;
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
             }
 
-            .movies-container .carousel-container .carousel .movie img {
-                width: 100%;
-                vertical-align: top;
-            }
+                .movies-container .carousel-container .carousel .movie.hover {
+                    transform: scale(1.2);
+                    transform-origin: center;
+                }
+
+                .movies-container .carousel-container .carousel .movie img {
+                    width: 100%;
+                    vertical-align: top;
+                }
 
 /* ---- ----- ----- Media Queries ----- ----- ----- */
 @media screen and (max-width: 800px) {
@@ -232,7 +230,6 @@ header {
             max-width: 100%;
         }
 
-
     .movies-container .carousel-container {
         overflow: visible;
     }
@@ -248,76 +245,78 @@ header {
     .movies-container .right-arrow {
         display: none;
     }
+}
 
 
 
-    /* Video Section */
 
-    .video-thumbnail {
-        position: relative;
-        display: inline-block;
+/* Video Section */
+
+.video-thumbnail {
+    position: relative;
+    display: inline-block;
+}
+
+.movie .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: opacity 2s;
+}
+
+.movie .video-player {
+    position: fixed;
+    z-index: 999;
+    display: none;
+    width: 500px;
+    left: -40px;
+    height: 200px;
+    opacity: 1;
+    animation: showVideo 2s forwards;
+    transition: transform 5s ease;
+}
+
+    .movie .video-player:hover {
+        animation: slideIn 5s forwards;
+        animation-iteration-count: 1;
     }
 
-    .movie .video-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        cursor: pointer;
-        transition: opacity 2s;
+@keyframes slideIn {
+    from {
+        transform: translateY(0);
     }
 
-    .movie .video-player {
-        position: fixed;
-        z-index: 999;
-        display: none;
-        width: 500px;
-        left: -40px;
-        height: 200px;
-        opacity: 1;
-        animation: showVideo 2s forwards;
-        transition: transform 5s ease;
-    }
-
-        .movie .video-player:hover {
-            animation: slideIn 5s forwards;
-            animation-iteration-count: 1;
-        }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(0);
-        }
-
-        to {
-            transform: translateY(-110px);
-        }
-    }
-
-    @keyframes showVideo {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .movie .video-player iframe {
-        width: 60%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .movie .video-thumbnail:hover .video-overlay {
-        opacity: 1;
-    }
-
-    .movie .video-thumbnail:hover .video-player {
-        display: block;
+    to {
+        transform: translateY(-110px);
     }
 }
+
+@keyframes showVideo {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.movie .video-player iframe {
+    width: 60%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.movie .video-thumbnail:hover .video-overlay {
+    opacity: 1;
+}
+
+.movie .video-thumbnail:hover .video-player {
+    display: block;
+}
+
