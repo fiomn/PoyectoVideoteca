@@ -10,6 +10,7 @@ using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using QuestPDF.Helpers;
+using System;
 using System.Diagnostics;
 using static QuestPDF.Helpers.Colors;
 
@@ -32,6 +33,8 @@ namespace ProyectoVideoteca.Controllers
         //*************************** SERIES AND MOVIES *********************************
         public ActionResult ClientMain()
         {
+            Random random = new Random();
+
             var movies = new List<tb_MOVIE>();
 
             movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
@@ -39,7 +42,9 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
             MoviesList.list = movies;
             string mode = getMode();
             ViewBag.Mode = mode;
@@ -66,6 +71,8 @@ namespace ProyectoVideoteca.Controllers
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+
+            //Mode Visual Types
             string mode = getMode();
             ViewBag.Mode = mode;
 
@@ -90,24 +97,6 @@ namespace ProyectoVideoteca.Controllers
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
             string mode = getMode();
             ViewBag.Mode = mode;
-
-            // Randomizar los carouseles
-            var randomGenres = db.tb_GENRE.OrderBy(x => Guid.NewGuid()).ToList();
-
-            foreach (var genre in randomGenres)
-            {
-                var movies = db.tb_MOVIE
-                    .FromSqlRaw(@"exec GetMoviesByGenre @Genre", new SqlParameter("@Genre", genre.GENRE_NAME))
-                    .ToList();
-
-                // Agrega las películas y el género directamente en el objeto movieAndComments
-                //movieAndComments.movie.Add(movies);
-                //movieAndComments.genre.Add(genre);
-
-                movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
-            }
-
-            //return View("detailsMovies", movieAndComments);
 
             return View("detailsMovies", movieAndComments);
         }

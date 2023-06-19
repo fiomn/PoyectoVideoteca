@@ -67,8 +67,11 @@
     <div class="myCarousel">
         <!-- Contenido del carousel aquí -->
         <div class="slick-carousel">
+
             @foreach (var genre in Model.genres)
             {
+                
+
                 <div class="movies-container">
                     <div class="title-controls-container">
                         <h3>@genre.GENRE_NAME</h3>
@@ -102,51 +105,20 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                // Obtén los elementos de los carouseles
-                var carousels = $('.myCarousel');
-
-                // Ordena los carouseles aleatoriamente
-                var shuffledCarousels = _.shuffle(carousels);
-
-                // Recorre los carouseles y configura el carousel slick en cada uno
-                $.each(shuffledCarousels, function (index, carousel) {
-                    $(carousel).find('.galery').slick({
-                        dots: true,
-                        infinite: true,
-                        speed: 300,
-                        slidesToShow: 1,
-                        centerMode: true,
-                        variableWidth: true
-                    });
-                });
-            });
-        </script>
-
-
-        @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('.galery').slick({
                     dots: true,
                     infinite: true,
                     speed: 300,
-                    slidesToShow: 1,
+                    slidesToShow: 3,
                     centerMode: true,
                     variableWidth: true
                 });
             });
-        </script>*@
+        </script>
     }
 
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-*@
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <script src="~/js/main_page.js"></script>
 </body>

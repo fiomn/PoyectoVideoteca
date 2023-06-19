@@ -46,7 +46,7 @@
             <!-- Seasons Section -->
             <form action="@Url.Action("getSeasonSerie", "Client")" method="POST">
                 <div class="season-select">
-                    <label for="season">Select Season:</label>
+                    <label>Select Season:</label>
                     <select id="season" name="selectedSeason">
                         @for (var i = 1; i <= Model.serie.QTY_SEASONS; i++)
                         {

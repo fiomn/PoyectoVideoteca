@@ -110,6 +110,7 @@ body {
         font-size: 28px;
         padding: 5px 10px;
     }
+
     .searchNG #btnSerie {
         border: none;
         color: white;
@@ -157,9 +158,22 @@ header {
         }
 
 
+/*    Carousel Slick Slide Properties    */
+
+.slick-dots li button:before {
+    color: black;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: red;
+}
+
+
+
 
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
-
 
 .title-controls-container {
     display: flex;
