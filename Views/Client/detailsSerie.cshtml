@@ -31,6 +31,7 @@
         </div>
         <div class="movie-details__content">
             <h1 class="movie-details__title">@Model.serie.TITLE</h1>
+
             <div class="movie-details__info">
                 <p><strong>Director: </strong>@Model.serie.DIRECTOR_NAME</p>
                 <p><strong>Actors: </strong>@Model.serie.ACTOR_NAME</p>
@@ -41,6 +42,40 @@
                 <p><strong>IMDb Score: </strong>@Model.serie.SCORE/10</p>
                 <p><strong>QSTREAM Score: </strong>@Model.serie.QSTREAM_SCORE/10</p>
             </div>
+
+            <!-- Seasons Section -->
+            <form action="@Url.Action("getSeasonSerie", "Client")" method="POST">
+                <div class="season-select">
+                    <label for="season">Select Season:</label>
+                    <select id="season" name="selectedSeason">
+                        @for (var i = 1; i <= Model.serie.QTY_SEASONS; i++)
+                        {
+                            <option value="@i">Season @i</option>
+                        }
+                    </select>
+                    <input type="submit" value="Accept" class="season-submit">
+                </div>
+            </form>
+
+            @if(Model.season != null)
+            {
+                @foreach(var episode in Model.episodes){
+                <div class="episode-details">
+                    <div class="episode-details__poster">
+                        <img src="@episode.IMG" alt="Episode Image">
+                    </div>
+                    <div class="episode-details__content">
+                        <div class="episode-details__info">
+                            <p><strong>Episode: </strong>@episode.NUMBER</p>
+                            <p><strong>Episode Name: </strong>@episode.NAME_EPISODE</p>
+                            <p><strong>Synopsis: </strong>@episode.SYNOPSIS</p>
+                            <p><strong>Duration: </strong>@episode.DURATION</p>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+
 
                @if (Model.comments.Count != 0)
                 {
