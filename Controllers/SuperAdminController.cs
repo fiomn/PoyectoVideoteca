@@ -71,20 +71,43 @@ namespace ProyectoVideoteca.Controllers
             return View(seriesAndGenres);
         }
 
-        public ActionResult detailsMovies(string TITLE)
+        public ActionResult detailsMovies(string TITLE, int? page)
         {
+            tb_MOVIE.currentMovie = TITLE;
+
             var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
             string mode = getMode();
             ViewBag.Mode = mode;
-            return View("detailsMovies", movie);
+
+
+            return View("detailsMovies", movieAndComments);
         }
 
-        public ActionResult detailsSeries(string TITLE)
+        public ActionResult detailsSeries(string TITLE, int? page)
         {
-            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            tb_SERIE.currentSerie = TITLE;
+
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
             string mode = getMode();
             ViewBag.Mode = mode;
-            return View("detailsSeries", serie);
+
+            return View("detailsSeries", serieAndComments);
         }
 
         //*********************************USERS***********************************
@@ -269,7 +292,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {

@@ -185,15 +185,14 @@ namespace ProyectoVideoteca.Controllers
 
         }
 
-
-        //search by name and genre with an APi
+        //search movies by name and genre with an APi
         [HttpGet]
         public string search(string inputSearch)
         {
             var movies = new List<tb_MOVIE>();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7181/Search/inputSearch");
+                client.BaseAddress = new Uri("https://localhost:7181/Search/movies/inputSearch");
                 var responseTask = client.GetAsync(inputSearch);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -207,6 +206,30 @@ namespace ProyectoVideoteca.Controllers
                     return JsonConvert.SerializeObject(movies);
                 }
                 return JsonConvert.SerializeObject(movies);
+            }
+        }
+
+        //search series by name and genre with an APi
+        [HttpGet]
+        public string searchSeries(string busSeries)
+        {
+            var series = new List<tb_SERIE>();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:7181/Search/series/busSeries");
+                var responseTask = client.GetAsync(busSeries);
+                responseTask.Wait();
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadFromJsonAsync<List<tb_SERIE>>();
+                    readTask.Wait();
+
+                    series = readTask.Result;
+                    return JsonConvert.SerializeObject(series);
+                }
+                return JsonConvert.SerializeObject(series);
             }
         }
 

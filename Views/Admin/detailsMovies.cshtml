@@ -7,16 +7,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @if (ViewBag.Mode == "claro")
     {
-        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/movies_series_light.css">
     }
     else
     {
-        <link rel="stylesheet" href="~/css/main_page.css">
+        <link rel="stylesheet" href="~/css/movie_and_serie_info.css">
     }
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="movie-details">
@@ -26,83 +29,72 @@
         <div class="movie-details__content">
             <h1 class="movie-details__title">@Model.movie.TITLE</h1>
             <div class="movie-details__info">
-                <p><strong>Director:</strong>@Model.movie.DIRECTOR_NAME</p>
-                <p><strong>Actors:</strong>@Model.movie.ACTOR_NAME</p>
-                <p><strong>Synopsis:</strong>@Model.movie.SYNOPSIS</p>
-                <p><strong>Classification:</strong>@Model.movie.CLASS</p>
-                <p><strong>Duration:</strong>@Model.movie.DURATION</p>
-                <p><strong>Release Date:</strong>@Model.movie.RELEASE_DATE</p>
-                <p><strong>Score:</strong>@Model.movie.SCORE/10</p>
-            </div>
-            <div class="movie-details__trailer">
-                <iframe width="820" height="308" src="https://www.youtube.com/embed/3inw26U-os4" title="Grupo Frontera x Bad Bunny - un x100to (Video Oficial)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
+                <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
+                <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
+                <p><strong>Classification: </strong>@Model.movie.CLASS</p>
+                <p><strong>Duration: </strong>@Model.movie.DURATION</p>
+                <p><strong>Release Date: </strong>@Model.movie.RELEASE_DATE</p>
+                <p><strong>IMDb Score: </strong>@Model.movie.SCORE/10</p>
+                <p><strong>QSTREAM Score: </strong>@Model.movie.QSTREAM_SCORE/10</p>
             </div>
 
-            <!-- Comment Section -->
-            <div class="comment-section">
-                <h1 class="movie-details__title">Comment Section</h1>
-                <!-- ALL COMMENTS -->
-                @if (Model.comments.Count != 0)
-                {
+            @if (Model.comments.Count != 0)
+            {
+                <!-- Comment Section -->
+                <div class="all-comment-section">
+                    <h1 class="movie-details__title">Comment Section</h1>
+                    <!-- ALL COMMENTS -->
                     <div class="comment-section">
-                        <!-- Mostrar los comentarios -->
-                        @foreach (var comment in Model.comments)
+                        <!-- Mostrar los comentarios de la página actual -->
+                        @for (int i = (Model.currentPage - 1) * 3; i < Math.Min(Model.currentPage * 3, Model.comments.Count); i++)
                         {
-                            <div class="comment-section">
-                                <label>Username:</label>
-                                <label>@comment.USERNAME</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Comment:</label>
-                                <label>@comment.COMMENT</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Score:</label>
-                                <label>@comment.RATING</label>
+                            var comment = Model.comments[i];
+                            <div class="commentInList">
+                                <div class="comment-section">
+                                    <label>Username:</label>
+                                    <label>@comment.USERNAME</label>
+                                </div>
+                                <div class="comment-section">
+                                    <label>Comment:</label>
+                                    <label>@comment.COMMENT</label>
+                                </div>
+                                <div class="comment-section">
+                                    <label>Score:</label>
+                                    <label>@comment.RATING</label>
+                                </div>
                             </div>
                         }
                     </div>
 
                     <!-- Controles de paginación -->
                     <div id="pagination">
-                        @if (Model.comments.Count <= 5)
+                        @if (Model.totalPages <= 1)
                         {
-                            // Solo hay 1 página, mostrar el enlace sin iterar
-                            <a href="/comments?page=1">1</a>
+                            // Solo hay 1 página, no se muestra la paginación
                         }
                         else
                         {
                             @for (int i = 1; i <= Model.totalPages; i++)
                             {
-                                if (i % 5 == 1)
-                                {
-                                    // Mostrar el enlace para la página actual
-                                    <a href="/comments?page=@i">@i</a>
-                                }
+                                <a href="@Url.Action("detailsMovies", "Admin", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
                             }
                         }
                     </div>
-                }
-
             </div>
-            <div class="comment-section">
-                <div class="comment-section">
-                    <label for="comment" class="commentLB">Comment:</label>
-                    <textarea id="commentTA" name="comment" required style="color: black;"></textarea>
-                </div>
-                <div class="comment-section">
-                    <label for="score">Score:</label>
-                    <input type="text" id="score" name="score" required style="color: black;">
-                </div>
-                <div class="comment-section">
-                    <button id="btnComment" type="submit" class="submitBTN" onclick="addComent()">Submit Comment</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
 
+    <div class="details-button">
+        <form action="@Url.Action("AdminMain", "Admin")" method="GET">
+            <button type="submit" class="go-back-button">
+                Go Back
+            </button>
+        </form>
+    </div>
+
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <script src="~/js/main_page.js"></script>
+    <script src="~/js/detailsMoviesAndSeries.js"></script>
 </body>
 </html>
-
