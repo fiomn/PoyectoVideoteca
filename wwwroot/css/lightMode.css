@@ -14,25 +14,10 @@ a {
 }
 
 body {
-    background: var(--background);
+    background: #ebeff5;
     font-family: 'Open Sans', sans-serif;
 }
 
-    body.active {
-        font-family: 'Open Sans', sans-serif;
-        background: #ebeff5;
-    }
-
-        body.active header nav a {
-            color: black;
-            text-decoration: none;
-            margin-right: 20px;
-        }
-
-        body.active .title-controls-container h3 {
-            color: white;
-            font-size: 30px;
-        }
 
 #toggle {
     position: relative;
@@ -106,7 +91,7 @@ body {
 
     .searchNG #btnSearch {
         border: none;
-        color: white;
+        color: firebrick;
         font-size: 28px;
         padding: 5px 10px;
     }
@@ -116,6 +101,17 @@ body {
         color: white;
         font-size: 28px;
         padding: 5px 10px;
+    }
+
+#selectCRUD {
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 2em;
+    padding: 5px 17px;
+}
+
+    #selectCRUD:hover {
+        background: #d64c42;
     }
 
 .inp {
@@ -147,14 +143,14 @@ header {
     }
 
     header nav a {
-        color: #AAA;
+        color: black;
         text-decoration: none;
         margin-right: 20px;
     }
 
         header nav a:hover,
         header nav a.active {
-            color: #FFF;
+            color: firebrick;
         }
 
 
@@ -169,7 +165,7 @@ header {
 }
 
     .title-controls-container h3 {
-        color: #FFF;
+        color: black;
         font-size: 30px;
     }
 

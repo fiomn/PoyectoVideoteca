@@ -49,19 +49,7 @@
 
 
     <!-- Carousel Result -->
-    <div class="carousel-container" id="carRe">
-        <div class="galery">
-            @foreach (var movie in Model.movies)
-            {
-                <div class="movie">
-                    <div class="video-thumbnail">
-                        <a asp-controller="client" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg" style="width:200px; height:200px;"></a>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-
+    <div class="carousel-container" id="carRe"></div>
 
     <!--Aquí inicia la carga de cada carousel-->
     <div class="myCarousel">

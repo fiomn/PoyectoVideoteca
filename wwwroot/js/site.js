@@ -15,7 +15,7 @@ $("#btnSend").click(function sendEmail() {
 
 //function to have a preview image
 function previewProfileImage(input) {
-    if (input.files && input.files[0]) { 
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
@@ -39,16 +39,16 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (data) {
                 var dataList = JSON.parse(data);
                 replaceHTML(dataList);
-                showCarousel();  
+                showCarousel();
                 slickSlide();
             }
         });
     }
-    
+
     //call two functions for button btnSearch
     btnSearch.addEventListener("click", function () {
-        search();       
-    });    
+        search();
+    });
 });
 
 //search serie by name and genre
@@ -83,19 +83,36 @@ function showCarousel() {
 }
 
 function replaceHTML(data) {
-    var carousel = "<div id='carRe'>";      
-    for (movie in data) {
-        carousel += "<div class='movie'>" +
-            "<div class='video-thumbnail'>" +
-            "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'  style='width: 230px; height: 300px;'></a>" +
+    if (data.length<1) {
+        alert('No movie found');
+    }
+    if (data.length > 1) {
+        var carousel = "<div id='carRe'>";
+        for (movie in data) {
+            carousel += "<div class='movie'>" +
+                "<div class='video-thumbnail'>" +
+                "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'  style='width: 230px; height: 300px; margin-left:30px; margin-top:30px; margin-bottom:30px;'></a>" +
+                "</div>" +
+                "</div>";
+        }
+        carousel += "</div>" +
+            "</div>";
+
+        $("#carRe").replaceWith(carousel);
+
+    } if (data.length === 1) {
+        alert('solo una');
+        alert(data[0].TITLE);
+        var carousel = "<div id='carRe'>"+
+           "<div class='movie'>" +
+                "<div class='video-thumbnail'>" +
+                "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[0].TITLE + "'><img src=" + data[0].IMG + " style='width: 230px; height: 300px; margin-left:30px; margin-top:30px; margin-bottom:30px;'></a>" +
+                "</div>" +
             "</div>" +
             "</div>";
-    }
-    carousel += "</div>" +
-        "</div>";
 
-    $("#carRe").replaceWith(carousel);;
-    
+        $("#carRe").replaceWith(carousel);
+    }
 }
 
 

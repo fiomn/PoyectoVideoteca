@@ -60,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.ROLE)
                     </td>
                     <td>
-                        <select onchange="redirectToView(this)">
+                        <select id="selectCRUD" onchange="redirectToView(this)">
                             <option value="" selected>Select an option</option>
                             <option value="@Url.Action("Edit", new { userName = @item.USERNAME })">Edit</option>
                             <option value="@Url.Action("Details", new { userName = @item.USERNAME })">Details</option>
