@@ -161,11 +161,11 @@ toggle.onclick = function () {
         success: function () {
         }
     });
-    if (modo === 'claro') {
-        document.getElementById('theme').href = 'lightMode.css';
-    }
-    else {
-        document.getElementById('theme').href = 'main_page.css';
-    }
+    //if (modo === 'claro') {
+    //    document.getElementById('theme').href = 'lightMode.css';
+    //}
+    //if (modo==='oscuro') {
+    //    document.getElementById('theme').href = 'main_page.css';
+    //}
 }
 
