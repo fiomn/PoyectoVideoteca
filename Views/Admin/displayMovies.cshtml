@@ -81,7 +81,7 @@
                     @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
                 </td>
                 <td>
-                    <select onchange="redirectToView(this)">
+                    <select id="selectCRUD" onchange="redirectToView(this)">
                         <option value="" selected>Select an option</option>
                         <option value="@Url.Action("editMovies", new { title = item.TITLE })">Edit</option>
                         <option value="@Url.Action("detailsMovies", new { title = item.TITLE })">Details</option>
