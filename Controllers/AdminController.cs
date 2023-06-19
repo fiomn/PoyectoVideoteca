@@ -92,6 +92,27 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsMovies", movieAndComments);
         }
 
+        public ActionResult detailsSeries(string TITLE, int? page)
+        {
+            tb_SERIE.currentSerie = TITLE;
+
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            string mode = getMode();
+            ViewBag.Mode = mode;
+
+            return View("detailsSeries", serieAndComments);
+        }
+
+
+
         //************************** USERS MANAGEMENT *****************************************
         public ActionResult Display()
         {
@@ -124,7 +145,7 @@ namespace ProyectoVideoteca.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = new Message { text = "It was an error", type = Types.danger.ToString()};
+                ViewBag.Message = new Message { text = "It was an error", type = Types.danger.ToString() };
                 return View();
             }
         }
@@ -491,14 +512,6 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View();
             }
-        }
-
-        public ActionResult detailsSeries(string title)
-        {
-            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", title)).ToList().FirstOrDefault();
-            string mode = getMode();
-            ViewBag.Mode = mode;
-            return View(serie);
         }
 
         public ActionResult editSeries(string title)
