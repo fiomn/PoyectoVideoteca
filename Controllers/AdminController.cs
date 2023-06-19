@@ -32,6 +32,8 @@ namespace ProyectoVideoteca.Controllers
         //**********************************MOVIES AND SERIES*********************************
         public ActionResult AdminMain()
         {
+            Random random = new Random();
+
             var movies = new List<tb_MOVIE>();
 
             movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
@@ -39,7 +41,9 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
             string mode = getMode();
             ViewBag.Mode = mode;
 
@@ -56,6 +60,7 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult DisplaySeriesAdmin()
         {
+            Random random = new Random();
 
             var series = new List<tb_SERIE>();
 
@@ -63,6 +68,8 @@ namespace ProyectoVideoteca.Controllers
 
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
 
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
             string mode = getMode();

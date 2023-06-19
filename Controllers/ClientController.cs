@@ -62,6 +62,7 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult DisplaySeries()
         {
+            Random random = new Random();
 
             var series = new List<tb_SERIE>();
 
@@ -69,6 +70,8 @@ namespace ProyectoVideoteca.Controllers
 
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
 
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
 

@@ -29,64 +29,71 @@
             <img src="@Model.movie.IMG" alt="Movie Image">
         </div>
         <div class="movie-details__content">
-            <h1 class="movie-details__title">@Model.movie.TITLE</h1>
+            <div class="movie-details__video-info">
+                <iframe src=@Model.movie.VIDEO frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
             <div class="movie-details__info">
-                <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
-                <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
-                <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
-                <p><strong>Classification: </strong>@Model.movie.CLASS</p>
-                <p><strong>Duration: </strong>@Model.movie.DURATION</p>
-                <p><strong>Release Date: </strong>@Model.movie.RELEASE_DATE</p>
-                <p><strong>IMDb Score: </strong>@Model.movie.SCORE/10</p>
-                <p><strong>QSTREAM Score: </strong>@Model.movie.QSTREAM_SCORE/10</p>
+                <h1 class="movie-details__title">@Model.movie.TITLE</h1>
+                <div class="movie-details__info">
+                    <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
+                    <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
+                    <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
+                    <p><strong>Classification: </strong>@Model.movie.CLASS</p>
+                    <p><strong>Duration: </strong>@Model.movie.DURATION</p>
+                    <p><strong>Release Date: </strong>@Model.movie.RELEASE_DATE</p>
+                    <p><strong>IMDb Score: </strong>@Model.movie.SCORE/10</p>
+                    <p><strong>QSTREAM Score: </strong>@Model.movie.QSTREAM_SCORE/10</p>
+                </div>
             </div>
-
-              @if (Model.comments.Count != 0)
-            {
-                <!-- Comment Section -->
-                <div class="all-comment-section">
-                    <h1 class="movie-details__title">Comment Section</h1>
-                    <!-- ALL COMMENTS -->
-                    <div class="comment-section">
-                        <!-- Mostrar los comentarios de la página actual -->
-                        @for (int i = (Model.currentPage - 1) * 3; i < Math.Min(Model.currentPage * 3, Model.comments.Count); i++)
-                        {
-                            var comment = Model.comments[i];
-                            <div class="commentInList">
-                                <div class="comment-section">
-                                    <label>Username:</label>
-                                    <label>@comment.USERNAME</label>
-                                </div>
-                                <div class="comment-section">
-                                    <label>Comment:</label>
-                                    <label>@comment.COMMENT</label>
-                                </div>
-                                <div class="comment-section">
-                                    <label>Score:</label>
-                                    <label>@comment.RATING</label>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
-                    <!-- Controles de paginación -->
-                    <div id="pagination">
-                        @if (Model.totalPages <= 1)
-                        {
-                            // Solo hay 1 página, no se muestra la paginación
-                        }
-                        else
-                        {
-                            @for (int i = 1; i <= Model.totalPages; i++)
-                            {
-                                <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
-                            }
-                        }
-                    </div>
-            </div>
-            }
         </div>
     </div>
+
+
+        @if (Model.comments.Count != 0)
+        {
+            <!-- Comment Section -->
+            <div class="all-comment-section">
+                <h1 class="movie-details__title">Comment Section</h1>
+                <!-- ALL COMMENTS -->
+                <div class="comment-section">
+                    <!-- Mostrar los comentarios de la página actual -->
+                    @for (int i = (Model.currentPage - 1) * 3; i < Math.Min(Model.currentPage * 3, Model.comments.Count); i++)
+                    {
+                        var comment = Model.comments[i];
+                        <div class="commentInList">
+                            <div class="comment-section">
+                                <label>Username:</label>
+                                <label>@comment.USERNAME</label>
+                            </div>
+                            <div class="comment-section">
+                                <label>Comment:</label>
+                                <label>@comment.COMMENT</label>
+                            </div>
+                            <div class="comment-section">
+                                <label>Score:</label>
+                                <label>@comment.RATING</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Controles de paginación -->
+                <div id="pagination">
+                    @if (Model.totalPages <= 1)
+                    {
+                        // Solo hay 1 página, no se muestra la paginación
+                    }
+                    else
+                    {
+                        @for (int i = 1; i <= Model.totalPages; i++)
+                        {
+                            <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
+                        }
+                    }
+                </div>
+            </div>
+        }
+
 
     <div class="details-button">
 
