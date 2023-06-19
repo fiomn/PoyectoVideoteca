@@ -55,7 +55,7 @@
             {
                 <div class="movie">
                     <div class="video-thumbnail">
-                        <a asp-controller="client" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg" style="width:200px; height:200px;"></a>
+                        <a asp-controller="client" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg" style="width:200px; height:300px;"></a>
                     </div>
                 </div>
             }
@@ -99,7 +99,37 @@
     </div>
 
     @section Scripts {
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Obtén los elementos de los carouseles
+                var carousels = $('.myCarousel');
+
+                // Ordena los carouseles aleatoriamente
+                var shuffledCarousels = _.shuffle(carousels);
+
+                // Recorre los carouseles y configura el carousel slick en cada uno
+                $.each(shuffledCarousels, function (index, carousel) {
+                    $(carousel).find('.galery').slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 300,
+                        slidesToShow: 1,
+                        centerMode: true,
+                        variableWidth: true
+                    });
+                });
+            });
+        </script>
+
+
+        @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -112,9 +142,11 @@
                     variableWidth: true
                 });
             });
-        </script>
+        </script>*@
     }
 
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+*@
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <script src="~/js/main_page.js"></script>
 </body>

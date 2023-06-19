@@ -91,6 +91,24 @@ namespace ProyectoVideoteca.Controllers
             string mode = getMode();
             ViewBag.Mode = mode;
 
+            // Randomizar los carouseles
+            var randomGenres = db.tb_GENRE.OrderBy(x => Guid.NewGuid()).ToList();
+
+            foreach (var genre in randomGenres)
+            {
+                var movies = db.tb_MOVIE
+                    .FromSqlRaw(@"exec GetMoviesByGenre @Genre", new SqlParameter("@Genre", genre.GENRE_NAME))
+                    .ToList();
+
+                // Agrega las películas y el género directamente en el objeto movieAndComments
+                //movieAndComments.movie.Add(movies);
+                //movieAndComments.genre.Add(genre);
+
+                movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
+            }
+
+            //return View("detailsMovies", movieAndComments);
+
             return View("detailsMovies", movieAndComments);
         }
 
