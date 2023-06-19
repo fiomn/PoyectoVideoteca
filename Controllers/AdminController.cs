@@ -111,6 +111,29 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsSeries", serieAndComments);
         }
 
+        public ActionResult getSeasonSerie(string selectedSeason, int? page)
+        {
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var season = db.tb_SEASON.FromSqlRaw(@"exec GetSerieSeasons @TITLE, @NUMBER",
+                new SqlParameter("@TITLE", serie.TITLE),
+                new SqlParameter("@NUMBER", int.Parse(selectedSeason))).ToList().FirstOrDefault();
+
+            var episodes = db.tb_EPISODE.FromSqlRaw(@"exec GetEpisodesSeason @SEASON_ID", new SqlParameter("@SEASON_ID", season.SEASON_ID)).ToList();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
+            string mode = getMode();
+            ViewBag.Mode = mode;
+
+            return View("detailsSeries", serieAndComments);
+        }
+
 
 
         //************************** USERS MANAGEMENT *****************************************
