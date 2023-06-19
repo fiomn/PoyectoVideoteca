@@ -60,7 +60,7 @@ body {
 .movie-details__poster,
 .episode-details__poster {
     flex: 0 0 200px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 
@@ -82,9 +82,9 @@ body {
 }
 
     .movie-details__video-info iframe {
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
+        width: 650px;
+        height: 295px;
+        margin-bottom: 40px;
     }
 
 

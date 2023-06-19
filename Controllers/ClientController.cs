@@ -56,7 +56,7 @@ namespace ProyectoVideoteca.Controllers
         {
             //get color mode from BD
             var mode = new tb_GLOBALSETTING();
-            mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
+            //mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
             return mode.mode;
         }
 
@@ -73,7 +73,7 @@ namespace ProyectoVideoteca.Controllers
 
             List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
 
-            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, randomGenres);
 
             //Mode Visual Types
             string mode = getMode();

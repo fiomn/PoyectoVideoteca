@@ -52,7 +52,7 @@ body {
 .movie-details__poster,
 .episode-details__poster {
     flex: 0 0 200px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
     .movie-details__poster img,
@@ -74,7 +74,7 @@ body {
 
     .movie-details__video-info iframe {
         width: 650px;
-        height: 300px;
+        height: 295px;
         margin-bottom: 40px;
     }
 

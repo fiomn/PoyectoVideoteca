@@ -71,7 +71,7 @@ namespace ProyectoVideoteca.Controllers
 
             List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
 
-            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, randomGenres);
             string mode = getMode();
             ViewBag.Mode = mode;
 
