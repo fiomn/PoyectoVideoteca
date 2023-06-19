@@ -27,15 +27,19 @@
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
-        <div class="containerB">
-            <input type="text" placeholder="Search">
-            <div class="btn">
-                <i class="fa fa-search"></i>
-            </div>
-        </div>
     </header>
 
+    <div class="searchNG">
+        <input class="inp" id="inputSerie" placeholder="Search serie">
+        <button id="btnSerie"><i class="fas fa-search"></i></button>
+    </div>
+
     <main>
+
+        <!-- Carousel Result -->
+        <div class="carousel-container" id="carRe">
+        </div>
+
         <!-- Carousels -->
         @foreach (var genre in Model.genres)
         {

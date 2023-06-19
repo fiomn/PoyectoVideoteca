@@ -14,20 +14,25 @@ a {
 }
 
 body {
+    background: var(--background);
     font-family: 'Open Sans', sans-serif;
-    background: #ebeff5;
 }
 
-    body .header nav a {
-        color: green;
-        text-decoration: none;
-        margin-right: 20px;
+    body.active {
+        font-family: 'Open Sans', sans-serif;
+        background: #ebeff5;
     }
 
-    body .title-controls-container h3 {
-        color: black;
-        font-size: 30px;
-    }
+        body.active header nav a {
+            color: black;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        body.active .title-controls-container h3 {
+            color: white;
+            font-size: 30px;
+        }
 
 #toggle {
     position: relative;
@@ -81,17 +86,37 @@ body {
         border-radius: 8px;
     }
 
-        .searchNG #inputSearch::placeholder {
-            color: firebrick;
-        }
+    .searchNG #inputSerie {
+        margin: 5px;
+        border: none;
+        background-color: floralwhite;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 4px rgba(255,255,255,1), inset 0 -4px 4px rgba(255,255,255,1);
+        padding: 5px 17px;
+        border-radius: 8px;
+    }
+
+    .searchNG #inputSearch::placeholder {
+        color: firebrick;
+    }
+
+    .searchNG #inputSerie::placeholder {
+        color: firebrick;
+    }
 
     .searchNG #btnSearch {
         border: none;
-        color: firebrick;
+        color: white;
         font-size: 28px;
         padding: 5px 10px;
     }
 
+    .searchNG #btnSerie {
+        border: none;
+        color: white;
+        font-size: 28px;
+        padding: 5px 10px;
+    }
 
 .inp {
     width: 30%;
@@ -114,7 +139,7 @@ header {
     }
 
     header .logo {
-        font-family: 'Bebas Neue', 'Gill Sans';
+        font-family: 'Bebas Neue', cursive;
         font-weight: normal;
         color: var(--red);
         font-size: 40px;
@@ -168,74 +193,9 @@ header {
     display: none;
 }
 
-.movies-container {
-    margin-bottom: 70px;
+#carSeries {
+    display: none;
 }
-
-    .movies-container .main-container {
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-        .movies-container .main-container .left-arrow,
-        .movies-container .main-container .right-arrow {
-            position: absolute;
-            border: none;
-            background: rgba(0, 0, 0, 0.3);
-            font-size: 40px;
-            height: 50%;
-            top: calc(50% - 25%);
-            line-height: 40px;
-            width: 50px;
-            color: #fff;
-            cursor: pointer;
-            z-index: 500;
-            transition: .2s ease all;
-        }
-
-            .movies-container .main-container .left-arrow:hover,
-            .movies-container .main-container .right-arrow:hover {
-                background: rgba(0, 0, 0, 0.9);
-            }
-
-        .movies-container .main-container .left-arrow {
-            left: 0;
-        }
-
-        .movies-container .main-container .right-arrow {
-            right: 0;
-        }
-
-
-    /* ---- ----- ----- Carousel ----- ----- ----- */
-    .movies-container .carousel-container {
-        width: 100%;
-        padding: 20px 0;
-        overflow: hidden;
-        scroll-behavior: smooth;
-    }
-
-        .movies-container .carousel-container .carousel {
-            display: flex;
-            flex-wrap: nowrap;
-        }
-
-            .movies-container .carousel-container .carousel .movie {
-                min-width: 20%;
-                transition: .3s ease all;
-                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-            }
-
-                .movies-container .carousel-container .carousel .movie.hover {
-                    transform: scale(1.2);
-                    transform-origin: center;
-                }
-
-                .movies-container .carousel-container .carousel .movie img {
-                    width: 100%;
-                    vertical-align: top;
-                }
 
 /* ---- ----- ----- Media Queries ----- ----- ----- */
 @media screen and (max-width: 800px) {

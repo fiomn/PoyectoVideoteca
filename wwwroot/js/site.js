@@ -25,11 +25,10 @@ function previewProfileImage(input) {
     }
 }
 
-//search by name and genre
+//search movie by name and genre
 document.addEventListener("DOMContentLoaded", function () {
     var btnSearch = document.getElementById("btnSearch");
 
-    //search by name and genre
     function search() {
         const inputSearch = $("#inputSearch").val(); //string input
         $.ajax({
@@ -52,17 +51,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });    
 });
 
+//search serie by name and genre
+document.addEventListener("DOMContentLoaded", function () {
+    var btnSearch = document.getElementById("btnSerie");
+
+    function search() {
+        const busSeries = $("#inputSerie").val(); //string input
+        $.ajax({
+            url: "/Client/searchSeries",
+            type: "get",
+            data: { "busSeries": busSeries }, //parameters
+            datatype: 'text',
+            success: function (data) {
+                var dataList = JSON.parse(data);
+                replaceHTML(dataList);
+                showCarousel();
+                slickSlide();
+            }
+        });
+    }
+
+    //call two functions for button btnSearch
+    btnSearch.addEventListener("click", function () {
+        search();
+    });
+});
+
 //show results in carousel
 function showCarousel() {
     document.getElementById('carRe').style.display = 'flex';
 }
 
 function replaceHTML(data) {
-    var carousel = "<div id = 'carRe'>";        
+    var carousel = "<div id='carRe'>";      
     for (movie in data) {
         carousel += "<div class='movie'>" +
             "<div class='video-thumbnail'>" +
-            "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'></a>" +
+            "<a asp-controller='client' asp-action='detailsMovies' asp-route-TITLE='" + data[movie].TITLE + "'><img src=" + data[movie].IMG + " class='carouselImg'  style='width: 230px; height: 300px;'></a>" +
             "</div>" +
             "</div>";
     }
@@ -72,6 +97,7 @@ function replaceHTML(data) {
     $("#carRe").replaceWith(carousel);;
     
 }
+
 
 $(document).ready(function () {
     slickSlide();  //generate carousel
