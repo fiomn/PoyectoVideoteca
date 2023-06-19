@@ -10,6 +10,7 @@ using ProyectoVideoteca.Models.Domain;
 using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using QuestPDF.Helpers;
+using System;
 using System.Diagnostics;
 using static QuestPDF.Helpers.Colors;
 
@@ -32,6 +33,8 @@ namespace ProyectoVideoteca.Controllers
         //*************************** SERIES AND MOVIES *********************************
         public ActionResult ClientMain()
         {
+            Random random = new Random();
+
             var movies = new List<tb_MOVIE>();
 
             movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
@@ -39,7 +42,9 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
             MoviesList.list = movies;
             string mode = getMode();
             ViewBag.Mode = mode;
@@ -66,6 +71,8 @@ namespace ProyectoVideoteca.Controllers
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+
+            //Mode Visual Types
             string mode = getMode();
             ViewBag.Mode = mode;
 
@@ -138,6 +145,29 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            string mode = getMode();
+            ViewBag.Mode = mode;
+
+            return View("detailsSerie", serieAndComments);
+        }
+
+        public ActionResult getSeasonSerie(string selectedSeason, int? page)
+        {
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var season = db.tb_SEASON.FromSqlRaw(@"exec GetSerieSeasons @TITLE, @NUMBER",
+                new SqlParameter("@TITLE", serie.TITLE),
+                new SqlParameter("@NUMBER", int.Parse(selectedSeason))).ToList().FirstOrDefault();
+
+            var episodes = db.tb_EPISODE.FromSqlRaw(@"exec GetEpisodesSeason @SEASON_ID", new SqlParameter("@SEASON_ID", season.SEASON_ID)).ToList();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
             string mode = getMode();
             ViewBag.Mode = mode;
 

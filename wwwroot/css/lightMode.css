@@ -154,6 +154,18 @@ header {
         }
 
 
+/*    Carousel Slick Slide Properties    */
+
+.slick-dots li button:before {
+    color: black;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: red;
+}
+
 
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
 

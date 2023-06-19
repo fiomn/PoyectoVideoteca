@@ -14,22 +14,54 @@ body {
         background: #ebeff5;
     }
 
-.movie-details {
+#season {
+    background-color: #b3b3b3;
+    font-size: 18px;
+    border: none;
+    color: black;
+    padding: 1px 4px;
+    margin-left: 5px;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.season-submit {
+    background-color: #b3b3b3;
+    font-size: 18px;
+    border: none;
+    color: black;
+    padding: 1px 10px;
+    margin-left: 8px;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.movie-details,
+.episode-details {
     display: flex;
     margin: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.movie-details__poster {
+.movie-details__poster,
+.episode-details__poster {
     flex: 0 0 200px;
     margin-right: 20px;
 }
 
-    .movie-details__poster img {
+    .movie-details__poster img,
+    .episode-details__poster img {
         width: 100%;
     }
 
-.movie-details__content {
+.movie-details__content,
+.episode-details__content {
     flex: 1;
     padding: 20px;
     color: black;
@@ -41,7 +73,8 @@ body {
     color: black;
 }
 
-.movie-details__info p {
+.movie-details__info p,
+.episode-details__info p {
     margin-bottom: 10px;
     color: black;
 }
@@ -116,8 +149,10 @@ body {
     line-height: 0px; /* Centrar verticalmente el texto */
 }
 
-    .pop-button:hover,
-    .go-back-button:hover {
+    .pop-up-button:hover,
+    .go-back-button:hover,
+    .season-submit:hover,
+    #season:hover {
         background-color: #595959;
     }
 
