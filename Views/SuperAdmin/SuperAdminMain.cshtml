@@ -41,6 +41,7 @@
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
+
         <div id="toggle">
             <i class="indicator"></i>
         </div>
@@ -50,19 +51,7 @@
         <button id="btnSearch"><i class="fas fa-search"></i></button>
     </div>
     <!-- Carousel Results -->
-    <div class="d-felx flex-column justify-content-center align-items-center text-center">
-        <div id="carRe">
-            @foreach (var movie in Model.movies)
-            {
-                <div class="movie">
-                    <div class="video-thumbnail">
-                        <a asp-controller="SuperAdmin" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg" style="width:200px; height:300px;"></a>
-                    </div>
-                </div>
-
-            }
-        </div>
-    </div>
+    <div class="carousel-container" id="carRe"></div>
 
     <!--Aquí inicia la carga de cada carousel-->
     <div class="myCarousel">

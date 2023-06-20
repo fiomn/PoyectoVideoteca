@@ -46,18 +46,19 @@ namespace ProyectoVideoteca.Controllers
 
             tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
             MoviesList.list = movies;
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return View(moviesAndGenres);
         }
 
-        public string getMode()
+        public tb_GLOBALSETTING getMode()
         {
             //get color mode from BD
             var mode = new tb_GLOBALSETTING();
             mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
-            return mode.mode;
+            return mode;
         }
 
         public ActionResult DisplaySeries()
@@ -73,9 +74,9 @@ namespace ProyectoVideoteca.Controllers
             tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
 
             //Mode Visual Types
-            string mode = getMode();
-            ViewBag.Mode = mode;
-
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(seriesAndGenres);
         }
 
@@ -95,8 +96,9 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return View("detailsMovies", movieAndComments);
         }
@@ -124,8 +126,9 @@ namespace ProyectoVideoteca.Controllers
                 new SqlParameter("@Rating", scoreF));
 
             db.SaveChanges();
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return RedirectToAction("detailsMovies", "Client", new { TITLE = tb_MOVIE.currentMovie });
 
@@ -145,8 +148,9 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return View("detailsSerie", serieAndComments);
         }
@@ -168,8 +172,9 @@ namespace ProyectoVideoteca.Controllers
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
             tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return View("detailsSerie", serieAndComments);
         }
@@ -190,8 +195,9 @@ namespace ProyectoVideoteca.Controllers
                 new SqlParameter("@Rating", scoreF));
 
             db.SaveChanges();
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return RedirectToAction("detailsSerie", "Client", new { TITLE = tb_SERIE.currentSerie });
 
@@ -258,14 +264,16 @@ namespace ProyectoVideoteca.Controllers
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 ManagementUsers.users = userByName;
-                string mode = getMode();
-                ViewBag.Mode = mode;
+                tb_GLOBALSETTING mode = getMode();
+                ViewBag.Mode = mode.mode;
+                ViewBag.ModeBtn = mode.modeBtn;
                 return View(userByName);
             }
             catch (Exception ex)
             {
-                string mode = getMode();
-                ViewBag.Mode = mode;
+                tb_GLOBALSETTING mode = getMode();
+                ViewBag.Mode = mode.mode;
+                ViewBag.ModeBtn = mode.modeBtn;
                 return View();
             }
         }
@@ -273,8 +281,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult edit(string userName)
         {
             var user = db.tb_USER.Find(userName);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(user);
         }
 
@@ -358,8 +367,9 @@ namespace ProyectoVideoteca.Controllers
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 

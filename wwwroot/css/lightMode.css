@@ -18,6 +18,11 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+    body.active {
+        background: #ebeff5;
+        font-family: 'Open Sans', sans-serif;
+    }
+
 #btnReport {
     background: linear-gradient(to bottom, #444, #222);
     border: none;
@@ -104,7 +109,7 @@ body {
 
     .searchNG #btnSerie {
         border: none;
-        color: white;
+        color: firebrick;
         font-size: 28px;
         padding: 5px 10px;
     }
