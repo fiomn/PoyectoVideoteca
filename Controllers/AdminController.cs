@@ -32,6 +32,8 @@ namespace ProyectoVideoteca.Controllers
         //**********************************MOVIES AND SERIES*********************************
         public ActionResult AdminMain()
         {
+            Random random = new Random();
+
             var movies = new List<tb_MOVIE>();
 
             movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
@@ -57,6 +59,7 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult DisplaySeriesAdmin()
         {
+            Random random = new Random();
 
             var series = new List<tb_SERIE>();
 
