@@ -13,17 +13,16 @@ a {
     box-sizing: border-box;
 }
 
-body {
+/*body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
-    color: white;
 }
 
     body.active {
         background: #ebeff5;
         font-family: 'Open Sans', sans-serif;
         
-    }
+    }*/
 
 #btnReport {
     background: linear-gradient(to bottom, #444, #222);
@@ -156,7 +155,7 @@ header {
         text-decoration: none;
     }
 
-    header nav a {
+     header nav a {
         color: black;
         text-decoration: none;
         margin-right: 20px;
