@@ -30,36 +30,77 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
+    @if (User.IsInRole("user"))
+    {
+        <header>
+            <div class="container">
             <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
             <nav>
                 <a asp-controller="client" asp-action="ClientMain">Movies</a>
                 <a asp-controller="client" asp-action="displaySeries">Series</a>
+                <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
                 <a asp-controller="client" asp-action="editProfile">Profile</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
-    </header>
+        </header>
 
-    <div class="searchNG">
-        <input class="inp" id="inputSearch" placeholder="Search movie">
-        <button id="btnSearch"><i class="fas fa-search"></i></button>
-    </div>
+        <div class="searchNG">
+            <input class="inp" id="inputSearch" placeholder="Search movie">
+            <button id="btnSearch"><i class="fas fa-search"></i></button>
+        </div>
 
+    }else if (User.IsInRole("admin"))
+    {
+        <header>
+            <div class="container">
+                <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
+                <nav>
+                    <a asp-controller="Admin" asp-action="Display">User Management</a>
+                    <a asp-controller="Admin" asp-action="DisplayMovies">Movies Management</a>
+                    <a asp-controller="Admin" asp-action="DisplaySeries">Series Management</a>
+                    <a asp-controller="client" asp-action="displaySeries">Series</a>
+                    <a asp-controller="Admin" asp-action="editProfile">Profile</a>
+                    <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="searchNG">
+            <input class="inp" id="inputSearch" placeholder="Search movie">
+            <button id="btnSearch"><i class="fas fa-search"></i></button>
+        </div>
+    }
+    else //superAdmin
+    {
+        <header>
+            <div class="container">
+                <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
+                <nav>
+                    <a asp-controller="SuperAdmin" asp-action="Display">User Management</a>
+                    <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>
+                    <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
+                </nav>
+            </div>
+
+            <div id="toggle">
+                <i class="indicator"></i>
+            </div>
+        </header>
+    }
+
+    @if (!User.IsInRole("superAdmin"))
+    {
 
     <!-- Carousel Result -->
     <div class="carousel-container" id="carRe"></div>
 
-    <!--Aquí inicia la carga de cada carousel-->
     <div class="myCarousel">
-        <!-- Contenido del carousel aquí -->
+        <!-- Carousel Content -->
         <div class="slick-carousel">
 
             @foreach (var genre in Model.genres)
             {
-                
-
                 <div class="movies-container">
                     <div class="title-controls-container">
                         <h3>@genre.GENRE_NAME</h3>
@@ -88,6 +129,8 @@
             }
         </div>
     </div>
+
+    }
 
     @section Scripts {
 

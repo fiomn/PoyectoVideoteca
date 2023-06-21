@@ -184,12 +184,30 @@ header {
     color: red;
 }
 
+.carousel-container {
+    padding: 50px;
+    padding-top: 50px;
+}
 
+.main-container {
+    padding: 50px;
+    padding-top: 50px;
+}
 
+.movies-container {
+    padding: 50px;
+    padding-top: 50px;
+}
 
+.movie {
+    padding: 50px;
+    padding-top: 50px;
+}
+
+/*carousel-container*/
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
-
 .title-controls-container {
+    padding: 50px 50px 50px 50px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

@@ -51,53 +51,54 @@
 
         @if (Model.comments.Count != 0)
         {
-            <!-- Comment Section -->
-            <div class="all-comment-section">
-                <h1 class="movie-details__title">Comment Section</h1>
-                <!-- ALL COMMENTS -->
-                <div class="comment-section">
-                    <!-- Mostrar los comentarios de la página actual -->
-                    @for (int i = (Model.currentPage - 1) * 3; i < Math.Min(Model.currentPage * 3, Model.comments.Count); i++)
-                    {
-                        var comment = Model.comments[i];
-                        <div class="commentInList">
-                            <div class="comment-section">
-                                <label>Username:</label>
-                                <label>@comment.USERNAME</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Comment:</label>
-                                <label>@comment.COMMENT</label>
-                            </div>
-                            <div class="comment-section">
-                                <label>Score:</label>
-                                <label>@comment.RATING</label>
-                            </div>
+        <!-- Comment Section -->
+        <div class="all-comment-section">
+            <h1 class="movie-details__title">Comment Section</h1>
+            <!-- ALL COMMENTS -->
+            <div class="comment-section">
+                <!-- Mostrar los comentarios de la página actual -->
+                @for (int i = (Model.currentPage - 1) * Model.itemsPerPage; i < Math.Min(Model.currentPage * Model.itemsPerPage, Model.comments.Count); i++)
+                {
+                    var comment = Model.comments[i];
+                    <div class="commentInList">
+                        <div class="comment-section">
+                            <label>Username:</label>
+                            <label>@comment.USERNAME</label>
                         </div>
-                    }
-                </div>
-
-                <!-- Controles de paginación -->
-                <div id="pagination">
-                    @if (Model.totalPages <= 1)
-                    {
-                        // Solo hay 1 página, no se muestra la paginación
-                    }
-                    else
-                    {
-                        @for (int i = 1; i <= Model.totalPages; i++)
-                        {
-                            <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
-                        }
-                    }
-                </div>
+                        <div class="comment-section">
+                            <label>Comment:</label>
+                            <label>@comment.COMMENT</label>
+                        </div>
+                        <div class="comment-section">
+                            <label>Score:</label>
+                            <label>@comment.RATING</label>
+                        </div>
+                    </div>
+                }
             </div>
+
+            <!-- Controles de paginación -->
+            <div id="pagination">
+                @if (Model.totalPages > 1)
+                {
+                    @for (int i = 1; i <= Model.totalPages; i++)
+                    {
+                        <a href="@Url.Action("detailsMovies", "Client", new { TITLE = Model.movie.TITLE, page = i })">@i</a>
+                    }
+                }
+            </div>
+        </div>
+
         }
 
 
     <div class="details-button">
 
+        @if (User.IsInRole("user")) //Only users can comment
+        { 
+
         <button id="pop-up-button" class="pop-up-button"><br>Add Comment</button>
+        }
         <form action="@Url.Action("ClientMain", "Client")" method="GET">
             <button type="submit" class="go-back-button">
                 Go Back
