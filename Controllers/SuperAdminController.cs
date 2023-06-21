@@ -40,21 +40,105 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
-
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
 
             return View(moviesAndGenres);
         }
 
-        public string getMode()
+        public tb_GLOBALSETTING getMode()
         {
             //get color mode from BD
             var mode = new tb_GLOBALSETTING();
-            //mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
-            return mode.mode;
+            mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
+            return mode;
+        }
+
+
+        public ActionResult DisplaySeriesSuperAdmin()
+        {
+            Random random = new Random();
+
+            var series = new List<tb_SERIE>();
+
+            series = db.tb_SERIE.FromSqlRaw(@"exec dbo.GetSeries").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+            return View(seriesAndGenres);
+        }
+
+        public ActionResult detailsMovies(string TITLE, int? page)
+        {
+            tb_MOVIE.currentMovie = TITLE;
+
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+
+            return View("detailsMovies", movieAndComments);
+        }
+
+        public ActionResult detailsSeries(string TITLE, int? page)
+        {
+            tb_SERIE.currentSerie = TITLE;
+
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+            return View("detailsSeries", serieAndComments);
+        }
+
+        public ActionResult getSeasonSerie(string selectedSeason, int? page)
+        {
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
+
+            var season = db.tb_SEASON.FromSqlRaw(@"exec GetSerieSeasons @TITLE, @NUMBER",
+                new SqlParameter("@TITLE", serie.TITLE),
+                new SqlParameter("@NUMBER", int.Parse(selectedSeason))).ToList().FirstOrDefault();
+
+            var episodes = db.tb_EPISODE.FromSqlRaw(@"exec GetEpisodesSeason @SEASON_ID", new SqlParameter("@SEASON_ID", season.SEASON_ID)).ToList();
+
+            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
+
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+            return View("detailsSeries", serieAndComments);
         }
 
         //*********************************USERS***********************************
@@ -63,16 +147,18 @@ namespace ProyectoVideoteca.Controllers
         {
             var userList = new List<tb_USER>();
             userList = db.tb_USER.FromSqlRaw("exec dbo.GetAdmins").ToList();
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(userList);
         }
 
         //GET
         public ActionResult Create()
         {
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
@@ -97,8 +183,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult Edit(string userName)
         {
             var user = db.tb_USER.Find(userName);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(user);
         }
 
@@ -121,8 +208,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult Details(string userName)
         {
             var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(user);
         }
 
@@ -130,8 +218,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult Delete(string userName)
         {
             var person = db.tb_USER.Find(userName);
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(person);
         }
 
@@ -229,8 +318,9 @@ namespace ProyectoVideoteca.Controllers
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 ManagementUsers.users = userByName;
-                string mode = getMode();
-                ViewBag.Mode = mode;
+                tb_GLOBALSETTING mode = getMode();
+                ViewBag.Mode = mode.mode;
+                ViewBag.ModeBtn = mode.modeBtn;
                 return View(userByName);
             }
             catch (Exception ex)
@@ -305,18 +395,20 @@ namespace ProyectoVideoteca.Controllers
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
-            string mode = getMode();
-            ViewBag.Mode = mode;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
         //**************** GLOBAL SETTINGS *******************
-        public void saveMode(string mode)
+        public void saveMode(string mode, string modeBtn)
         {
             var setting = new tb_GLOBALSETTING();
             if (mode != null)
             {
                 setting.mode = mode;
+                setting.modeBtn = modeBtn;
                 db.tb_GLOBALSETTING.Add(setting);
                 db.SaveChanges();
             }
