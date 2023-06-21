@@ -51,14 +51,15 @@
 
         @if (Model.comments.Count != 0)
         {
-            <!-- Comment Section -->
-            <div class="all-comment-section">
-                <h1 class="movie-details__title">Comment Section</h1>
-                <!-- ALL COMMENTS -->
-                <div class="comment-section">
+        <!-- Comment Section -->
+        <div class="all-comment-section">
+            <h1 class="movie-details__title">Comment Section</h1>
+            <!-- ALL COMMENTS -->
+            <div class="comment-section">
                 <!-- Mostrar los comentarios de la página actual -->
-                @foreach (var comment in Model.comments)
+                @for (int i = (Model.currentPage - 1) * Model.itemsPerPage; i < Math.Min(Model.currentPage * Model.itemsPerPage, Model.comments.Count); i++)
                 {
+                    var comment = Model.comments[i];
                     <div class="commentInList">
                         <div class="comment-section">
                             <label>Username:</label>
@@ -74,8 +75,7 @@
                         </div>
                     </div>
                 }
-
-                </div>
+            </div>
 
             <!-- Controles de paginación -->
             <div id="pagination">
@@ -87,14 +87,18 @@
                     }
                 }
             </div>
+        </div>
 
-            </div>
         }
 
 
     <div class="details-button">
 
+        @if (User.IsInRole("user")) //Only users can comment
+        { 
+
         <button id="pop-up-button" class="pop-up-button"><br>Add Comment</button>
+        }
         <form action="@Url.Action("ClientMain", "Client")" method="GET">
             <button type="submit" class="go-back-button">
                 Go Back

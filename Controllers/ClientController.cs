@@ -98,7 +98,7 @@ namespace ProyectoVideoteca.Controllers
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
@@ -157,7 +157,7 @@ namespace ProyectoVideoteca.Controllers
             int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
             var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
 
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
@@ -177,11 +177,17 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+            int itemsPerPage = 10;
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 10);
+            totalPages = Math.Max(totalPages, 1); // Asegura que haya al menos 1 página
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
+            var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
