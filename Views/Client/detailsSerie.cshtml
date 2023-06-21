@@ -127,7 +127,10 @@
 
     <div class="details-button">
 
-        <button id="pop-up-button" class="pop-up-button">Add Comment</button>
+        @if (User.IsInRole("user")) //Only users can comment
+        { 
+            <button id="pop-up-button" class="pop-up-button">Add Comment</button>
+        }
         <form action="@Url.Action("DisplaySeries", "Client")" method="GET">
             <button type="submit" class="go-back-button">
                 Go Back

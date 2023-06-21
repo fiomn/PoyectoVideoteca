@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ProyectoVideoteca.Models.tb_MOVIE>
 
 @{
-    ViewData["Title"] = "displayMovies";
+    ViewData["Title"] = "Movies";
 }
 
 <head>
@@ -19,76 +19,66 @@
 
 <h1>Movies</h1>
 
-<p>
-    <a asp-action="createMovies">Create Movie</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TITLE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SYNOPSIS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CLASS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RELEASE_DATE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SCORE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GENRE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ACTOR_NAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<body>
+    <p>
+        <a asp-action="createMovies">Create Movie</a>
+    </p>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TITLE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SYNOPSIS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CLASS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RELEASE_DATE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SCORE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GENRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ACTOR_NAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
-                </td>
-                <td>
-                    <select id="selectCRUD" onchange="redirectToView(this)">
-                        <option value="" selected>Select an option</option>
-                        <option value="@Url.Action("editMovies", new { title = item.TITLE })">Edit</option>
-                        <option value="@Url.Action("detailsMovies", new { title = item.TITLE })">Details</option>
-                        <option value="@Url.Action("deleteMovies", new { title = item.TITLE })">Delete</option>
-                    </select>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.TITLE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SYNOPSIS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RELEASE_DATE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GENRE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ACTOR_NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TITLE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SYNOPSIS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RELEASE_DATE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GENRE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ACTOR_NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
+                    </td>
+                    <td>
+                        <select id="selectCRUD" onchange="redirectToView(this)">
+                            <option value="" selected>Select an option</option>
+                            <option value="@Url.Action("editMovies", new { title = item.TITLE })">Edit</option>
+                            <option value="@Url.Action("detailsMovies", new { title = item.TITLE })">Details</option>
+                            <option value="@Url.Action("deleteMovies", new { title = item.TITLE })">Delete</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

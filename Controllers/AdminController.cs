@@ -41,12 +41,15 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View(moviesAndGenres);
+            return RedirectToAction("ClientMain", "Client", moviesAndGenres);
+
         }
 
         public tb_GLOBALSETTING getMode()
@@ -68,12 +71,17 @@ namespace ProyectoVideoteca.Controllers
             var genres = new List<tb_GENRE>();
             genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, randomGenres);
+
+            //Mode Visual Types
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View(seriesAndGenres);
+
+            return RedirectToAction("DisplaySeries", "Client", seriesAndGenres);
         }
 
         //When User clicks a movie
@@ -85,17 +93,23 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+            int itemsPerPage = 10;
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 10);
+            totalPages = Math.Max(totalPages, 1); // Asegura que haya al menos 1 página
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
+            var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
+
+            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
 
-            return View("detailsMovies", movieAndComments);
+            return RedirectToAction("detailsMovies", "Client", movieAndComments);
         }
 
         public ActionResult detailsSeries(string TITLE, int? page)
@@ -106,16 +120,23 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+
+            int itemsPerPage = 10;
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 10);
+            totalPages = Math.Max(totalPages, 1); // Asegura que haya al menos 1 página
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
+            var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View("detailsSeries", serieAndComments);
+            return RedirectToAction("detailsSerie", "Client", serieAndComments);
         }
 
         public ActionResult getSeasonSerie(string selectedSeason, int? page)
@@ -130,16 +151,22 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+            int itemsPerPage = 10;
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 10);
+            totalPages = Math.Max(totalPages, 1); // Asegura que haya al menos 1 página
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
 
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
+            var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
+
+            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, itemsPerPage, totalPages, currentPage);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View("detailsSeries", serieAndComments);
+            return RedirectToAction("detailsSerie", "Client", serieAndComments);
         }
 
 
@@ -367,7 +394,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        [HttpPost] 
+        [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
             // Obtén el usuario actual
@@ -451,14 +478,14 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult createMovies()
         {
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> createMovies(tb_MOVIE movie)
+        public IActionResult createMovies(tb_MOVIE movie)
         {
             try
             {
@@ -475,9 +502,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult editMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View(movie);
         }
 

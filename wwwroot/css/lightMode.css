@@ -14,13 +14,15 @@ a {
 }
 
 body {
-    background: #ebeff5;
+    background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    color: white;
 }
 
     body.active {
         background: #ebeff5;
         font-family: 'Open Sans', sans-serif;
+        
     }
 
 #btnReport {

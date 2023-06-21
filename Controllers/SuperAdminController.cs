@@ -31,21 +31,11 @@ namespace ProyectoVideoteca.Controllers
         //*****************Movies and series**************************
         public ActionResult SuperAdminMain()
         {
-            Random random = new Random();
-
-            var movies = new List<tb_MOVIE>();
-
-            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
-
-            var genres = new List<tb_GENRE>();
-            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
-
-            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, genres);
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View(moviesAndGenres);
+            return RedirectToAction("ClientMain", "Client");
         }
 
         public tb_GLOBALSETTING getMode()
@@ -54,91 +44,6 @@ namespace ProyectoVideoteca.Controllers
             var mode = new tb_GLOBALSETTING();
             mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
             return mode;
-        }
-
-
-        public ActionResult DisplaySeriesSuperAdmin()
-        {
-            Random random = new Random();
-
-            var series = new List<tb_SERIE>();
-
-            series = db.tb_SERIE.FromSqlRaw(@"exec dbo.GetSeries").ToList();
-
-            var genres = new List<tb_GENRE>();
-            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
-
-            tb_SERIESANDGENRES seriesAndGenres = new tb_SERIESANDGENRES(series, genres);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
-
-            return View(seriesAndGenres);
-        }
-
-        public ActionResult detailsMovies(string TITLE, int? page)
-        {
-            tb_MOVIE.currentMovie = TITLE;
-
-            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-
-            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
-
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
-
-            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
-
-            tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
-
-
-            return View("detailsMovies", movieAndComments);
-        }
-
-        public ActionResult detailsSeries(string TITLE, int? page)
-        {
-            tb_SERIE.currentSerie = TITLE;
-
-            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
-
-            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
-
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
-
-            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
-
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, totalPages, currentPage);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
-
-            return View("detailsSeries", serieAndComments);
-        }
-
-        public ActionResult getSeasonSerie(string selectedSeason, int? page)
-        {
-            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", tb_SERIE.currentSerie)).ToList().FirstOrDefault();
-
-            var season = db.tb_SEASON.FromSqlRaw(@"exec GetSerieSeasons @TITLE, @NUMBER",
-                new SqlParameter("@TITLE", serie.TITLE),
-                new SqlParameter("@NUMBER", int.Parse(selectedSeason))).ToList().FirstOrDefault();
-
-            var episodes = db.tb_EPISODE.FromSqlRaw(@"exec GetEpisodesSeason @SEASON_ID", new SqlParameter("@SEASON_ID", season.SEASON_ID)).ToList();
-
-            var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", tb_SERIE.currentSerie)).ToList();
-
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
-
-            int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
-
-            tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, season, episodes, comments, totalPages, currentPage);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
-
-            return View("detailsSeries", serieAndComments);
         }
 
         //*********************************USERS***********************************

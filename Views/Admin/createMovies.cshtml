@@ -1,7 +1,7 @@
 ﻿@model ProyectoVideoteca.Models.tb_MOVIE
 
 @{
-    ViewData["Title"] = "createMovies";
+    ViewData["Title"] = "Create new movie";
 }
 <head>
     @if (ViewBag.Mode == "claro")
@@ -15,79 +15,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
-<h1>Create Movies</h1>
-
-<h4>tb_MOVIE</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="createMovies">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TITLE" class="control-label"></label>
-                <input asp-for="TITLE" class="form-control" />
-                <span asp-validation-for="TITLE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SYNOPSIS" class="control-label"></label>
-                <input asp-for="SYNOPSIS" class="form-control" />
-                <span asp-validation-for="SYNOPSIS" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CLASS" class="control-label"></label>
-                <input asp-for="CLASS" class="form-control" />
-                <span asp-validation-for="CLASS" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RELEASE_DATE" class="control-label"></label>
-                <input asp-for="RELEASE_DATE" class="form-control" />
-                <span asp-validation-for="RELEASE_DATE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IMG" class="control-label"></label>
-                <input asp-for="IMG" class="form-control" />
-                <span asp-validation-for="IMG" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SCORE" class="control-label"></label>
-                <input asp-for="SCORE" class="form-control" />
-                <span asp-validation-for="SCORE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DIRECTOR_NAME" class="control-label"></label>
-                <select asp-for="DIRECTOR_NAME" class="form-control" asp-items="ViewBag.DIRECTOR_NAME"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ACTOR_NAME" class="control-label"></label>
-                <select asp-for="ACTOR_NAME" class="form-control" asp-items="ViewBag.ACTOR_NAME"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="GENRE" class="control-label"></label>
-                <input asp-for="GENRE" class="form-control" />
-                <span asp-validation-for="GENRE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DURATION" class="control-label"></label>
-                <input asp-for="DURATION" class="form-control" />
-                <span asp-validation-for="DURATION" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VIDEO" class="control-label"></label>
-                <input asp-for="VIDEO" class="form-control" />
-                <span asp-validation-for="VIDEO" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<body>
+    <h1>Create a new movie</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="createMovies">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TITLE" class="control-label"></label>
+                    <input asp-for="TITLE" class="form-control" />
+                    <span asp-validation-for="TITLE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SYNOPSIS" class="control-label"></label>
+                    <input asp-for="SYNOPSIS" class="form-control" />
+                    <span asp-validation-for="SYNOPSIS" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CLASS" class="control-label"></label>
+                    <input asp-for="CLASS" class="form-control" />
+                    <span asp-validation-for="CLASS" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RELEASE_DATE" class="control-label"></label>
+                    <input asp-for="RELEASE_DATE" class="form-control" />
+                    <span asp-validation-for="RELEASE_DATE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IMG" class="control-label"></label>
+                    <input asp-for="IMG" class="form-control" />
+                    <span asp-validation-for="IMG" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SCORE" class="control-label"></label>
+                    <input asp-for="SCORE" class="form-control" />
+                    <span asp-validation-for="SCORE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DIRECTOR_NAME" class="control-label"></label>
+                    <input asp-for="DIRECTOR_NAME" class="form-control" />
+                    <span asp-validation-for="DIRECTOR_NAME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ACTOR_NAME" class="control-label"></label>
+                    <input asp-for="ACTOR_NAME" class="form-control" />
+                    <span asp-validation-for="ACTOR_NAME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GENRE" class="control-label"></label>
+                    <input asp-for="GENRE" class="form-control" />
+                    <span asp-validation-for="GENRE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DURATION" class="control-label"></label>
+                    <input asp-for="DURATION" class="form-control" />
+                    <span asp-validation-for="DURATION" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VIDEO" class="control-label"></label>
+                    <input asp-for="VIDEO" class="form-control" />
+                    <span asp-validation-for="VIDEO" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
+</body>
 <div>
     <a asp-action="displayMovies">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
