@@ -87,9 +87,15 @@ namespace ProyectoVideoteca.Controllers
 
             var comments = db.tb_RATING.FromSqlRaw(@"exec GetComments @Title", new SqlParameter("@Title", TITLE)).ToList();
 
-            int totalPages = (int)Math.Ceiling((double)comments.Count / 3);
+            int itemsPerPage = 10;
+            int totalPages = (int)Math.Ceiling((double)comments.Count / 10);
+            totalPages = Math.Max(totalPages, 1); // Asegura que haya al menos 1 página
 
             int currentPage = page ?? 1; // Si no se proporciona el parámetro "page", asume la página 1
+
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.Min(startIndex + itemsPerPage, comments.Count);
+            var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
 
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, totalPages, currentPage);
             string mode = getMode();
