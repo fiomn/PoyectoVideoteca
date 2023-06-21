@@ -14,11 +14,15 @@ a {
     box-sizing: border-box;
 }
 
-body {
+/*body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
     color:red;
 }
+    body.active {
+        background: #ebeff5;
+        font-family: 'Open Sans', sans-serif;
+    }*/
 
 tbody{
     color:white;

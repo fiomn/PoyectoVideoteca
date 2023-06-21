@@ -50,7 +50,7 @@ namespace ProyectoVideoteca.Controllers
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
 
-            return View(moviesAndGenres);
+            return View();
         }
 
         public tb_GLOBALSETTING getMode()

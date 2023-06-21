@@ -451,14 +451,14 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult createMovies()
         {
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> createMovies(tb_MOVIE movie)
+        public IActionResult createMovies(tb_MOVIE movie)
         {
             try
             {
@@ -475,9 +475,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult editMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View(movie);
         }
 
