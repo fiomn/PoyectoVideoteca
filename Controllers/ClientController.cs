@@ -363,6 +363,26 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
+        //****************************** PROFILE USER **************************
+        public async Task<ActionResult> kidsMode()
+        {
+            Random random = new Random();
 
+            var movies = new List<tb_MOVIE>();
+
+            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+
+            List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+
+            tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
+            MoviesList.list = movies;
+            string mode = getMode();
+            ViewBag.Mode = mode;
+
+            return View(moviesAndGenres);
+        }
     }
 }
