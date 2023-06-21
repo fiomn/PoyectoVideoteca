@@ -51,19 +51,7 @@
     </div>
 
     <!-- Carousel Result -->
-    <div class="carousel-container" id="carRe">
-        @*d-felx flex-column justify-content-center align-items-center text-center*@
-        <div class="galery">
-            @foreach (var movie in Model.movies)
-            {
-                <div class="movie">
-                    <div class="video-thumbnail">
-                        <a asp-controller="Admin" asp-action="detailsMovies" asp-route-TITLE="@movie.TITLE"><img src="@movie.IMG" class="carouselImg" style="width:200px; height:300px;"></a>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+    <div class="carousel-container" id="carRe"></div>
 
     <!--Aquí inicia la carga de cada carousel-->
     <div class="myCarousel">
@@ -74,7 +62,6 @@
                 <div class="movies-container">
                     <div class="title-controls-container">
                         <h3>@genre.GENRE_NAME</h3>
-                        <div class="indicators"></div>
                     </div>
                     <div class="main-container">
                         <!-- Movie Carousel -->

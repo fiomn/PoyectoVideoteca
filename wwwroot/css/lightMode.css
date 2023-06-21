@@ -18,6 +18,16 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+    body.active {
+        background: #ebeff5;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+#btnReport {
+    background: linear-gradient(to bottom, #444, #222);
+    border: none;
+    box-shadow: inset 0 8px 60px rgba(0,0,0,0.1), inset 0 8px 8px rgba(0,0,0,0.1), inset 0 -4px 4px red;
+}
 
 #toggle {
     position: relative;
@@ -25,7 +35,7 @@ body {
     width: 56px;
     height: 30px;
     border-radius: 160px;
-    background: #222;
+    background: #fff;
     transition: 0.5s;
     cursor: pointer;
     box-shadow: inset 0 8px 60px rgba(0,0,0,0.1), inset 0 8px 8px rgba(0,0,0,0.1), inset 0 -4px 4px rgba(0,0,0,0.1);
@@ -94,11 +104,12 @@ body {
         color: firebrick;
         font-size: 28px;
         padding: 5px 10px;
+        background:none;
     }
 
     .searchNG #btnSerie {
         border: none;
-        color: white;
+        color: firebrick;
         font-size: 28px;
         padding: 5px 10px;
     }
@@ -110,8 +121,9 @@ body {
     padding: 5px 17px;
 }
 
+
     #selectCRUD:hover {
-        background: #d64c42;
+        background-color:lightgray;
     }
 
 .inp {
@@ -178,7 +190,7 @@ header {
 }
 
     .title-controls-container h3 {
-        color: black;
+        color: firebrick;
         font-size: 30px;
     }
 

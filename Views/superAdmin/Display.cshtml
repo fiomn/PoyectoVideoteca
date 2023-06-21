@@ -21,11 +21,11 @@
 
 <h1>Display</h1>
 
-<p>
+<p id="textTitle">
     <a asp-action="Create">Create New</a>
 </p>
 <form asp-controller="SuperAdmin" asp-action="DownloadPDF">
-    <button class="btn btn-success" type="submit">Report</button>
+    <button class="btn btn-success" type="submit" id="btnReport">Report</button>
 </form>
 <table class="table">
     <thead>
@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.ROLE)
                 </td>
                 <td>
-                    <select onchange="redirectToView(this)">
+                    <select id="selectCRUD" onchange="redirectToView(this)">
                         <option value="" selected>Select an option</option>
                         <option value="@Url.Action("Edit", new { userName = @item.USERNAME })">Edit</option>
                         <option value="@Url.Action("Details", new { userName = @item.USERNAME })">Details</option>

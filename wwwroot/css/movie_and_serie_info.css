@@ -60,8 +60,9 @@ body {
 .movie-details__poster,
 .episode-details__poster {
     flex: 0 0 200px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
+
 
     .movie-details__poster img,
     .episode-details__poster img {
@@ -71,9 +72,21 @@ body {
 .movie-details__content,
 .episode-details__content {
     flex: 1;
-    padding: 20px;
-    color: #AAA;
+    padding: 3px 20px 20px 20px;
+    color: black;
 }
+
+.movie-details__video-info {
+    display: flex;
+    flex-direction: column;
+}
+
+    .movie-details__video-info iframe {
+        width: 650px;
+        height: 295px;
+        margin-bottom: 40px;
+    }
+
 
 .movie-details__title {
     font-size: 30px;
@@ -88,8 +101,16 @@ body {
 }
 
 .all-comment-section {
-    margin-top: 25px;
+    margin-left: 20px;
+    padding-top: 35px;
+    padding-left: 30px;
     margin-bottom: 25px;
+    width: 1076px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#pagination {
+    padding-bottom: 20px;
 }
 
 .comment-section {

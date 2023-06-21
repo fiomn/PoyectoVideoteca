@@ -110,11 +110,14 @@ public partial class TestUCRContext : DbContext
 
         modelBuilder.Entity<tb_GLOBALSETTING>(entity =>
         {
-            entity.HasKey(e => e.idColor).HasName("PK__tb_GLOBA__504A3B88ECD21F0C");
+            entity.HasKey(e => e.id).HasName("PK__tb_GLOBA__3213E83FBE77EC70");
 
             entity.ToTable("tb_GLOBALSETTINGS");
 
             entity.Property(e => e.mode)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+            entity.Property(e => e.modeBtn)
                 .HasMaxLength(15)
                 .IsUnicode(false);
         });
