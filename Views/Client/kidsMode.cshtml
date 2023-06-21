@@ -26,62 +26,21 @@
           href="/slick-1.8.1/slick/slick-theme.css" />@*/slick-1.8.1/slick/slick-theme.css*@
     <link rel="stylesheet" href="https://code.jquery.com/jquery-3.6.4.min.js" />
 
-    <!-- End Slick --> 
+    <!-- End Slick -->
 </head>
 
 <body>
     <header>
-       @* <div class="logo">Logo</div>
-        <nav>
-            <div class="menu-toggle">
-                <nav>
-                    <a asp-controller="client" asp-action="ClientMain">Movies</a>
-                    <a asp-controller="client" asp-action="displaySeries">Series</a>
-                    <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
-                    <a asp-controller="client" asp-action="editProfile">Profile</a>
-                    <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-                </nav>
-            </div>
-            <ul class="menu">
-                <nav>
-                    <a asp-controller="client" asp-action="ClientMain">Movies</a>
-                    <a asp-controller="client" asp-action="displaySeries">Series</a>
-                    <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
-                    <a asp-controller="client" asp-action="editProfile">Profile</a>
-                    <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-                </nav>
-            </ul>
-        </nav>*@
-
-        <div class="container">
-            <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
-            <nav class="menu">
-                <a asp-controller="client" asp-action="ClientMain">Movies</a>
-                <a asp-controller="client" asp-action="displaySeries">Series</a>
-                <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
-                <a asp-controller="client" asp-action="editProfile">Profile</a>
-                <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-                <div class="menu-toggle">
-                    <div class="one"></div>
-                    <div class="two"></div>
-                    <div class="three"></div>
-                </div>
-            </nav>
-        </div>
-
-@*
         <div class="container">
             <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
             <nav>
-                <a asp-controller="client" asp-action="ClientMain">Movies</a>
-                <a asp-controller="client" asp-action="displaySeries">Series</a>
-                <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
-                <a asp-controller="client" asp-action="editProfile">Profile</a>
+                <a asp-controller="client" asp-action="kidsMode">Movies</a>
+                <a asp-controller="client" asp-action="displayKidsSeries">Series</a>
                 <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
             </nav>
         </div>
-*@
     </header>
+
     <div class="searchNG">
         <input class="inp" id="inputSearch" placeholder="Search movie">
         <button id="btnSearch"><i class="fas fa-search"></i></button>
@@ -90,12 +49,10 @@
 
     <!-- Carousel Result -->
     <div class="carousel-container" id="carRe"></div>
-
     <!--Aquí inicia la carga de cada carousel-->
     <div class="myCarousel">
         <!-- Contenido del carousel aquí -->
         <div class="slick-carousel">
-
             @foreach (var genre in Model.genres)
             {
                 <div class="movies-container">

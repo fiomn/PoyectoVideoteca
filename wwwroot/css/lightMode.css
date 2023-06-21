@@ -166,6 +166,75 @@ header {
         }
 
 
+/*PRUEBA MENU RESPONSIVE*/
+/*
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+    .menu a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #000;
+    }
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+    .menu-toggle div {
+        width: 25px;
+        height: 3px;
+        background-color: #000;
+        margin-bottom: 5px;
+    }
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+        .menu-toggle.active {
+            transform: rotate(90deg);
+        }
+
+            .menu-toggle.active div {
+                background-color: #fff;
+            }
+
+            .menu-toggle.active ~ .menu {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #f2f2f2;
+                padding: 10px;
+            }
+
+                .menu-toggle.active ~ .menu a {
+                    color: #000;
+                }
+}
+
+
+*/
+
+
 /*    Carousel Slick Slide Properties    */
 
 .slick-dots li button:before {
@@ -184,7 +253,7 @@ header {
 
 .title-controls-container {
     display: flex;
-    padding: 50px 50px 50px 50px;
+    padding: 10px /*50px 50px 50px*/;
     justify-content: space-between;
     align-items: flex-end;
 }
