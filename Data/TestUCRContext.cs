@@ -202,6 +202,7 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.ACTOR_IMG).IsUnicode(false);
             entity.Property(e => e.ACTOR_NAME).IsUnicode(false);
             entity.Property(e => e.CLASS)
                 .HasMaxLength(5)

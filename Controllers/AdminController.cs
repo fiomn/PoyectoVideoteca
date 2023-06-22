@@ -489,17 +489,9 @@ namespace ProyectoVideoteca.Controllers
         {
             try
             {
-
-                var lastID = db.lastID_DA.FromSqlRaw("exec getID_Director").ToList();
-                int lastIDValue;
-                if (int.TryParse(lastID[0].ToString(), out lastIDValue))
-                {
-                    movie.DIRECTOR_ID = lastIDValue + 1;
-                    db.tb_MOVIE.Add(movie); //save movies in db
-                    db.SaveChanges();
-                    return RedirectToAction(nameof(displayMovies));
-                }
-                return View();
+                db.tb_MOVIE.Add(movie); //save movies in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displayMovies));
             }
             catch (Exception ex)
             {
@@ -513,9 +505,9 @@ namespace ProyectoVideoteca.Controllers
             return View(movie);
         }
 
-        public ActionResult editMovies(string title)
+        public ActionResult editMovies(string TITLE)
         {
-            var movie = db.tb_MOVIE.Find(title);
+            var movie = db.tb_MOVIE.Find(TITLE);
             //tb_GLOBALSETTING mode = getMode();
             //ViewBag.Mode = mode.mode;
             //ViewBag.ModeBtn = mode.modeBtn;

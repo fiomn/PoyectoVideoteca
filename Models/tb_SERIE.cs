@@ -35,7 +35,7 @@ public partial class tb_SERIE
 
     public double? QSTREAM_SCORE { get; set; }
 
-    public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
+    public string? ACTOR_IMG { get; set; }
 
     private static string? currentSerieValue;
     public static string currentSerie
@@ -43,4 +43,6 @@ public partial class tb_SERIE
         get { return currentSerieValue; }
         set { currentSerieValue = value; }
     }
+
+    public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
 }
