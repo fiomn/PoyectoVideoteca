@@ -505,9 +505,9 @@ namespace ProyectoVideoteca.Controllers
             return View(movie);
         }
 
-        public ActionResult editMovies(string TITLE)
+        public ActionResult editMovies(string title)
         {
-            var movie = db.tb_MOVIE.Find(TITLE);
+            var movie = db.tb_MOVIE.Find(title);
             //tb_GLOBALSETTING mode = getMode();
             //ViewBag.Mode = mode.mode;
             //ViewBag.ModeBtn = mode.modeBtn;

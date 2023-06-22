@@ -5,8 +5,6 @@ namespace ProyectoVideoteca.Models;
 
 public partial class tb_MOVIE
 {
-    public int ID { get; set; }
-
     public string TITLE { get; set; } = null!;
 
     public string SYNOPSIS { get; set; } = null!;

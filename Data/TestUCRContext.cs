@@ -109,7 +109,6 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.GENRE)
                 .HasMaxLength(25)
                 .IsUnicode(false);
-            entity.Property(e => e.ID).ValueGeneratedOnAdd();
             entity.Property(e => e.IMG).IsUnicode(false);
             entity.Property(e => e.RELEASE_DATE)
                 .HasMaxLength(10)
@@ -211,7 +210,6 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.GENRE)
                 .HasMaxLength(25)
                 .IsUnicode(false);
-            entity.Property(e => e.ID).ValueGeneratedOnAdd();
             entity.Property(e => e.IMG).IsUnicode(false);
             entity.Property(e => e.RELEASE_DATE)
                 .HasMaxLength(10)

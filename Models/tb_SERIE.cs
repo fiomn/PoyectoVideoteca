@@ -5,8 +5,6 @@ namespace ProyectoVideoteca.Models;
 
 public partial class tb_SERIE
 {
-    public int ID { get; set; }
-
     public string TITLE { get; set; } = null!;
 
     public string? IMG { get; set; }
@@ -43,6 +41,5 @@ public partial class tb_SERIE
         get { return currentSerieValue; }
         set { currentSerieValue = value; }
     }
-
     public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
 }
