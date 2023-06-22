@@ -484,28 +484,28 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult createMovies(tb_MOVIE movie)
-        {
-            try
-            {
+        //[HttpPost]
+        //public IActionResult createMovies(tb_MOVIE movie)
+        //{
+        //    try
+        //    {
 
-                var lastID = db.lastID_DA.FromSqlRaw("exec getID_Director").ToList();
-                int lastIDValue;
-                if (int.TryParse(lastID[0].ToString(), out lastIDValue))
-                {
-                    movie.DIRECTOR_ID = lastIDValue + 1;
-                    db.tb_MOVIE.Add(movie); //save movies in db
-                    db.SaveChanges();
-                    return RedirectToAction(nameof(displayMovies));
-                }
-                return View();
-            }
-            catch (Exception ex)
-            {
-                return View();
-            }
-        }
+        //        var lastID = db.lastID_DA.FromSqlRaw("exec getID_Director").ToList();
+        //        int lastIDValue;
+        //        if (int.TryParse(lastID[0].ToString(), out lastIDValue))
+        //        {
+        //            movie.DIRECTOR_ID = lastIDValue + 1;
+        //            db.tb_MOVIE.Add(movie); //save movies in db
+        //            db.SaveChanges();
+        //            return RedirectToAction(nameof(displayMovies));
+        //        }
+        //        return View();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return View();
+        //    }
+        //}
 
         public ActionResult moviesDetails(string TITLE)
         {
