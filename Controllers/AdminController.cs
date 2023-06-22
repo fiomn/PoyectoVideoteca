@@ -489,14 +489,28 @@ namespace ProyectoVideoteca.Controllers
         {
             try
             {
-                db.tb_MOVIE.Add(movie); //save movies in db
-                db.SaveChanges();
-                return RedirectToAction(nameof(displayMovies));
+
+                var lastID = db.lastID_DA.FromSqlRaw("exec getID_Director").ToList();
+                int lastIDValue;
+                if (int.TryParse(lastID[0].ToString(), out lastIDValue))
+                {
+                    movie.DIRECTOR_ID = lastIDValue + 1;
+                    db.tb_MOVIE.Add(movie); //save movies in db
+                    db.SaveChanges();
+                    return RedirectToAction(nameof(displayMovies));
+                }
+                return View();
             }
             catch (Exception ex)
             {
                 return View();
             }
+        }
+
+        public ActionResult moviesDetails(string TITLE)
+        {
+            tb_MOVIE movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            return View(movie);
         }
 
         public ActionResult editMovies(string title)
@@ -582,6 +596,12 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult seriesDetails(string TITLE)
+        {
+            tb_SERIE movie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            return View(movie);
         }
 
         public ActionResult editSeries(string title)
