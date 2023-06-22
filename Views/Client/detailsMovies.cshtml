@@ -36,7 +36,7 @@
                 <h1 class="movie-details__title">@Model.movie.TITLE</h1>
                 <div class="movie-details__info">
                     <p><strong>Director: </strong>@Model.movie.DIRECTOR_NAME</p>
-                    <p><strong>Actors: </strong>@Model.movie.ACTOR_NAME</p>
+                    <p><strong>Actors: </strong>@Html.ActionLink("Actors Details", "ActorsDetails", new { TITLE = Model.movie.TITLE }, new { @class = "actors_link" })</p>
                     <p><strong>Synopsis: </strong>@Model.movie.SYNOPSIS</p>
                     <p><strong>Classification: </strong>@Model.movie.CLASS</p>
                     <p><strong>Duration: </strong>@Model.movie.DURATION</p>
@@ -100,7 +100,7 @@
         <button id="pop-up-button" class="pop-up-button"><br>Add Comment</button>
         }
         <form action="@Url.Action("ClientMain", "Client")" method="GET">
-            <button type="submit" class="go-back-button">
+            <button type="submit" class="buttons">
                 Go Back
             </button>
         </form>

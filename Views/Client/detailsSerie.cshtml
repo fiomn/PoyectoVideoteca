@@ -34,7 +34,7 @@
 
             <div class="movie-details__info">
                 <p><strong>Director: </strong>@Model.serie.DIRECTOR_NAME</p>
-                <p><strong>Actors: </strong>@Model.serie.ACTOR_NAME</p>
+                <p><strong>Actors: </strong>@Html.ActionLink("Actors Details", "ActorsDetailsSerie", new { TITLE = Model.serie.TITLE }, new { @class = "actors_link" })</p>
                 <p><strong>Number of Seasons: </strong>@Model.serie.QTY_SEASONS</p>
                 <p><strong>Synopsis: </strong>@Model.serie.SYNOPSIS</p>
                 <p><strong>Classification: </strong>@Model.serie.CLASS</p>
@@ -132,7 +132,7 @@
             <button id="pop-up-button" class="pop-up-button">Add Comment</button>
         }
         <form action="@Url.Action("DisplaySeries", "Client")" method="GET">
-            <button type="submit" class="go-back-button">
+            <button type="submit" class="buttons">
                 Go Back
             </button>
         </form>

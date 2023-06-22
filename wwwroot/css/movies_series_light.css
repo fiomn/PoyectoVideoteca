@@ -152,7 +152,7 @@
 
 
 .pop-up-button,
-.go-back-button {
+.buttons {
     background-color: #b3b3b3;
     font-size: 20px;
     border: none;
@@ -170,12 +170,28 @@
     line-height: 0px; /* Centrar verticalmente el texto */
 }
 
-    .pop-up-button:hover,
-    .go-back-button:hover,
-    .season-submit:hover,
-    #season:hover {
-        background-color: #595959;
+.actors {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px 30px 0px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+    .actors .actor_image {
+        margin-top: 5px;
     }
+
+.actors_link {
+}
+
+.pop-up-button:hover,
+.go-back-button:hover,
+.season-submit:hover,
+#season:hover {
+    background-color: #595959;
+}
 
 .modal {
     display: none;

@@ -106,6 +106,21 @@ namespace ProyectoVideoteca.Controllers
             return View("detailsMovies", movieAndComments);
         }
 
+        public ActionResult ActorsDetails(string TITLE)
+        {
+
+            var movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+
+            var secondaryActors = db.tb_SECONDARY_ACTOR.FromSqlRaw(@"exec GetSecondaryActors @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            tb_ACTOR_DETAILS actors = new tb_ACTOR_DETAILS(movie, secondaryActors);
+
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+            return View("ActorsDetails", actors);
+        }
 
         private async Task<ApplicationUser> GetCurrentUserAsync()
         {
@@ -121,7 +136,7 @@ namespace ProyectoVideoteca.Controllers
             var user = GetCurrentUserAsync().Result;
 
             float scoreF = float.Parse(score);
-            scoreF = (float)Math.Round(scoreF, 2);
+            scoreF = (float)Math.Round(scoreF, 1);
 
             db.Database.ExecuteSqlRaw(@"exec InsertCommentMovie @Title, @Username, @Comment, @Rating",
                 new SqlParameter("@Title", tb_MOVIE.currentMovie),
@@ -202,7 +217,7 @@ namespace ProyectoVideoteca.Controllers
             var user = GetCurrentUserAsync().Result;
 
             float scoreF = float.Parse(score);
-            scoreF = (float)Math.Round(scoreF, 2);
+            scoreF = (float)Math.Round(scoreF, 1);
 
             db.Database.ExecuteSqlRaw(@"exec InsertCommentSerie @Title, @Username, @Comment, @Rating",
                 new SqlParameter("@Title", tb_SERIE.currentSerie),
@@ -217,6 +232,22 @@ namespace ProyectoVideoteca.Controllers
 
             return RedirectToAction("detailsSerie", "Client", new { TITLE = tb_SERIE.currentSerie });
 
+        }
+
+        public ActionResult ActorsDetailsSerie(string TITLE)
+        {
+
+            var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+
+            var secondaryActors = db.tb_SECONDARY_ACTOR.FromSqlRaw(@"exec GetSecondaryActors @Title", new SqlParameter("@Title", TITLE)).ToList();
+
+            tb_ACTOR_DETAILS actors = new tb_ACTOR_DETAILS(serie, secondaryActors);
+
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+
+            return View("ActorsDetailsSerie", actors);
         }
 
         //search movies by name and genre with an APi
