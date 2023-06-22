@@ -5,8 +5,6 @@ namespace ProyectoVideoteca.Models;
 
 public partial class tb_SERIE
 {
-    public int ID { get; set; }
-
     public string TITLE { get; set; } = null!;
 
     public string? IMG { get; set; }
@@ -35,9 +33,7 @@ public partial class tb_SERIE
 
     public double? QSTREAM_SCORE { get; set; }
 
-    public virtual tb_ACTOR ACTOR { get; set; } = null!;
-
-    public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
+    public string? ACTOR_IMG { get; set; }
 
     private static string? currentSerieValue;
     public static string currentSerie
@@ -45,7 +41,5 @@ public partial class tb_SERIE
         get { return currentSerieValue; }
         set { currentSerieValue = value; }
     }
-
-
     public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
 }

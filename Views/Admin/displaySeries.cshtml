@@ -22,73 +22,77 @@
 <p>
     <a asp-action="createSeries">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TITLE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RELEASE_DATE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SCORE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GENRE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SYNOPSIS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CLASS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ACTOR_NAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<body>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TITLE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RELEASE_DATE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SCORE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GENRE)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SYNOPSIS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CLASS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ACTOR_NAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
-                </td>
-                <td>
-                    <select onchange="redirectToView(this)">
-                        <option value="" selected>Select an option</option>
-                        <option value="@Url.Action("editSeries", new { title = item.TITLE })">Edit</option>
-                        <option value="@Url.Action("detailsSeries", new { title = item.TITLE })">Details</option>
-                        <option value="@Url.Action("deleteSeries", new { title = item.TITLE })">Delete</option>
-                    </select>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.TITLE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RELEASE_DATE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SCORE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GENRE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SYNOPSIS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CLASS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ACTOR_NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DIRECTOR_NAME)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TITLE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RELEASE_DATE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SCORE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GENRE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SYNOPSIS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CLASS)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ACTOR_NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIRECTOR_NAME)
+                    </td>
+                    <td>
+                        <select onchange="redirectToView(this)">
+                            <option value="" selected>Select an option</option>
+                            <option value="@Url.Action("editSeries", new { title = item.TITLE })">Edit</option>
+                            <option value="@Url.Action("seriesDetails", new { title = item.TITLE })">Details</option>
+                            <option value="@Url.Action("deleteSeries", new { title = item.TITLE })">Delete</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="~/js/main_page.js"></script>
+</body>

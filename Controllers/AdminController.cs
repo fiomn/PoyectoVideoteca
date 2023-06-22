@@ -499,6 +499,12 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        public ActionResult moviesDetails(string TITLE)
+        {
+            tb_MOVIE movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            return View(movie);
+        }
+
         public ActionResult editMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
@@ -582,6 +588,12 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult seriesDetails(string TITLE)
+        {
+            tb_SERIE movie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
+            return View(movie);
         }
 
         public ActionResult editSeries(string title)

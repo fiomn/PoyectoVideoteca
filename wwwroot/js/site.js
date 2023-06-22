@@ -25,57 +25,40 @@ function previewProfileImage(input) {
     }
 }
 
-//search movie by name and genre
-document.addEventListener("DOMContentLoaded", function () {
-    var btnSearch = document.getElementById("btnSearch");
-
-    function search() {
-        const inputSearch = $("#inputSearch").val(); //string input
-        $.ajax({
-            url: "/Client/search",
-            type: "get",
-            data: { "inputSearch": inputSearch }, //parameters
-            datatype: 'text',
-            success: function (data) {
-                var dataList = JSON.parse(data);
-                replaceHTML(dataList);
-                showCarousel();
-                slickSlide(dataList);
-            }
-        });
-    }
-
-    //call two functions for button btnSearch
-    btnSearch.addEventListener("click", function () {
-        search();
+//search movies by name and genre
+function search() {
+    const inputSearch = $("#inputSearch").val(); //string input
+    $.ajax({
+        url: "/Client/search",
+        type: "get",
+        data: { "inputSearch": inputSearch }, //parameters
+        datatype: 'text',
+        success: function (data) {
+            var dataList = JSON.parse(data);
+            replaceHTML(dataList);
+            showCarousel();
+            slickSlide(dataList);
+        }
     });
-});
+}  
 
 //search serie by name and genre
-document.addEventListener("DOMContentLoaded", function () {
-    var btnSearch = document.getElementById("btnSerie");
-
-    function search() {
-        const busSeries = $("#inputSerie").val(); //string input
-        $.ajax({
-            url: "/Client/searchSeries",
-            type: "get",
-            data: { "busSeries": busSeries }, //parameters
-            datatype: 'text',
-            success: function (data) {
-                var dataList = JSON.parse(data);
-                replaceHTMLSERIES(dataList);
-                showCarousel();
-                slickSlide(dataList);
-            }
-        });
-    }
-
-    //call two functions for button btnSearch
-    btnSearch.addEventListener("click", function () {
-        search();
+function searchSeries() {
+    const busSeries = $("#inputSerie").val(); //string input
+    $.ajax({
+        url: "/Client/searchSeries",
+        type: "get",
+        data: { "busSeries": busSeries }, //parameters
+        datatype: 'text',
+        success: function (data) {
+            var dataList = JSON.parse(data);
+            replaceHTMLSERIES(dataList);
+            showCarousel();
+            slickSlide(dataList);
+        }
     });
-});
+}
+
 
 //show results in carousel
 function showCarousel() {
@@ -149,66 +132,6 @@ function replaceHTMLSERIES(data) {
         $("#carRe").replaceWith(carousel);
     }
 }
-
-$(document).ready(function () {
-    slickSlide();  //generate carousel
-    $.ajax({
-        url: "/SuperAdmin/getMode",
-        type: "get",
-        data: { }, //parameters
-        datatype: 'text',
-        success: function (data) {
-            const mode = data.modeBtn;
-            if (mode === 'false') {
-                const toggle = document.getElementById('toggle');
-                toggle.classList.remove('active');
-                const body = document.getElementById('body');
-                body.classList.remove('active');
-            } else {
-                const toggle = document.getElementById('toggle');
-                toggle.classList.toggle('active');
-                const body = document.getElementById('body');
-                body.classList.toggle('active');
-            }
-        }
-    });
-    
-
-    
-});
-
-const body = document.querySelector('body');
-const toggle = document.getElementById('toggle');
-toggle.onclick = function () {
-    
-        if (toggle.classList.contains('active')) {
-            toggle.classList.remove('active');
-            body.classList.remove('active');
-        } else {
-            toggle.classList.toggle('active');
-            body.classList.toggle('active');
-        }
-
-        const modo = body.classList.contains('active') ? 'claro' : 'oscuro';
-        const modeBtn = toggle.classList.contains('active') ? 'true' : 'false';
-
-        $.ajax({
-            url: "/SuperAdmin/saveMode",
-            type: "post",
-            data: { mode: modo, modeBtn: modeBtn }, //parameters
-            success: function () {
-            }
-        });
-
-    //recargar la pagina
-    //setTimeout(function () {
-    //    window.location.href = "/SuperAdmin/SuperAdminMain";
-    //}, 500);
-
-}
-
-
-
 
 function slickSlide(data) {
     alert(data.length);

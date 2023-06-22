@@ -5,8 +5,6 @@ namespace ProyectoVideoteca.Models;
 
 public partial class tb_MOVIE
 {
-    public int ID { get; set; }
-
     public string TITLE { get; set; } = null!;
 
     public string SYNOPSIS { get; set; } = null!;
@@ -18,10 +16,6 @@ public partial class tb_MOVIE
     public string IMG { get; set; } = null!;
 
     public double? SCORE { get; set; }
-
-    public int DIRECTOR_ID { get; set; }
-
-    public int ACTOR_ID { get; set; }
 
     public string GENRE { get; set; } = null!;
 
@@ -35,14 +29,11 @@ public partial class tb_MOVIE
 
     public double? QSTREAM_SCORE { get; set; }
 
-    public virtual tb_ACTOR ACTOR { get; set; } = null!;
-
+    public string? ACTOR_IMG { get; set; }
     private static string? currentMovieValue;
     public static string currentMovie
     {
         get { return currentMovieValue; }
         set { currentMovieValue = value; }
     }
-
-    public virtual tb_DIRECTOR DIRECTOR { get; set; } = null!;
 }

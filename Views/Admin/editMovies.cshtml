@@ -24,7 +24,11 @@
     <div class="col-md-4">
         <form asp-action="editMovies">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TITLE" />
+            <div class="form-group">
+                <label asp-for="TITLE" class="control-label"></label>
+                <input asp-for="TITLE" class="form-control" />
+                <span asp-validation-for="TITLE" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="SYNOPSIS" class="control-label"></label>
                 <input asp-for="SYNOPSIS" class="form-control" />

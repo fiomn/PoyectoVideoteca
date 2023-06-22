@@ -22,3 +22,10 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+
+////Actors Details
+
+//function submitForm() {
+//    document.getElementById('actorsDetailsForm').submit();
+//}
