@@ -1,0 +1,52 @@
+﻿@model ProyectoVideoteca.Models.tb_ACTOR_DETAILS
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @if (ViewBag.Mode == "claro")
+    {
+        <link rel="stylesheet" href="~/css/movies_series_light.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/movie_and_serie_info.css">
+    }
+
+
+</head>
+<body>
+    <div class="movie-details">
+
+        <div class="actors">
+
+            <label>@Model.movie.ACTOR_NAME</label>
+            <img src=@Model.movie.ACTOR_IMG class="actor_image"/>
+
+        </div>
+        
+        @foreach(var actor in Model.actors)
+        {
+            <div class="actors">
+
+                <label>@actor.ACTOR_NAME</label>
+                <img src=@actor.ACTOR_IMG class="actor_image" />
+
+            </div>
+        }
+
+    </div>
+
+    <div class="comment-section">
+        <form action="detailsMovies" method="GET">
+            <input type="hidden" name="TITLE" value="@Model.movie.TITLE" />
+            <button type="submit" class="buttons">Go back</button>
+        </form>
+    </div>
+</body>
+</html>
+
