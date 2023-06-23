@@ -418,6 +418,7 @@ header {
 /* Edit Profile Section*/
 
 .E_Profile_Title {
+    color:black;
     margin-bottom: 30px;
 }
 
@@ -523,6 +524,10 @@ header {
 
 #change_pic{
     width: 140px;
+}
+
+#btnSave {
+    height: 40px;
 }
 
 /*     Change Profile Picture Section */

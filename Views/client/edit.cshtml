@@ -50,13 +50,13 @@
                 <input type="button" asp-for="IMG" class="form-control" id="change_pic" value="Change picture" onclick="@("window.location.href='" + @Url.Action("ChangeProfilePicture", "client") + "'");" />
                 <span asp-validation-for="IMG" class="text-danger"></span>
             </div>
-            <div class="button_section">
-                <div class="edit-content">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-                <div>
-                    <a asp-action="editProfile" class="edit_button">Go Back</a>
-                </div>
+            <div class="button_section_eps">
+
+               <input type="submit" value="Save" class="btn btn-primary" id="btnSave" />
+
+
+               <a asp-action="editProfile" class="edit_button">Go Back</a>
+
             </div>
         </form>
     </div>

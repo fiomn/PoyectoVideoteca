@@ -239,7 +239,7 @@ namespace ProyectoVideoteca.Controllers
 
             var serie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
 
-            var secondaryActors = db.tb_SECONDARY_ACTOR.FromSqlRaw(@"exec GetSecondaryActors @Title", new SqlParameter("@Title", TITLE)).ToList();
+            var secondaryActors = db.tb_SECONDARY_ACTOR.FromSqlRaw(@"exec GetSecondaryActorsSerie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList();
 
             tb_ACTOR_DETAILS actors = new tb_ACTOR_DETAILS(serie, secondaryActors);
 

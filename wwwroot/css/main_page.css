@@ -17,6 +17,7 @@ a {
 body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    color:#AAA;
 }
 
 #a{
@@ -360,6 +361,7 @@ header nav a.active {
 
 .E_Profile_Title {
     margin-bottom: 30px;
+    color:#AAA;
 }
 
 .EP_structure {
@@ -430,7 +432,7 @@ header nav a.active {
     font-size: 14px;
     border: none;
     text-decoration: none;
-    color: inherit;
+    color: black;
     padding: 15px 20px;
     margin-left: 12px;
     text-align: center;
@@ -464,12 +466,14 @@ header nav a.active {
     width: 140px;
 }
 
+#btnSave{
+    height: 40px;
+}
 
 /*     Change Profile Picture Section */
 
-
 .CPP_BODY {
-    color:#AAA;
+    color: #AAA;
     display: flex;
     justify-content: center;
     align-items: center;

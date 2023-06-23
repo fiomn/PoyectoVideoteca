@@ -7,6 +7,7 @@
 body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    color: #AAA;
 }
 
 #season {
@@ -114,6 +115,7 @@ body {
 }
 
 .commentInList {
+    color:#AAA;
     border: 3px solid #AAA;
     border-radius: 8px;
     margin-bottom: 30px;
@@ -175,6 +177,7 @@ body {
 }
 
 .actors {
+    color: #AAA;
     display: flex;
     flex-direction: column;
     margin: 10px 20px 30px 0px;
@@ -189,9 +192,10 @@ body {
 
 .actors_link {
 }
-
-.pop-button:hover,
-.buttons:hover {
+.pop-up-button:hover,
+.go-back-button:hover,
+.season-submit:hover,
+#season:hover {
     background-color: #595959;
 }
 
@@ -207,16 +211,16 @@ body {
 
 
 .pop-up-window {
-    color: #AAA;
+    color: black;
     background-color: var(--background);
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #AAA;
+    border: 1px solid black;
     width: 50%;
 }
 
 .close-pop-up {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -229,3 +233,4 @@ body {
         text-decoration: none;
         cursor: pointer;
     }
+
