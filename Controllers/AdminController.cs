@@ -19,6 +19,7 @@ namespace ProyectoVideoteca.Controllers
     [Authorize(Roles = "admin")] //just admin can use this controller
     public class AdminController : Controller
     {
+        //references DataBases
         private TestUCRContext db = new TestUCRContext(); //database context
         private readonly IUserAuthenticationService _service; //database context authentication
         private readonly UserManager<ApplicationUser> _userManager;
@@ -52,6 +53,7 @@ namespace ProyectoVideoteca.Controllers
 
         }
 
+        //get actual color of body
         public tb_GLOBALSETTING getMode()
         {
             //get color mode from BD
@@ -104,10 +106,11 @@ namespace ProyectoVideoteca.Controllers
             var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
 
             tb_MOVIEANDCOMMENTS movieAndComments = new tb_MOVIEANDCOMMENTS(movie, comments, itemsPerPage, totalPages, currentPage);
+
+            //Mode Visual Types
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
-
 
             return RedirectToAction("detailsMovies", "Client", movieAndComments);
         }
@@ -132,6 +135,8 @@ namespace ProyectoVideoteca.Controllers
             var commentsPerPage = comments.GetRange(startIndex, endIndex - startIndex);
 
             tb_SERIEANDCOMMENTS serieAndComments = new tb_SERIEANDCOMMENTS(serie, comments, itemsPerPage, totalPages, currentPage);
+
+            //Mode Visual Types
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
@@ -172,6 +177,8 @@ namespace ProyectoVideoteca.Controllers
 
 
         //************************** USERS MANAGEMENT *****************************************
+
+        //get users client
         public ActionResult Display()
         {
             var userList = new List<tb_USER>();
@@ -183,6 +190,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //GET
+        //create user client
         public ActionResult Create()
         {
             tb_GLOBALSETTING mode = getMode();
@@ -197,15 +205,12 @@ namespace ProyectoVideoteca.Controllers
             try
             {
                 var result = await _service.RegistrationAsync(model); //save users in dataBaseContext
-                //ManagementUsers.users = user;
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
-                ViewBag.Message = new Message() { text = "The client was created", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
-                ViewBag.Message = new Message { text = "It was an error", type = Types.danger.ToString() };
                 return View();
             }
         }
@@ -221,7 +226,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //GET: AdminController/Edit/5
-
+        //edit user client
         public ActionResult Edit(string userName)
         {
             var user = db.tb_USER.Find(userName);
@@ -240,17 +245,16 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Update(user); //save users in testUCR
                 db.SaveChanges();
-                ViewBag.Message = new Message() { text = "The client was updated", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
-                ViewBag.Message = new Message() { text = "The client was updated", type = Types.danger.ToString() };
                 return View();
             }
         }
 
         //GET
+        //delete user client
         public ActionResult Delete(string userName)
         {
             var person = db.tb_USER.Find(userName);
@@ -271,20 +275,17 @@ namespace ProyectoVideoteca.Controllers
 
                 db.tb_USER.Remove(user);
                 db.SaveChanges();
-                ViewBag.Message = new Message() { text = "The client was deleted", type = Types.success.ToString() };
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
             {
-                ViewBag.Message = new Message() { text = "The client was created", type = Types.danger.ToString() };
                 return View();
             }
 
         }
 
-        //******************************* PDF *****************************************
+        //******************************* REPORT *****************************************
         //download and generate PDF
-        //is like an APi
         public IActionResult DownloadPDF()
         {
             var userList = new List<tb_USER>();
@@ -345,6 +346,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         // ************************* PROFILE ***************************
+        //edit profile user
         public async Task<ActionResult> editProfile()
         {
             try
@@ -367,6 +369,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //edit profile user
         public ActionResult editUser(string userName)
         {
             var user = db.tb_USER.Find(userName);
@@ -384,12 +387,10 @@ namespace ProyectoVideoteca.Controllers
                 var result = await _service.EditAsync(model); //save in context auth
                 db.tb_USER.Update(user); //save users in testUCR
                 db.SaveChanges();
-                ViewBag.Message = new Message() { text = "Your profile has been updated", type = Types.success.ToString() };
                 return RedirectToAction(nameof(editProfile));
             }
             catch (Exception ex)
             {
-                ViewBag.Message = new Message() { text = "It was an error", type = Types.danger.ToString() };
                 return View();
             }
         }
@@ -397,15 +398,14 @@ namespace ProyectoVideoteca.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
-            // Obtén el usuario actual
+            //get current user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
-                // Verifica si se seleccionó un archivo
                 if (file != null && file.Length > 0)
                 {
-                    // Convierte el archivo en una cadena base64
+                    //convert to base64
                     string profilePictureBase64;
                     using (var memoryStream = new MemoryStream())
                     {
@@ -414,18 +414,19 @@ namespace ProyectoVideoteca.Controllers
                         profilePictureBase64 = Convert.ToBase64String(fileBytes);
                     }
 
-                    // Actualiza la imagen de perfil en el modelo del usuario
+                    //update profile picture in db
                     var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
                     userBD.IMG = profilePictureBase64;
                     user.ProfilePicture = profilePictureBase64;
 
-                    // Guarda los cambios en la base de datos
+                    //save changes in db
                     var result = await _userManager.UpdateAsync(user);
                     db.tb_USER.Update(userBD);
                     db.SaveChanges();
+
+                    //error 
                     if (!result.Succeeded)
                     {
-                        // El cambio de correo electrónico no fue exitoso, agrega errores de validación.
                         foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
@@ -437,25 +438,29 @@ namespace ProyectoVideoteca.Controllers
             return RedirectToAction(nameof(editUser));
         }
 
+        //change profile picture
         public async Task<IActionResult> ChangeProfilePicture()
         {
-            // Obtener el usuario actualmente autenticado
+            //get authenticated user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
                 string profilePictureBase64 = user.ProfilePicture;
-                // Verificar si la imagen de perfil existe
+
+                //verify that image exists
                 if (!string.IsNullOrEmpty(user.ProfilePicture))
                 {
-                    // Convertir la cadena base64 en una URL válida
-                    string imageFormat = "image/png"; // Cambia esto según el formato de imagen que estés utilizando
+                    //Convert base64 to valid url
+                    string imageFormat = "image/png"; 
                     string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
-                    // Pasar la URL de la imagen de perfil a la vista
+
+                    //send image to view
                     ViewBag.ProfilePicture = profilePictureUrl;
                 }
                 else
                 {
+                    //default image if 
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
@@ -466,6 +471,8 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //*****************************CRUD MOVIES***************************************
+
+        //get movies
         public ActionResult displayMovies()
         {
             var moviesList = new List<tb_MOVIE>();
@@ -476,6 +483,7 @@ namespace ProyectoVideoteca.Controllers
             return View(moviesList);
         }
 
+        //create movies
         public ActionResult createMovies()
         {
             tb_GLOBALSETTING mode = getMode();
@@ -499,12 +507,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        public ActionResult moviesDetails(string TITLE)
-        {
-            tb_MOVIE movie = db.tb_MOVIE.FromSqlRaw(@"exec DetailsMovie @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-            return View(movie);
-        }
-
+        //edit movies
         public ActionResult editMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
@@ -529,6 +532,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //delete movies
         public ActionResult deleteMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
@@ -557,6 +561,8 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //*********************************CRUD SERIES************************************************
+
+        //get series from db
         public ActionResult displaySeries()
         {
             var seriesList = new List<tb_SERIE>();
@@ -567,6 +573,7 @@ namespace ProyectoVideoteca.Controllers
             return View(seriesList);
         }
 
+        //create series
         public ActionResult createSeries()
         {
             tb_GLOBALSETTING mode = getMode();
@@ -590,6 +597,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //edit series
         public ActionResult editSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
@@ -614,6 +622,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //delete series
         public ActionResult deleteSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
@@ -643,10 +652,14 @@ namespace ProyectoVideoteca.Controllers
 
         //****************************** SEASONS ***********************
 
+        //create season of a serie
         public ActionResult createSeason(string TITLE)
         {
             var season = new tb_SEASON();
             season.TITLE = TITLE;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(season);
         }
 
@@ -657,7 +670,6 @@ namespace ProyectoVideoteca.Controllers
             {
                 db.tb_SEASON.Add(season); //save season in db
                 db.SaveChanges();
-                ViewBag.id = season.SEASON_ID;
                 return View();
             }
             catch (Exception ex)
@@ -667,11 +679,16 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //************************** EPISODES ******************
+
+        //create episodes of a season
         public ActionResult createEpisode()
         {
             var episode = new tb_EPISODE();
-            var id = db.tb_SEASON.FromSqlRaw(@"exec getID_Season").ToList().FirstOrDefault(); //devuelve el id de la ultima temporada
+            var id = db.tb_SEASON.FromSqlRaw(@"exec getID_Season").ToList().FirstOrDefault(); //get id of last season (is fk)
             episode.SEASON_ID = id.SEASON_ID;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(episode);
         }
 
@@ -692,10 +709,15 @@ namespace ProyectoVideoteca.Controllers
 
 
         //************** SECONDARY ACTORS SERIES *******************
+
+        //create news secondary actors of series
         public ActionResult createActorsSeries(string TITLE)
         {
             var actor = new tb_SECONDARY_ACTOR();
-            actor.SERIE_TITLE = TITLE;
+            actor.SERIE_TITLE = TITLE; //title of serie
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(actor);
         }
 
@@ -715,10 +737,15 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //************** SECONDARY ACTORS MOVIES *******************
+
+        //create news secondary actors of movies
         public ActionResult createActorsMovies(string TITLE)
         {
             var actor = new tb_SECONDARY_ACTOR();
-            actor.MOVIE_TITLE = TITLE;
+            actor.MOVIE_TITLE = TITLE; //movie title
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(actor);
         }
 

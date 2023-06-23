@@ -16,6 +16,7 @@ namespace ProyectoVideoteca.Controllers
 {
     public class UserAuthenticationController : Controller
     {
+        //references DataBase
         TestUCRContext db = new TestUCRContext();
         private readonly IUserAuthenticationService _service; //database context authentication
         private readonly UserManager<ApplicationUser> _userManager;
@@ -26,7 +27,7 @@ namespace ProyectoVideoteca.Controllers
             this._userManager = userManager;
         }
 
-        //for recovery password
+        //valid characters in password
         private const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         private static readonly RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
 
@@ -44,6 +45,8 @@ namespace ProyectoVideoteca.Controllers
             {
                 return View(model);
             }
+
+            //save user data in db
             user.USERNAME = model.UserName;
             user.PASSWORD=model.Password;
             user.EMAIL = model.Email;
@@ -72,9 +75,6 @@ namespace ProyectoVideoteca.Controllers
                 return View(model);
             }
             var result = await _service.LoginAsync(model);
-            //color mode
-            //string mode = getMode();
-           // ViewBag.Mode = mode;
 
             if ((result.StatusCode == 1) && (model.UserName == "Admin")) //can do it
             {
@@ -95,15 +95,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        //get color mode
-        public string getMode()
-        {
-            //get color mode from BD
-            var mode = new tb_GLOBALSETTING();
-            mode = db.tb_GLOBALSETTING.FromSqlRaw("exec dbo.getMode").AsEnumerable().FirstOrDefault();
-            return mode.mode;
-        }
-
+        //LOGOUT
         [Authorize]
         public async Task<IActionResult> Logout()
         {
@@ -126,12 +118,13 @@ namespace ProyectoVideoteca.Controllers
             return Ok(result);
         }
 
-
+        //recovery password
         public ActionResult recoveryPassword()
         {
             return View();
         }
         
+        //send email to user
         public async Task sendEmail(string email, string username)
         {
             try
@@ -142,7 +135,7 @@ namespace ProyectoVideoteca.Controllers
                 {
                     smtpClient.EnableSsl = true;
                     smtpClient.Credentials = new NetworkCredential("qstream2023@gmail.com", "dacgtkkijjtwqknj"); //credentials
-                    string newPassword = GenerateRandomPassword();
+                    string newPassword = GenerateRandomPassword(); //password random
 
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user); //generate token
                     var result = await _userManager.ResetPasswordAsync(user, token, newPassword); //update password

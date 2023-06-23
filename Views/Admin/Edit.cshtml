@@ -21,43 +21,53 @@
 </head>
 
 <body>
-<div class="row">
-    <div class="col-md-4" id="EP_structure">
-        <form asp-action="edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="USERNAME" />
-            <div class="edit-content">
-                <label asp-for="NAME" class="control-label"></label>
-                <input asp-for="NAME" class="form-control" />
-                <span asp-validation-for="NAME" class="text-danger"></span>
-            </div>
-            <div class="edit-content">
-                <label asp-for="EMAIL" class="control-label"></label>
-                <input asp-for="EMAIL" class="form-control" />
-                <span asp-validation-for="EMAIL" class="text-danger"></span>
-            </div>
-            <div class="edit-content">
-                <label asp-for="PASSWORD" class="control-label"></label>
-                <input asp-for="PASSWORD" class="form-control" />
-                <span asp-validation-for="PASSWORD" class="text-danger"></span>
-            </div>
-            <div class="edit-content">
-                <label asp-for="PASSWORD_CONFIRM" class="control-label"></label>
-                <input asp-for="PASSWORD_CONFIRM" class="form-control" />
-                <span asp-validation-for="PASSWORD_CONFIRM" class="text-danger"></span>
-            </div>
-            <div class="edit-content">
-                <input type="button" asp-for="IMG" class="form-control" id="change_pic" value="Change picture" onclick="@("window.location.href='" + @Url.Action("ChangeProfilePicture", "client") + "'");" />
-                <span asp-validation-for="IMG" class="text-danger"></span>
-            </div>
-            <div class="button_section">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-              
-                    <a asp-action="editProfile" class="edit_button">Go Back</a>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-4" id="EP_structure">
+            <form asp-action="edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="USERNAME" />
+                <div class="edit-content">
+                    <label asp-for="NAME" class="control-label"></label>
+                    <input asp-for="NAME" class="form-control" id="inputMovies" />
+                    <span asp-validation-for="NAME" class="text-danger"></span>
+                </div>
+                <div class="edit-content">
+                    <label asp-for="EMAIL" class="control-label"></label>
+                    <input asp-for="EMAIL" class="form-control" id="inputMovies" />
+                    <span asp-validation-for="EMAIL" class="text-danger"></span>
+                </div>
+                <div class="edit-content">
+                    <label asp-for="PASSWORD" class="control-label"></label>
+                    <input asp-for="PASSWORD" class="form-control" id="inputMovies" />
+                    <span asp-validation-for="PASSWORD" class="text-danger"></span>
+                </div>
+                <div class="edit-content">
+                    <label asp-for="PASSWORD_CONFIRM" class="control-label"></label>
+                    <input asp-for="PASSWORD_CONFIRM" class="form-control" id="inputMovies" />
+                    <span asp-validation-for="PASSWORD_CONFIRM" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ROLE" class="control-label"></label>
+                    <select asp-for="ROLE">
+                        <option>user</option>
+                    </select>
+                    <span asp-validation-for="ROLE" class="text-danger"></span>
+                </div>
+                <div class="edit-content">
+                    <input type="button" asp-for="IMG" class="form-control" id="change_pic" value="Change picture" onclick="@("window.location.href='" + @Url.Action("ChangeProfilePicture", "client") + "'");" />
+                    <span asp-validation-for="IMG" class="text-danger"></span>
+                </div>
+                <div class="button_section">
+                    <div class="edit-content">
+                        <input type="submit" value="Save" class="btn btn-primary" id="btnReport" />
+                    </div>
+                    <div>
+                        <a asp-action="Display" class="edit_button">Go Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 
 

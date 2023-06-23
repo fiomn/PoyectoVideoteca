@@ -20,8 +20,49 @@ body {
     color:#AAA;
 }
 
-#a{
-    text-decoration:none;
+#pageMovies {
+    display: block;
+    text-align: end;
+    padding: 40px;
+}
+
+    #pageMovies #a {
+        text-decoration: none;
+        color: firebrick;
+        border-radius: 10px;
+        padding: 5px;
+        font-size: 20px;
+    }
+h1 {
+    color: darkred;
+    text-align: center;
+    background: linear-gradient(to left, white, RED);
+}
+h3 {
+    color: firebrick;
+    text-align: center;
+}
+#paragraph {
+    padding: 20px;
+    color:white
+}
+#editP {
+    color: white;
+}
+
+#edit {
+    color: firebrick;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
+}
+    #edit #inputMovies {
+        background: linear-gradient(to right, white, gray);
+        border-radius: 7px;
+        padding: 22px;
+    }
+#text{
+    color:white;
 }
 
 tbody {
@@ -132,6 +173,7 @@ thead {
     margin-bottom: 2em;
     padding: 5px 17px;
     background: linear-gradient(white, #6c7a70);
+    color:black;
 }
 
 .inp {
