@@ -41,5 +41,6 @@ public partial class tb_SERIE
         get { return currentSerieValue; }
         set { currentSerieValue = value; }
     }
+
     public virtual ICollection<tb_SEASON> tb_SEASONs { get; set; } = new List<tb_SEASON>();
 }
