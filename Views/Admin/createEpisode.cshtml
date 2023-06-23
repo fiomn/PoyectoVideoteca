@@ -1,58 +1,67 @@
 ﻿@model ProyectoVideoteca.Models.tb_EPISODE
 
-@{
-    ViewData["Title"] = "createEpisode";
-}
+<head>
+    @if (ViewBag.Mode == "claro")
+    {
+        <link rel="stylesheet" href="~/css/lightMode.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/main_page.css" asp-append-version="true">
+    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-<h1>createEpisode</h1>
+<h1>Create new Episode</h1>
 
-<h4>tb_EPISODE</h4>
+<body>
+    <div id="pageMovies">
+        <a asp-action="displaySeries" id="a">Back to List</a>
+    </div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+        <div class="col-md-4" id="edit">
         <form asp-action="createEpisode">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="NAME_EPISODE" class="control-label"></label>
-                <input asp-for="NAME_EPISODE" class="form-control" />
+                    <input asp-for="NAME_EPISODE" class="form-control" id="inputMovies" />
                 <span asp-validation-for="NAME_EPISODE" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NUMBER" class="control-label"></label>
-                <input asp-for="NUMBER" class="form-control" />
+                    <input asp-for="NUMBER" class="form-control" id="inputMovies" />
                 <span asp-validation-for="NUMBER" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SEASON_ID" class="control-label"></label>
-                <input asp-for="SEASON_ID" class="form-control" />
+                    <input asp-for="SEASON_ID" class="form-control" id="inputMovies" />
                 <span asp-validation-for="SEASON_ID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SYNOPSIS" class="control-label"></label>
-                <input asp-for="SYNOPSIS" class="form-control" />
+                    <input asp-for="SYNOPSIS" class="form-control" id="inputMovies" />
                 <span asp-validation-for="SYNOPSIS" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IMG" class="control-label"></label>
-                <input asp-for="IMG" class="form-control" />
+                    <input asp-for="IMG" class="form-control" id="inputMovies" />
                 <span asp-validation-for="IMG" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DURATION" class="control-label"></label>
-                <input asp-for="DURATION" class="form-control" />
+                    <input asp-for="DURATION" class="form-control" id="inputMovies" />
                 <span asp-validation-for="DURATION" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="btnReport" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="displaySeries">Back to List</a>
-</div>
-
+</body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -5,8 +5,8 @@
 
 
 body {
-    background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    background: var(--background);
 }
 
 #season {
@@ -86,7 +86,7 @@ body {
 .movie-details__title {
     font-size: 30px;
     margin-bottom: 10px;
-    color: #AAA;
+    color: firebrick;
 }
 
 .movie-details__info p,
@@ -111,10 +111,11 @@ body {
 
 .comment-section {
     margin-top: 25px;
+    color:white;
 }
 
 .commentInList {
-    border: 3px solid #AAA;
+    border: 3px solid firebrick;
     border-radius: 8px;
     margin-bottom: 30px;
     width: 80%;

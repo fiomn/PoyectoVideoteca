@@ -67,9 +67,16 @@ function showCarousel() {
 
 //replace carousel with movies
 function replaceHTML(data) {
+
+    //if doesnt exists movie or genre
     if (data.length < 1) {
-        alert('No movie found');
+        var carousel = "<div id='carRe'>" +
+            "<h3>NOT FOUND</h3>" +
+            "</div>";
+        $("#carRe").replaceWith(carousel);
     }
+
+    //new carousel with movies
     if (data.length > 1) {
         var carousel = "<div id='carRe'>";
         for (movie in data) {
@@ -84,9 +91,7 @@ function replaceHTML(data) {
 
         $("#carRe").replaceWith(carousel);
 
-    } if (data.length === 1) {
-        alert('solo una');
-        alert(data[0].TITLE);
+    } if (data.length === 1) { 
         var carousel = "<div id='carRe'>" +
             "<div class='movie'>" +
             "<div class='video-thumbnail'>" +
@@ -101,10 +106,15 @@ function replaceHTML(data) {
 
 //replace carousel with series
 function replaceHTMLSERIES(data) {
+
+    //if doesnt exists serie or genre
     if (data.length < 1) {
-        alert('No movie found');
+        var carousel = "<div id='carRe'>" +
+            "<h3>NOT FOUND</h3>" +
+            "</div>";
+        $("#carRe").replaceWith(carousel);
     }
-    if (data.length > 1) {
+    if (data.length > 1) { //new carousel with series
         var carousel = "<div id='carRe'>";
         for (serie in data) {
             carousel += "<div class='movie'>" +
@@ -133,10 +143,10 @@ function replaceHTMLSERIES(data) {
     }
 }
 
+//inicialize carousel
 function slickSlide(data) {
-    alert(data.length);
     $('#carRe').slick({
-        slidesToShow: (data.length > 1) ? ((data.length < 5) ? 2 : 5) : 1,
+        slidesToShow: (data.length > 1) ? ((data.length < 5) ? 2 : 5) : 1, //validations of data.lenght
         slidesToScroll: 3,
         responsive: [
             {

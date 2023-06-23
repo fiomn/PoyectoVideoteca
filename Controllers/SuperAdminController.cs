@@ -18,6 +18,7 @@ namespace ProyectoVideoteca.Controllers
     [Authorize(Roles = "superAdmin")] //just superAdmin can use this controller
     public class SuperAdminController : Controller
     {
+        //references DataBases
         private TestUCRContext db = new TestUCRContext(); //database context
         private readonly IUserAuthenticationService _service; //database context authentication
         private readonly UserManager<ApplicationUser> _userManager;
@@ -38,6 +39,7 @@ namespace ProyectoVideoteca.Controllers
             return RedirectToAction("ClientMain", "Client");
         }
 
+        //get color of body from dataBase
         public tb_GLOBALSETTING getMode()
         {
             //get color mode from BD
@@ -51,7 +53,7 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult Display()
         {
             var userList = new List<tb_USER>();
-            userList = db.tb_USER.FromSqlRaw("exec dbo.GetAdmins").ToList();
+            userList = db.tb_USER.FromSqlRaw("exec dbo.GetAdmins").ToList(); //get users admins
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
@@ -68,6 +70,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //POST
+        //create new admin
         [HttpPost]
         public async Task<IActionResult> Create(tb_USER user, RegistrationModel model)
         {
@@ -94,6 +97,7 @@ namespace ProyectoVideoteca.Controllers
             return View(user);
         }
 
+        //update admin 
         [HttpPost]
         public async Task<IActionResult> Edit(tb_USER user, RegistrationModel model)
         {
@@ -110,6 +114,7 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+        //details admin
         public ActionResult Details(string userName)
         {
             var user = db.tb_USER.FromSqlRaw(@"exec DetailsUser @USERNAME", new SqlParameter("@USERNAME", userName)).ToList().FirstOrDefault();
@@ -130,6 +135,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         // POST
+        //delete admin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(tb_USER user, RegistrationModel model)
@@ -150,8 +156,8 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //******************************* PDF **************************************
+
         //download and generate PDF
-        //is like an APi
         public IActionResult DownloadPDF()
         {
             var userList = new List<tb_USER>();
@@ -212,6 +218,8 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //****************************** PROFILE ************************************************
+        
+        //edit profile users
         public async Task<ActionResult> editProfile()
         {
             try
@@ -234,19 +242,18 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-
+        //update profile image of users
         [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
-            // Obtén el usuario actual
+            //get actual user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
-                // Verifica si se seleccionó un archivo
                 if (file != null && file.Length > 0)
                 {
-                    // Convierte el archivo en una cadena base64
+                    //convert image to base64
                     string profilePictureBase64;
                     using (var memoryStream = new MemoryStream())
                     {
@@ -255,18 +262,17 @@ namespace ProyectoVideoteca.Controllers
                         profilePictureBase64 = Convert.ToBase64String(fileBytes);
                     }
 
-                    // Actualiza la imagen de perfil en el modelo del usuario
+                    //update image in user
                     var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
                     userBD.IMG = profilePictureBase64;
                     user.ProfilePicture = profilePictureBase64;
 
-                    // Guarda los cambios en la base de datos
+                    //save in DB
                     var result = await _userManager.UpdateAsync(user);
                     db.tb_USER.Update(userBD);
                     db.SaveChanges();
                     if (!result.Succeeded)
                     {
-                        // El cambio de correo electrónico no fue exitoso, agrega errores de validación.
                         foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
@@ -278,25 +284,29 @@ namespace ProyectoVideoteca.Controllers
             return RedirectToAction(nameof(Edit));
         }
 
+        //method for change profile picture
         public async Task<IActionResult> ChangeProfilePicture()
         {
-            // Obtener el usuario actualmente autenticado
+            //get authenticated user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
                 string profilePictureBase64 = user.ProfilePicture;
-                // Verificar si la imagen de perfil existe
+
+                //verify that image exists
                 if (!string.IsNullOrEmpty(user.ProfilePicture))
                 {
-                    // Convertir la cadena base64 en una URL válida
-                    string imageFormat = "image/png"; // Cambia esto según el formato de imagen que estés utilizando
+                    //Convert base64 to valid url
+                    string imageFormat = "image/png"; 
                     string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
-                    // Pasar la URL de la imagen de perfil a la vista
+                    
+                    //send image to view
                     ViewBag.ProfilePicture = profilePictureUrl;
                 }
                 else
                 {
+                    //default image if 
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
@@ -307,13 +317,15 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //**************** GLOBAL SETTINGS *******************
+
+        //save mode of color theme
         public void saveMode(string mode, string modeBtn)
         {
             var setting = new tb_GLOBALSETTING();
             if (mode != null)
             {
-                setting.mode = mode;
-                setting.modeBtn = modeBtn;
+                setting.mode = mode; //mode of body color
+                setting.modeBtn = modeBtn; //mode of button switch
                 db.tb_GLOBALSETTING.Add(setting);
                 db.SaveChanges();
             }

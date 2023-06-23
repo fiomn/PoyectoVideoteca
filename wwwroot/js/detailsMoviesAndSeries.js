@@ -23,9 +23,3 @@ window.onclick = function (event) {
     }
 }
 
-
-////Actors Details
-
-//function submitForm() {
-//    document.getElementById('actorsDetailsForm').submit();
-//}

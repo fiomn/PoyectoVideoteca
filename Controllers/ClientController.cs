@@ -20,6 +20,7 @@ namespace ProyectoVideoteca.Controllers
     [Authorize] //everyone can use this controller
     public class ClientController : Controller
     {
+        //references DataBases
         private TestUCRContext db = new TestUCRContext(); //database context
         private readonly IUserAuthenticationService _service; //database context authentication
         private readonly UserManager<ApplicationUser> _userManager;
@@ -31,6 +32,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //*************************** SERIES AND MOVIES *********************************
+
         public ActionResult ClientMain()
         {
             Random random = new Random();
@@ -53,6 +55,7 @@ namespace ProyectoVideoteca.Controllers
             return View(moviesAndGenres);
         }
 
+        //get current color of body
         public tb_GLOBALSETTING getMode()
         {
             //get color mode from BD
@@ -61,6 +64,7 @@ namespace ProyectoVideoteca.Controllers
             return mode;
         }
 
+        //get series
         public ActionResult DisplaySeries()
         {
             Random random = new Random();
@@ -250,14 +254,14 @@ namespace ProyectoVideoteca.Controllers
             return View("ActorsDetailsSerie", actors);
         }
 
-        //search movies by name and genre with an APi
+        //search movies by name and genre with an APi        
         [HttpGet]
         public string search(string inputSearch)
         {
             var movies = new List<tb_MOVIE>();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7181/Search/movies/inputSearch");
+                client.BaseAddress = new Uri("https://localhost:7181/Search/movies/inputSearch"); //APi returns movies by name and genre
                 var responseTask = client.GetAsync(inputSearch);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -268,6 +272,8 @@ namespace ProyectoVideoteca.Controllers
                     readTask.Wait();
 
                     movies = readTask.Result;
+
+                    //list of filters movies by name and genre
                     return JsonConvert.SerializeObject(movies);
                 }
                 return JsonConvert.SerializeObject(movies);
@@ -281,7 +287,7 @@ namespace ProyectoVideoteca.Controllers
             var series = new List<tb_SERIE>();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7181/Search/series/busSeries");
+                client.BaseAddress = new Uri("https://localhost:7181/Search/series/busSeries"); //APi returns series by name and genre
                 var responseTask = client.GetAsync(busSeries);
                 responseTask.Wait();
                 var result = responseTask.Result;
@@ -292,6 +298,8 @@ namespace ProyectoVideoteca.Controllers
                     readTask.Wait();
 
                     series = readTask.Result;
+
+                    //list of filters series by name and genre
                     return JsonConvert.SerializeObject(series);
                 }
                 return JsonConvert.SerializeObject(series);
@@ -300,15 +308,19 @@ namespace ProyectoVideoteca.Controllers
 
 
         //****************************** PROFILE USER **************************
+
+        //edit profile user
         public async Task<ActionResult> editProfile()
         {
             try
             {
+                //get current user
                 ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
                 string username = user.UserName;
                 var userByName = new tb_USER();
                 var parameter = new SqlParameter("@username", username);
 
+                //get user from db
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
                 
                 tb_GLOBALSETTING mode = getMode();
@@ -318,9 +330,6 @@ namespace ProyectoVideoteca.Controllers
             }
             catch (Exception ex)
             {
-                tb_GLOBALSETTING mode = getMode();
-                ViewBag.Mode = mode.mode;
-                ViewBag.ModeBtn = mode.modeBtn;
                 return View();
             }
         }
@@ -353,15 +362,14 @@ namespace ProyectoVideoteca.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
-            // Obtén el usuario actual
+            //get current user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
-                // Verifica si se seleccionó un archivo
                 if (file != null && file.Length > 0)
                 {
-                    // Convierte el archivo en una cadena base64
+                    //convert to base64
                     string profilePictureBase64;
                     using (var memoryStream = new MemoryStream())
                     {
@@ -370,15 +378,17 @@ namespace ProyectoVideoteca.Controllers
                         profilePictureBase64 = Convert.ToBase64String(fileBytes);
                     }
 
-                    // Actualiza la imagen de perfil en el modelo del usuario
+                    // update profile image in user
                     var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
                     userBD.IMG = profilePictureBase64;
                     user.ProfilePicture = profilePictureBase64;
-
-                    // Guarda los cambios en la base de datos
+                    
+                    //save changes
                     var result = await _userManager.UpdateAsync(user);
                     db.tb_USER.Update(userBD);
                     db.SaveChanges();
+
+                    //error
                     if (!result.Succeeded)
                     {
                         foreach (var error in result.Errors)
@@ -394,23 +404,26 @@ namespace ProyectoVideoteca.Controllers
 
         public async Task<IActionResult> ChangeProfilePicture()
         {
-            // Obtener el usuario actualmente autenticado
+            //get authenticated user
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
 
             if (user != null)
             {
                 string profilePictureBase64 = user.ProfilePicture;
-                // Verificar si la imagen de perfil existe
+
+                //if exists 
                 if (!string.IsNullOrEmpty(user.ProfilePicture))
                 {
-                    // Convertir la cadena base64 en una URL válida
-                    string imageFormat = "image/png"; // Cambia esto según el formato de imagen que estés utilizando
+                    //convert base64 to valid url
+                    string imageFormat = "image/png"; 
                     string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
-                    // Pasar la URL de la imagen de perfil a la vista
+
+                    //send image to view
                     ViewBag.ProfilePicture = profilePictureUrl;
                 }
                 else
                 {
+                    //default image
                     ViewBag.ProfilePicture = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
                 }
             }
@@ -420,7 +433,8 @@ namespace ProyectoVideoteca.Controllers
             return View();
         }
 
-        //****************************** PROFILE USER **************************
+        //****************************** KIDS MODE **************************
+
         //public async Task<ActionResult> kidsMode()
         //{
         //    Random random = new Random();
