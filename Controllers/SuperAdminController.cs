@@ -222,7 +222,7 @@ namespace ProyectoVideoteca.Controllers
                 var parameter = new SqlParameter("@username", username);
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
-                ManagementUsers.users = userByName;
+                
                 tb_GLOBALSETTING mode = getMode();
                 ViewBag.Mode = mode.mode;
                 ViewBag.ModeBtn = mode.modeBtn;

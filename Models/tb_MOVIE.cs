@@ -37,4 +37,5 @@ public partial class tb_MOVIE
         get { return currentMovieValue; }
         set { currentMovieValue = value; }
     }
+
 }

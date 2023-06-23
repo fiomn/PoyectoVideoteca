@@ -18,13 +18,15 @@
 </head>
 
 <h1>Movies</h1>
-<div>
-    <a asp-action="AdminMain">Back</a>
+
+<div id="pageMovies">
+    <a asp-action="AdminMain" id="a">Go Back</a>
+
+    <p>
+        <a asp-action="createMovies" id="a">Create new movie</a>
+    </p>
 </div>
-<p>
-    <a asp-action="createMovies">Create Movie</a>
-</p>
-<body>    
+<body>
     <table class="table">
         <thead>
             <tr>
@@ -75,8 +77,9 @@
                         <select id="selectCRUD" onchange="redirectToView(this)">
                             <option value="" selected>Select an option</option>
                             <option value="@Url.Action("editMovies", new { title = item.TITLE })">Edit</option>
-                            <option value="@Url.Action("moviesDetails", new { title = item.TITLE })">Details</option>
+                            <option value="@Url.Action("detailsMovies","client", new { title = item.TITLE })">Details</option>
                             <option value="@Url.Action("deleteMovies", new { title = item.TITLE })">Delete</option>
+                            <option value="@Url.Action("createActorsMovies", new { title = item.TITLE })">Add Actors</option>
                         </select>
                     </td>
                 </tr>

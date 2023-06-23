@@ -355,7 +355,7 @@ namespace ProyectoVideoteca.Controllers
                 var parameter = new SqlParameter("@username", username);
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
-                ManagementUsers.users = userByName;
+                
                 tb_GLOBALSETTING mode = getMode();
                 ViewBag.Mode = mode.mode;
                 ViewBag.ModeBtn = mode.modeBtn;
@@ -642,7 +642,7 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //****************************** SEASONS ***********************
-        [HttpPost]
+
         public ActionResult createSeason(string TITLE)
         {
             var season = new tb_SEASON();
@@ -650,13 +650,14 @@ namespace ProyectoVideoteca.Controllers
             return View(season);
         }
 
-        
-        public IActionResult createSeason(tb_SEASON season)
+        [HttpPost]
+        public async Task<IActionResult> createSeason(tb_SEASON season)
         {
             try
-            {
+            {               
                 db.tb_SEASON.Add(season); //save season in db
                 db.SaveChanges();
+                ViewBag.id = season.SEASON_ID;
                 return View();
             }
             catch (Exception ex)
@@ -666,10 +667,11 @@ namespace ProyectoVideoteca.Controllers
         }
 
         //************************** EPISODES ******************
-        public ActionResult createEpisode(int SEASON_ID)
+        public ActionResult createEpisode()
         {
             var episode = new tb_EPISODE();
-            episode.SEASON_ID = SEASON_ID;
+            var id = db.tb_SEASON.FromSqlRaw(@"exec getID_Season").ToList().FirstOrDefault(); //devuelve el id de la ultima temporada
+            episode.SEASON_ID = id.SEASON_ID;
             return View(episode);
         }
 
@@ -680,7 +682,7 @@ namespace ProyectoVideoteca.Controllers
             {
                 db.tb_EPISODE.Add(episode); //save season in db
                 db.SaveChanges();
-                return RedirectToAction(nameof(createSeries));
+                return RedirectToAction(nameof(displaySeries));
             }
             catch (Exception ex)
             {
@@ -688,5 +690,51 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
+
+        //************** SECONDARY ACTORS SERIES *******************
+        public ActionResult createActorsSeries(string TITLE)
+        {
+            var actor = new tb_SECONDARY_ACTOR();
+            actor.SERIE_TITLE=TITLE;
+            return View(actor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createActorsSeries(tb_SECONDARY_ACTOR actor)
+        {
+            try
+            {
+                db.tb_SECONDARY_ACTOR.Add(actor); //save season in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        //************** SECONDARY ACTORS MOVIES *******************
+        public ActionResult createActorsMovies(string TITLE)
+        {
+            var actor = new tb_SECONDARY_ACTOR();
+            actor.MOVIE_TITLE = TITLE;
+            return View(actor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createActorsMovies(tb_SECONDARY_ACTOR actor)
+        {
+            try
+            {
+                db.tb_SECONDARY_ACTOR.Add(actor); //save season in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(displaySeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
     }
 }

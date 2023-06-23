@@ -78,9 +78,9 @@ movies.forEach((movie) => {
 });
 
 // Remove hover class from all images when leaving the carousel
-carouselContainer.addEventListener('mouseleave', () => {
-    movies.forEach((movie) => movie.classList.remove('hover'));
-});
+//carouselContainer.addEventListener('mouseleave', () => {
+//    movies.forEach((movie) => movie.classList.remove('hover'));
+//});
 
 // Video Section
 
