@@ -115,8 +115,8 @@ body {
 }
 
 .commentInList {
-    color:#AAA;
-    border: 3px solid #AAA;
+    color: #AAA;
+    border: 3px solid firebrick;
     border-radius: 8px;
     margin-bottom: 30px;
     width: 80%;

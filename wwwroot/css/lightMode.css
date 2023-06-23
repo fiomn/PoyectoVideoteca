@@ -44,8 +44,8 @@ h3 {
     text-align: center;
 }
 
-#info{
-    padding:40px
+#info {
+    padding: 40px
 }
 
 #paragraph {
@@ -59,17 +59,17 @@ h3 {
     margin-bottom: 20px;
 }
 
-#edit{
-   color:firebrick;
-   align-items:center;
-   text-align:center;
-   margin:0px;
+#edit {
+    color: firebrick;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
 }
 
     #edit #inputMovies {
         background: linear-gradient(to right, white, lightgray);
-        border-radius:7px;
-        padding:22px;
+        border-radius: 7px;
+        padding: 22px;
     }
 
 #toggle {
@@ -439,7 +439,7 @@ header {
 /* Edit Profile Section*/
 
 .E_Profile_Title {
-    color:black;
+    color: black;
     margin-bottom: 30px;
 }
 
@@ -449,7 +449,6 @@ header {
     padding-top: 20px;
     margin: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    
 }
 
 .div_image {
@@ -463,13 +462,11 @@ header {
 
 .details_EP .row {
     padding: 30px;
-    
 }
 
 .edit-content {
     margin-bottom: 20px;
     display: flex;
-    
 }
 
 .details_EP dt,
@@ -479,7 +476,7 @@ header {
 }
 
 .button_section_eps {
-    margin-left: 17px;
+    margin-left: 20px;
     margin-top: 20px;
     display: flex;
 }

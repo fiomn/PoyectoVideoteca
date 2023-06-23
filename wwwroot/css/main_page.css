@@ -440,6 +440,7 @@ header nav a.active {
 
 .button_section_eps {
     margin-top: 20px;
+    margin-left: 20px;
     display: flex;
 }
 
