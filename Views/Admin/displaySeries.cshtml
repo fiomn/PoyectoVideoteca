@@ -87,6 +87,9 @@
                             <option value="@Url.Action("editSeries", new { title = item.TITLE })">Edit</option>
                             <option value="@Url.Action("detailsSerie", "client", new { title = item.TITLE })">Details</option>
                             <option value="@Url.Action("deleteSeries", new { title = item.TITLE })">Delete</option>
+                            <option value="@Url.Action("createSeason", new { title = item.TITLE })">Season</option>
+                            <option value="@Url.Action("createEpisode")">Episode</option>
+                            <option value="@Url.Action("createActorsSeries", new { title = item.TITLE })">Add Actors</option>
                         </select>
                     </td>
                 </tr>
