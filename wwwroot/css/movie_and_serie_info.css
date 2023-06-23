@@ -196,7 +196,7 @@ body {
 }
 
 .pop-button:hover,
-.go-back-button:hover {
+.buttons:hover {
     background-color: #595959;
 }
 

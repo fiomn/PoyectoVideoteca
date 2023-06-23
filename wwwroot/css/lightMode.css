@@ -390,6 +390,182 @@ header {
     }
 
 
+/* Edit Profile Section*/
+
+.E_Profile_Title {
+    margin-bottom: 30px;
+}
+
+.EP_structure {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.div_image{
+    padding: 0px 60px 0px 60px;
+}
+
+.profile_image{
+    width: 100px;
+    height: auto;
+}
+
+.details_EP .row {
+    padding: 10px
+}
+
+.edit-content{
+    margin-bottom:20px;
+    display:flex;
+
+}
+
+    .details_EP dt,
+    .details_EP dd {
+        margin-right: 0px;
+        margin-bottom: 3px
+    }
+
+.button_section{
+    margin-top: 20px;
+    display: flex;
+}
+
+
+.buttons {
+    background-color: #b3b3b3;
+    font-size: 14px;
+    border: none;
+    color: black;
+    padding: 15px 20px;
+    margin-left: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 40px; /* Altura del botón */
+    line-height: 0px; /* Centrar verticalmente el texto */
+}
+
+    .buttons:hover,
+    .edit_button:hover {
+        background-color: #595959;
+        text-decoration: none;
+        color: inherit;
+    }
+
+.edit_button {
+    background-color: #b3b3b3;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    color: inherit;
+    padding: 15px 20px;
+    margin-left: 12px;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 40px; /* Altura del botón */
+    line-height: 10px; /* Centrar verticalmente el texto */
+}
+
+
+/* Edit Section */
+
+#EP_structure {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    width: 1000px;
+
+}
+
+.control-label{
+    margin-right:20px;
+}
+
+#change_pic{
+    width: 140px;
+}
+
+/*     Change Profile Picture Section */
+
+
+.CPP_BODY {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 840px;
+    height: 100vh;
+}
+
+.CPP_TITLE {
+    width: 400px;
+}
+
+.change_img_section {
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    padding: 30px 40px 20px 40px;
+}
+
+#profileImagePreview {
+    width: 200px;
+    height: auto;
+    margin: 30px 0px 10px 0px;
+}
+
+.button_section_CPP {
+    margin-top: 30px;
+    width: 400px;
+    display: flex;
+}
+
+.buttons_CPP{
+    background-color: #b3b3b3;
+    font-size: 14px;
+    border: none;
+    color: black;
+    padding: 15px 15px;
+    margin-right: 100px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 20px; /* Altura del botón */
+    line-height: 0px; /* Centrar verticalmente el texto */
+}
+
+.btn_choose_file {
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    color: inherit;
+    padding: 15px 20px;
+    margin-left: 12px;
+    text-align: center;
+    display: inline-block;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 250px;
+    height: 40px; /* Altura del botón */
+    line-height: 10px; /* Centrar verticalmente el texto */
+}
+
 /* Demo styles */
 
 /*body {
