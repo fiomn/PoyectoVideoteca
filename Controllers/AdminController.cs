@@ -478,9 +478,9 @@ namespace ProyectoVideoteca.Controllers
 
         public ActionResult createMovies()
         {
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
@@ -508,9 +508,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult editMovies(string title)
         {
             var movie = db.tb_MOVIE.Find(title);
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(movie);
         }
 
@@ -561,17 +561,17 @@ namespace ProyectoVideoteca.Controllers
         {
             var seriesList = new List<tb_SERIE>();
             seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.GetSeries").ToList();
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(seriesList);
         }
 
         public ActionResult createSeries()
         {
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
@@ -593,9 +593,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult editSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(serie);
         }
 
@@ -617,9 +617,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult deleteSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
-            //tb_GLOBALSETTING mode = getMode();
-            //ViewBag.Mode = mode.mode;
-            //ViewBag.ModeBtn = mode.modeBtn;
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
             return View(serie);
         }
 
