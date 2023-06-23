@@ -561,17 +561,17 @@ namespace ProyectoVideoteca.Controllers
         {
             var seriesList = new List<tb_SERIE>();
             seriesList = db.tb_SERIE.FromSqlRaw("exec dbo.GetSeries").ToList();
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View(seriesList);
         }
 
         public ActionResult createSeries()
         {
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View();
         }
 
@@ -582,7 +582,7 @@ namespace ProyectoVideoteca.Controllers
             {
                 db.tb_SERIE.Add(serie); //save movies in db
                 db.SaveChanges();
-                return RedirectToAction(nameof(displaySeries));
+                return View();
             }
             catch (Exception ex)
             {
@@ -590,18 +590,12 @@ namespace ProyectoVideoteca.Controllers
             }
         }
 
-        public ActionResult seriesDetails(string TITLE)
-        {
-            tb_SERIE movie = db.tb_SERIE.FromSqlRaw(@"exec DetailsSeries @TITLE", new SqlParameter("@TITLE", TITLE)).ToList().FirstOrDefault();
-            return View(movie);
-        }
-
         public ActionResult editSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View(serie);
         }
 
@@ -623,9 +617,9 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult deleteSeries(string title)
         {
             var serie = db.tb_SERIE.Find(title);
-            tb_GLOBALSETTING mode = getMode();
-            ViewBag.Mode = mode.mode;
-            ViewBag.ModeBtn = mode.modeBtn;
+            //tb_GLOBALSETTING mode = getMode();
+            //ViewBag.Mode = mode.mode;
+            //ViewBag.ModeBtn = mode.modeBtn;
             return View(serie);
         }
 
@@ -645,6 +639,53 @@ namespace ProyectoVideoteca.Controllers
                 return View();
             }
 
+        }
+
+        //****************************** SEASONS ***********************
+        [HttpPost]
+        public ActionResult createSeason(string TITLE)
+        {
+            var season = new tb_SEASON();
+            season.TITLE=TITLE;
+            return View(season);
+        }
+
+        
+        public IActionResult createSeason(tb_SEASON season)
+        {
+            try
+            {
+                db.tb_SEASON.Add(season); //save season in db
+                db.SaveChanges();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        //************************** EPISODES ******************
+        public ActionResult createEpisode(int SEASON_ID)
+        {
+            var episode = new tb_EPISODE();
+            episode.SEASON_ID = SEASON_ID;
+            return View(episode);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> createEpisode(tb_EPISODE episode)
+        {
+            try
+            {
+                db.tb_EPISODE.Add(episode); //save season in db
+                db.SaveChanges();
+                return RedirectToAction(nameof(createSeries));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
     }

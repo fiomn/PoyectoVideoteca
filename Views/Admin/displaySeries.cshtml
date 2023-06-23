@@ -85,7 +85,7 @@
                         <select onchange="redirectToView(this)">
                             <option value="" selected>Select an option</option>
                             <option value="@Url.Action("editSeries", new { title = item.TITLE })">Edit</option>
-                            <option value="@Url.Action("seriesDetails", new { title = item.TITLE })">Details</option>
+                            <option value="@Url.Action("detailsSerie", "client", new { title = item.TITLE })">Details</option>
                             <option value="@Url.Action("deleteSeries", new { title = item.TITLE })">Delete</option>
                         </select>
                     </td>
