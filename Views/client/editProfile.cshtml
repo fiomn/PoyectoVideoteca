@@ -20,49 +20,51 @@
 </head>
 <h1>editProfile</h1>
 
-<div>
-    <h4>tb_USER</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PASSWORD)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PASSWORD)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NAME)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NAME)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EMAIL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EMAIL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PASSWORD_CONFIRM)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PASSWORD_CONFIRM)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ROLE)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ROLE)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IMG)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("edit","edit", new {userName = Model.USERNAME}) |
-    <a asp-action="ClientMain">Back to List</a>
-</div>
+<body>
+    <div>
+        <h4>tb_USER</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PASSWORD)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NAME)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NAME)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EMAIL)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PASSWORD_CONFIRM)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PASSWORD_CONFIRM)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ROLE)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ROLE)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IMG)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("edit","edit", new {userName = Model.USERNAME}) |
+        <a asp-action="ClientMain">Back to List</a>
+    </div>
+</body>

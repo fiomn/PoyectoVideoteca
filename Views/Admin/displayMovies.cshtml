@@ -18,13 +18,15 @@
 </head>
 
 <h1>Movies</h1>
-<div>
-    <a asp-action="AdminMain">Back</a>
+
+<div id="pageMovies">
+    <a asp-action="AdminMain" id="a">Go Back</a>
+
+    <p>
+        <a asp-action="createMovies" id="a">Create new movie</a>
+    </p>
 </div>
-<p>
-    <a asp-action="createMovies">Create Movie</a>
-</p>
-<body>    
+<body>
     <table class="table">
         <thead>
             <tr>

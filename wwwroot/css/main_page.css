@@ -18,10 +18,10 @@ body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
 }
-    body.active {
-        background: #ebeff5;
-        font-family: 'Open Sans', sans-serif;
-    }
+
+#a{
+    text-decoration:none;
+}
 
 tbody{
     color:white;
