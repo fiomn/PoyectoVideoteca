@@ -374,12 +374,12 @@ header nav a.active {
 }
 
 .profile_image {
-    width: 100px;
+    width: 200px;
     height: auto;
 }
 
 .details_EP .row {
-    padding: 10px
+    padding: 30px
 }
 
 .edit-content {
@@ -389,7 +389,7 @@ header nav a.active {
 
 .details_EP dt,
 .details_EP dd {
-    margin-right: 0px;
+    margin-right: 20px;
     margin-bottom: 3px
 }
 

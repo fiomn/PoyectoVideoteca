@@ -355,7 +355,7 @@ namespace ProyectoVideoteca.Controllers
                 var parameter = new SqlParameter("@username", username);
 
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
-                
+
                 tb_GLOBALSETTING mode = getMode();
                 ViewBag.Mode = mode.mode;
                 ViewBag.ModeBtn = mode.modeBtn;
@@ -646,7 +646,7 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult createSeason(string TITLE)
         {
             var season = new tb_SEASON();
-            season.TITLE=TITLE;
+            season.TITLE = TITLE;
             return View(season);
         }
 
@@ -654,7 +654,7 @@ namespace ProyectoVideoteca.Controllers
         public async Task<IActionResult> createSeason(tb_SEASON season)
         {
             try
-            {               
+            {
                 db.tb_SEASON.Add(season); //save season in db
                 db.SaveChanges();
                 ViewBag.id = season.SEASON_ID;
@@ -695,7 +695,7 @@ namespace ProyectoVideoteca.Controllers
         public ActionResult createActorsSeries(string TITLE)
         {
             var actor = new tb_SECONDARY_ACTOR();
-            actor.SERIE_TITLE=TITLE;
+            actor.SERIE_TITLE = TITLE;
             return View(actor);
         }
 

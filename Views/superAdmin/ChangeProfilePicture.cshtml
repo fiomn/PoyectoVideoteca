@@ -1,4 +1,6 @@
 ﻿
+
+<html>
 <head>
     @if (ViewBag.Mode == "claro")
     {
@@ -13,10 +15,21 @@
 
 
 </head>
-<img id="profileImagePreview" src="@ViewBag.ProfilePicture" alt="Profile picture" />
 
-@using (Html.BeginForm("UploadProfileImage", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <input type="file" name="file" accept="image/*" onchange="previewProfileImage(this)" />
-    <button type="submit">Save image</button>
-}
+<body class="CPP_BODY">
+    <div class="change_img_section">
+        <h2 class="CPP_TITLE">Change your Profile Image</h2>
+        <img id="profileImagePreview" src="@ViewBag.ProfilePicture" alt="Profile picture" />
+
+        <div class="button_section_CPP">
+            @using (Html.BeginForm("UploadProfileImage", "Client", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" class="btn_choose_file" name="file" accept="image/*" onchange="previewProfileImage(this)" />
+                <button type="submit" class="buttons_CPP">Save image</button>
+            }
+        </div>
+    </div>
+</body>
+
+
+</html>
