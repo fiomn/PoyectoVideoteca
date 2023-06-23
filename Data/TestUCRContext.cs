@@ -168,10 +168,17 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.MOVIE_TITLE)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.SERIE_TITLE)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.MOVIE_TITLENavigation).WithMany()
                 .HasForeignKey(d => d.MOVIE_TITLE)
                 .HasConstraintName("fk_Movie_Id");
+
+            entity.HasOne(d => d.SERIE_TITLENavigation).WithMany()
+                .HasForeignKey(d => d.SERIE_TITLE)
+                .HasConstraintName("fk_SERIE_TITLE");
         });
 
         modelBuilder.Entity<tb_SECONDARY_GENRE>(entity =>
