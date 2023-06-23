@@ -65,16 +65,14 @@
     </div>
 
 
-    <div class="button_section">
+    <div class="button_section_eps">
         @*edit user*@
         @Html.ActionLink("Edit", "Edit", new { userName = Model.USERNAME }, new { @class = "edit_button" })
 
 
-        <form action="@Url.Action("ClientMain", "Client")" method="GET">
-            <button type="submit" class="buttons">
-                Go Back
-            </button>
-        </form>
+        <div>
+            <a asp-action="Display" class="edit_button">Back to List</a>
+        </div>
 
     </div>
 
