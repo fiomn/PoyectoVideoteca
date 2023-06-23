@@ -7,7 +7,6 @@ a {
     text-decoration: none;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -22,8 +21,6 @@ body {
         background: #ebeff5;
         font-family: 'Open Sans', sans-serif;
     }
-
-
 
 tbody{
     color:white;
@@ -90,6 +87,7 @@ thead{
         box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 4px #444, inset 0 -4px 4px #444;
         padding: 5px 17px;
         border-radius: 8px;
+        width: 20%;
     }
 
     .searchNG #inputSerie {
@@ -177,73 +175,6 @@ header {
             color: firebrick;
         }
 
-        /*PRUEBA MENU RESPONSIVE*/
-/*
-.container {
-    display: flex;
-    align-items: center;
-}
-
-.menu {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-}
-
-    .menu a {
-        display: block;
-        padding: 10px;
-        text-decoration: none;
-        color: #000;
-    }
-
-.menu-toggle {
-    display: none;
-    cursor: pointer;
-}
-
-    .menu-toggle div {
-        width: 25px;
-        height: 3px;
-        background-color: #000;
-        margin-bottom: 5px;
-    }
-
-@media (max-width: 768px) {
-    .menu {
-        display: none;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-        .menu-toggle.active {
-            transform: rotate(90deg);
-        }
-
-            .menu-toggle.active div {
-                background-color: #fff;
-            }
-
-            .menu-toggle.active ~ .menu {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: #f2f2f2;
-                padding: 10px;
-            }
-
-                .menu-toggle.active ~ .menu a {
-                    color: #000;
-                }
-}
-
-
-*/
 /*    Carousel Slick Slide Properties    */
 
 .slick-dots li button:before {
@@ -278,9 +209,10 @@ header {
 
 /*carousel-container*/
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
+
 .title-controls-container {
-    padding: 10px /*50px 50px 50px*/;
-    display: flex;
+    display: flex; 
+    padding: 20px; /*50px 50px 50px*/
     justify-content: space-between;
     align-items: flex-end;
 }
@@ -348,8 +280,25 @@ header {
     }
 }
 
+/*Media querie de searchNG*/
 
+@media (max-width: 768px) {
+    .searchNG #inputSearch {
+        font-size: 14px;
+        padding: 3px 10px;
+        border-radius: 6px;
+        width: 50%;
+    }
+}
 
+@media (max-width: 480px) {
+    .searchNG #inputSearch {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        width: 50%;
+    }
+}
 
 /* Video Section */
 
@@ -419,4 +368,88 @@ header {
 
 .movie .video-thumbnail:hover .video-player {
     display: block;
+}
+
+
+/***********************Menú responsive************************/
+nav {
+    height: 80px;
+    width: 100%;
+}
+
+/*.logo {
+    height: 40px;
+}*/
+
+    nav ul {
+        float: right;
+        margin-right: 20px;
+    }
+
+        nav ul li {
+            display: inline-block;
+            line-height: 10px;
+            margin: 0 5px;
+        }
+
+            nav ul li a {
+                font-size: 16px;
+                padding: 7px 13px;
+                /*text-transform: uppercase;*/
+            }
+
+.checkbtn {
+    font-size: 30px;
+    color: floralwhite; /*color del ícono de menú*/
+    float: right;
+    line-height: 50px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+@media (max-width: 420px) {
+    .checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #fff;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+        z-index: 9999;
+    }
+
+        nav ul li {
+            display: block;
+            margin: 50px 0;
+            line-height: 30px;
+        }
+
+            nav ul li a {
+                font-size: 15px;
+            }
+
+                nav ul li a:hover,
+                nav ul li a.active {
+                    background: none;
+                    color: red;
+                }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+
+    /*div {
+        height: 300px;
+    }*/
 }
