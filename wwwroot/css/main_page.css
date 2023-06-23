@@ -22,14 +22,6 @@ body {
         font-family: 'Open Sans', sans-serif;
     }
 
-tbody{
-    color:white;
-}
-
-thead{
-    color:white;
-}
-
 #btnReport {
     background: linear-gradient(to bottom, #444, #222);
     border: none;
@@ -47,11 +39,11 @@ thead{
     cursor: pointer;
     box-shadow: inset 0 8px 60px rgba(0,0,0,0.1), inset 0 8px 8px rgba(0,0,0,0.1), inset 0 -4px 4px red;
 }
+
     #toggle.active {
         background: #fff;
         box-shadow: inset 0 2px 60px rgba(0,0,0,0.1), inset 0 2px 8px rgba(0,0,0,0.1), inset 0 -4px 4px rgba(0,0,0,0.05);
     }
-
 
     #toggle .indicator {
         position: absolute;
@@ -71,7 +63,6 @@ thead{
         background: linear-gradient(to bottom, #eaeaea, #f9f9f9);
         box-shadow: 0 8px 20px rgba(0,0,0,0.1), inset 0 4px 4px rgba(255,255,255,1), inset 0 -4px 4px rgba(255,255,255,1);
     }
-
 
 .searchNG {
     display: flex;
@@ -99,7 +90,7 @@ thead{
         padding: 5px 17px;
         border-radius: 8px;
     }
-
+    
     .searchNG #inputSearch::placeholder {
         color: black;
     }
@@ -130,6 +121,10 @@ thead{
     padding: 5px 17px;
     background: linear-gradient(white, #6c7a70);
 }
+
+    #selectCRUD:hover { /*recien agregado*/
+        background-color: lightgray;
+    }
 
 .inp {
     width: 30%;
@@ -164,16 +159,12 @@ header {
         text-decoration: none;
         margin-right: 20px;
     }
-    body.active header nav a {
-        color: black;
-        text-decoration: none;
-        margin-right: 20px;
-    }
 
         header nav a:hover,
         header nav a.active {
             color: firebrick;
         }
+
 
 /*    Carousel Slick Slide Properties    */
 
@@ -187,31 +178,10 @@ header {
     color: red;
 }
 
-.carousel-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.main-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.movies-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.movie {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-/*carousel-container*/
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
 
 .title-controls-container {
-    display: flex; 
+    display: flex;
     padding: 20px; /*50px 50px 50px*/
     justify-content: space-between;
     align-items: flex-end;
@@ -239,6 +209,10 @@ header {
 
 /* ---- ----- ----- Main Container and Arrows ----- ----- ----- */
 #carRe {
+    display: none;
+}
+
+#carSeries {/*recien agregado*/
     display: none;
 }
 
@@ -371,13 +345,25 @@ header {
 }
 
 
+/* Demo styles */
+
+/*body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg)
+}*/
+
 /***********************Menú responsive************************/
 nav {
     height: 80px;
     width: 100%;
 }
 
-/*.logo {
+    /*.logo {
     height: 40px;
 }*/
 
@@ -400,7 +386,7 @@ nav {
 
 .checkbtn {
     font-size: 30px;
-    color: floralwhite; /*color del ícono de menú*/
+    color: floralwhite; /*menu icon color*/
     float: right;
     line-height: 50px;
     margin-right: 40px;
@@ -421,7 +407,7 @@ nav {
         position: fixed;
         width: 100%;
         height: 100vh;
-        background: #fff;
+        background: #212529; /*#fff;*/
         top: 80px;
         left: -100%;
         text-align: center;
@@ -441,7 +427,7 @@ nav {
 
                 nav ul li a:hover,
                 nav ul li a.active {
-                    background: none;
+                    background: none;                    
                     color: red;
                 }
 
@@ -453,3 +439,4 @@ nav {
         height: 300px;
     }*/
 }
+

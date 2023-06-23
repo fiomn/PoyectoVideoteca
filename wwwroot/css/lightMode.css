@@ -386,7 +386,7 @@ nav ul li a {
 
 .checkbtn {
     font-size: 30px;
-    color: firebrick; /*color del ícono de menú*/
+    color: firebrick; /**menu icon color*/
     float: right;
     line-height: 50px;
     margin-right: 40px;
