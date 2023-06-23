@@ -56,6 +56,7 @@ h3 {
     background: linear-gradient(to bottom, #444, #222);
     border: none;
     box-shadow: inset 0 8px 60px rgba(0,0,0,0.1), inset 0 8px 8px rgba(0,0,0,0.1), inset 0 -4px 4px red;
+    margin-bottom: 20px;
 }
 
 #edit{
@@ -203,7 +204,7 @@ header {
     header nav a {
         color: black;
         text-decoration: none;
-        margin-right: 20px;
+        margin-right: 10px;
     }
 
         header nav a:hover,
@@ -445,6 +446,7 @@ header {
     display: flex;
     align-items: center;
     padding-top: 20px;
+    margin: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
@@ -472,7 +474,8 @@ header {
     margin-bottom: 3px;
 }
 
-.button_section {
+.button_section_eps {
+    margin-left: 17px;
     margin-top: 20px;
     display: flex;
 }
@@ -526,6 +529,7 @@ header {
 
 #EP_structure {
     display: flex;
+    margin: 28px 0 0 10px;
     align-items: center;
     padding-top: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
@@ -608,6 +612,38 @@ header {
     height: 40px; /* Altura del botón */
     line-height: 10px; /* Centrar verticalmente el texto */
 }
+
+
+/*  Delete Section */
+
+
+.button_section_delete {
+    margin: 30px 0 0 28px;
+    width: 400px;
+    display: flex;
+}
+
+
+.button_section_EA {
+    display: flex;
+    margin-top: 10px;
+}
+/*   edit section SuperAdmin  */
+.button_section_editS {
+    display: flex;
+    margin-top: 20px;
+}
+
+
+
+/*  Create Section  */
+
+.button_section_create {
+    margin: 30px 0 0 2px;
+    width: 400px;
+    display: flex;
+}
+
 
 /* Demo styles */
 
