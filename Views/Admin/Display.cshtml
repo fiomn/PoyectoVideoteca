@@ -22,7 +22,15 @@
 
 </head>
 
+
 <h1>Clients</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["Message"]
+    </div>
+}
 
 <div id="pageMovies">
     <a asp-action="AdminMain" id="a">Go Back</a>
