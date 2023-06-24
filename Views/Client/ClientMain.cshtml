@@ -6,7 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   @* <meta name="viewport" content="width=device-width, initial-scale=1">*@@*menu responsive*@
 
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@@*menu responsive*@
+   
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
@@ -31,16 +34,23 @@
     @if (User.IsInRole("user"))
     {
         <header>
-            <div class="container">
-                <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
-                <nav>
-                    <a asp-controller="client" asp-action="ClientMain">Movies</a>
-                    <a asp-controller="client" asp-action="displaySeries">Series</a>
-                    <a asp-controller="client" asp-action="kidsMode">Kids Mode</a>
-                    <a asp-controller="client" asp-action="editProfile">Profile</a>
-                    <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
-                </nav>
-            </div>
+            <nav>
+                @*<div class="container">*@
+                    <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
+                
+                    <input type="checkbox" id="check" />
+                    <label for="check" class="checkbtn">
+                        <i class="fas fa-bars"></i>
+                    </label>
+                    <ul>
+                        <li><a asp-controller="client" asp-action="ClientMain">Movies</a></li>
+                        <li><a asp-controller="client" asp-action="displaySeries">Series</a></li>
+                        <li><a asp-controller="client" asp-action="kidsMode">Kids Mode</a></li>
+                        <li><a asp-controller="client" asp-action="editProfile">Profile</a></li>
+                        <li><a asp-controller="UserAuthentication" asp-action="Logout">Logout</a></li>
+                    </ul>
+                @*</div>*@
+            </nav>
         </header>
 
         <div class="searchNG">
@@ -52,6 +62,24 @@
     else if (User.IsInRole("admin"))
     {
         <header>
+            <nav>
+                @*<div class="container">*@
+                <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
+
+                <input type="checkbox" id="check" />
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li><a asp-controller="Admin" asp-action="Display">User Management</a></li>
+                    <li><a asp-controller="Admin" asp-action="DisplayMovies">Movies Management</a></li>
+                    <li><a asp-controller="Admin" asp-action="DisplaySeries">Series Management</a></li>
+                    <li><a asp-controller="client" asp-action="displaySeries">Series</a></li>
+                    <li><a asp-controller="Admin" asp-action="editProfile">Profile</a></li>
+                    <li><a asp-controller="UserAuthentication" asp-action="Logout">Logout</a></li>
+                </ul>
+                @*</div>*@
+            </nav>@*
             <div class="container">
                 <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
                 <nav>
@@ -62,7 +90,7 @@
                     <a asp-controller="Admin" asp-action="editProfile">Profile</a>
                     <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
                 </nav>
-            </div>
+            </div>*@
         </header>
 
         <div class="searchNG">
@@ -73,6 +101,21 @@
     else //superAdmin
     {
         <header>
+            <nav>
+                @*<div class="container">*@
+                <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
+
+                <input type="checkbox" id="check" />
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul>
+                    <li><a asp-controller="SuperAdmin" asp-action="Display">User Management</a></li>
+                    <li><a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a></li>
+                    <li><a asp-controller="UserAuthentication" asp-action="Logout">Logout</a></li>
+                </ul>
+                @*</div>*@
+            </nav>@*
             <div class="container">
                 <a class="logo" asp-controller="client" asp-action="ClientMain">QSTREAM</a>
                 <nav>
@@ -80,7 +123,7 @@
                     <a asp-controller="SuperAdmin" asp-action="editProfile">Profile</a>
                     <a asp-controller="UserAuthentication" asp-action="Logout">Logout</a>
                 </nav>
-            </div>
+            </div>*@
 
             <div id="toggle" onclick="change()">
                 <i class="indicator"></i>
@@ -90,7 +133,6 @@
 
     @if (!User.IsInRole("superAdmin"))
     {
-
         <!-- Carousel Result -->
         <div class="carousel-container" id="carRe"></div>
 
@@ -130,9 +172,22 @@
         </div>
 
     }
+    <!--menu responsive-->
+        @*<script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+        </script>*@
+    <!--menu responsive-->
+
+
 
     @section Scripts {
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
         <script type="text/javascript">
