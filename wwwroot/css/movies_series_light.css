@@ -8,6 +8,11 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+    body.active {
+        font-family: 'Open Sans', sans-serif;
+        background: #ebeff5;
+    }
+
 #season {
     background-color: #b3b3b3;
     font-size: 18px;
@@ -61,17 +66,36 @@ body {
     color: black;
 }
 
+/*.movie-details__video-info {
+    display: flex;
+    flex-direction: column;
+}*/
+
+    /*.movie-details__video-info iframe {
+        width: 650px;
+        height: 295px;
+        margin-bottom: 40px;*/
+        /*width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        margin-bottom: 40px;*/
+    /*}*/
+
+/*ajuste trailer*/
+
 .movie-details__video-info {
     display: flex;
     flex-direction: column;
 }
 
     .movie-details__video-info iframe {
-        width: 650px;
-        height: 295px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
         margin-bottom: 40px;
     }
 
+/*ajuste trailer*/
 
 .movie-details__title {
     font-size: 30px;
@@ -221,3 +245,67 @@ body {
         text-decoration: none;
         cursor: pointer;
     }
+
+/* Media queries */
+@media (max-width: 768px) {
+    .pop-up-window {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .details-button {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pop-up-button,
+    .buttons {
+        font-size: 16px;
+        padding: 15px 15px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pop-up-window {
+        width: 90%;
+    }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .movie-details,
+    .episode-details {
+        flex-direction: column;
+    }
+
+    .movie-details__poster,
+    .episode-details__poster {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    /*.movie-details__video-info iframe {*/
+        /* margin-bottom: 20px;*/
+        /*width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        margin-bottom: 40px;
+    }*/
+
+    .all-comment-section,
+    .commentInList {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-details__title {
+        font-size: 24px;
+    }
+
+    .submitBTN {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
