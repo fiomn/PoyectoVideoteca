@@ -3,6 +3,7 @@
 $("#btnSend").click(function sendEmail() {
     const email = $("#inEmail").val();
     const username = $("#inUserName").val();
+    alert('Se envió el correo caballo');
     $.ajax({
         url: "/userAuthentication/sendEmail",
         type: "post",

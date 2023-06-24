@@ -48,10 +48,10 @@ namespace ProyectoVideoteca.Controllers
 
             //save user data in db
             user.USERNAME = model.UserName;
-            user.PASSWORD=model.Password;
+            user.PASSWORD = model.Password;
             user.EMAIL = model.Email;
             user.NAME = model.Name;
-            user.PASSWORD_CONFIRM= model.PasswordConfirm;
+            user.PASSWORD_CONFIRM = model.PasswordConfirm;
             user.ROLE = "user";
             model.Role = "user";
 
@@ -123,7 +123,7 @@ namespace ProyectoVideoteca.Controllers
         {
             return View();
         }
-        
+
         //send email to user
         public async Task sendEmail(string email, string username)
         {
@@ -140,8 +140,8 @@ namespace ProyectoVideoteca.Controllers
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user); //generate token
                     var result = await _userManager.ResetPasswordAsync(user, token, newPassword); //update password
 
-                    var userDB=db.tb_USER.Find(username); 
-                    userDB.PASSWORD=newPassword;
+                    var userDB = db.tb_USER.Find(username);
+                    userDB.PASSWORD = newPassword;
                     userDB.PASSWORD_CONFIRM = newPassword;
                     db.tb_USER.Update(userDB);
                     db.SaveChanges(); //update password in testUCR

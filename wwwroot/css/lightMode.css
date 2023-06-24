@@ -677,10 +677,10 @@ nav ul li a {
     margin-top: 10px;
 }
 /*   edit section SuperAdmin  */
-.button_section_editS {
-    display: flex;
-    margin-top: 20px;
-}
+    .button_section_editS {
+        display: flex;
+        margin-top: 40px;
+    }
 
 
 
