@@ -22,15 +22,16 @@
 
 </head>
 
-<h1>Display</h1>
-<div>
-    <a asp-action="AdminMain">Back</a>
+<h1>Clients</h1>
+
+<div id="pageMovies">
+    <a asp-action="AdminMain" id="a">Go Back</a>
+    <p>
+        <a asp-action="Create" id="a">Create New Client</a>
+    </p>
 </div>
-<p>
-    <a asp-action="Create">Create New User</a>
-</p>
 <form asp-controller="Admin" asp-action="DownloadPDF">
-    <button class="btn btn-success" type="submit">Report</button>
+    <button class="btn btn-success" type="submit" id="btnReport">Report</button>
 </form>
 <body>
     <table class="table">
@@ -73,7 +74,7 @@
             }
 
         </tbody>
-    </table>    
+    </table>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <script src="~/js/main_page.js"></script>
 </body>

@@ -18,50 +18,62 @@
 
 
 </head>
-<h1>editProfile</h1>
+<h1 class="E_Profile_Title">Edit Profile Section</h1>
 
-<div>
-    <h4>tb_USER</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PASSWORD)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PASSWORD)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NAME)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NAME)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EMAIL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EMAIL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PASSWORD_CONFIRM)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PASSWORD_CONFIRM)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ROLE)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ROLE)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IMG)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("editUser","editUser", new {userName = Model.USERNAME})
-</div>
+<body>
+    <div class="EP_structure">
+        <div class="div_image">
+            <img class="profile_image" src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />
+        </div>
+        <div class="details_EP" id="editP">
+            <dl class="row">
+                <div class="edit-content">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.NAME)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.NAME)
+                    </dd>
+                </div>
+                <div class="edit-content">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.EMAIL)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.EMAIL)
+                    </dd>
+                </div>
+                <div class="edit-content">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.PASSWORD)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.PASSWORD)
+                    </dd>
+                </div>
+                <div class="edit-content">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ROLE)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ROLE)
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+    </div>
+
+
+    <div class="button_section_eps">
+        @*edit user*@
+        @Html.ActionLink("Edit", "Edit", new { userName = Model.USERNAME }, new { @class = "edit_button" })
+
+
+        <div>
+            <a asp-action="SuperAdminMain" class="edit_button">Back to List</a>
+        </div>
+
+    </div>
+
+</body>

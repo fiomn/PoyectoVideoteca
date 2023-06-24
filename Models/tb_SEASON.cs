@@ -17,5 +17,12 @@ public partial class tb_SEASON
 
     public virtual tb_SERIE TITLENavigation { get; set; } = null!;
 
+    private static string? currentSeasonValue;
+    public static string currentSeason
+    {
+        get { return currentSeasonValue; }
+        set { currentSeasonValue = value; }
+    }
+
     public virtual ICollection<tb_EPISODE> tb_EPISODEs { get; set; } = new List<tb_EPISODE>();
 }

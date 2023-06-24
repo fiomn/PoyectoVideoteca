@@ -19,51 +19,61 @@
 
 </head>
 
-<h1>Display</h1>
+<h1>Administrators</h1>
 
-<p id="textTitle">
-    <a asp-action="Create">Create New</a>
-</p>
+
+<div id="pageMovies">
+    <a asp-action="SuperAdminMain" id="a">Go Back</a>
+    <p>
+        <a asp-action="Create" id="a">Create New Administrator</a>
+    </p>
+</div>
+
 <form asp-controller="SuperAdmin" asp-action="DownloadPDF">
     <button class="btn btn-success" type="submit" id="btnReport">Report</button>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EMAIL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ROLE)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<body>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EMAIL)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ROLE)
-                </td>
-                <td>
-                    <select id="selectCRUD" onchange="redirectToView(this)">
-                        <option value="" selected>Select an option</option>
-                        <option value="@Url.Action("Edit", new { userName = @item.USERNAME })">Edit</option>
-                        <option value="@Url.Action("Details", new { userName = @item.USERNAME })">Details</option>
-                        <option value="@Url.Action("Delete", new { userName = @item.USERNAME })">Delete</option>
-                    </select>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMAIL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ROLE)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMAIL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ROLE)
+                    </td>
+                    <td>
+                        <select id="selectCRUD" onchange="redirectToView(this)">
+                            <option value="" selected>Select an option</option>
+                            <option value="@Url.Action("Edit", new { userName = @item.USERNAME })">Edit</option>
+                            <option value="@Url.Action("Details", new { userName = @item.USERNAME })">Details</option>
+                            <option value="@Url.Action("Delete", new { userName = @item.USERNAME })">Delete</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="~/js/main_page.js"></script>
+</body>
