@@ -30,4 +30,12 @@ public partial class tb_MOVIE
     public double? QSTREAM_SCORE { get; set; }
 
     public string? ACTOR_IMG { get; set; }
+
+    public DateTime? DATE_INSERT { get; set; }
+    private static string? currentMovieValue;
+    public static string currentMovie
+    {
+        get { return currentMovieValue; }
+        set { currentMovieValue = value; }
+    }
 }

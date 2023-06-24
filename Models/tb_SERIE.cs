@@ -34,7 +34,6 @@ public partial class tb_SERIE
     public double? QSTREAM_SCORE { get; set; }
 
     public string? ACTOR_IMG { get; set; }
-
     private static string? currentSerieValue;
     public static string currentSerie
     {

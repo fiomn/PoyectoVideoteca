@@ -102,6 +102,7 @@ public partial class TestUCRContext : DbContext
             entity.Property(e => e.CLASS)
                 .HasMaxLength(5)
                 .IsUnicode(false);
+            entity.Property(e => e.DATE_INSERT).HasColumnType("date");
             entity.Property(e => e.DIRECTOR_NAME).IsUnicode(false);
             entity.Property(e => e.DURATION)
                 .HasMaxLength(8)
