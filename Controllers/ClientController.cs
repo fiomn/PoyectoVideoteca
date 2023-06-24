@@ -12,6 +12,7 @@ using ProyectoVideoteca.Repositories.Abstract;
 using QuestPDF.Helpers;
 using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using static QuestPDF.Helpers.Colors;
 
 namespace ProyectoVideoteca.Controllers
@@ -322,7 +323,7 @@ namespace ProyectoVideoteca.Controllers
 
                 //get user from db
                 userByName = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", username)).AsEnumerable().FirstOrDefault();
-                
+
                 tb_GLOBALSETTING mode = getMode();
                 ViewBag.Mode = mode.mode;
                 ViewBag.ModeBtn = mode.modeBtn;
@@ -348,10 +349,26 @@ namespace ProyectoVideoteca.Controllers
         {
             try
             {
-                var result = await _service.EditAsync(model); //save in context auth
-                db.tb_USER.Update(user); //save users in testUCR
-                db.SaveChanges();
-                return RedirectToAction(nameof(editProfile));
+                var result = await _service.EditAsync(model); //save users in dataBaseContext
+
+                string pattern = "^[a-zA-Z ]+$"; //Validation
+
+                if (Regex.IsMatch(user.NAME, pattern))
+                {
+                    TempData["Message"] = "User was Edited Successfully";
+                    TempData["MessageClass"] = "alert alert-info";
+
+                    db.tb_USER.Update(user); //save users in testUCR
+                    db.SaveChanges();
+                    return RedirectToAction(nameof(editProfile));
+                }
+                else
+                {
+                    TempData["Message"] = "Incorrect type file. Verify that you are introducing your information correctly";
+                    TempData["MessageClass"] = "alert alert-info";
+
+                    return RedirectToAction("editProfile", "Client");
+                }
             }
             catch (Exception ex)
             {
@@ -382,7 +399,7 @@ namespace ProyectoVideoteca.Controllers
                     var userBD = db.tb_USER.FromSqlRaw(@"exec getUserByName @username", new SqlParameter("@username", user.UserName)).AsEnumerable().FirstOrDefault();
                     userBD.IMG = profilePictureBase64;
                     user.ProfilePicture = profilePictureBase64;
-                    
+
                     //save changes
                     var result = await _userManager.UpdateAsync(user);
                     db.tb_USER.Update(userBD);
@@ -415,7 +432,7 @@ namespace ProyectoVideoteca.Controllers
                 if (!string.IsNullOrEmpty(user.ProfilePicture))
                 {
                     //convert base64 to valid url
-                    string imageFormat = "image/png"; 
+                    string imageFormat = "image/png";
                     string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
 
                     //send image to view
@@ -435,25 +452,27 @@ namespace ProyectoVideoteca.Controllers
 
         //****************************** KIDS MODE **************************
 
-        //public async Task<ActionResult> kidsMode()
-        //{
-        //    Random random = new Random();
+        public async Task<ActionResult> kidsMode()
+        {
+            //Random random = new Random();
 
-        //    var movies = new List<tb_MOVIE>();
+            var movies = new List<tb_MOVIE>();
 
-        //    movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
+            movies = db.tb_MOVIE.FromSqlRaw(@"exec dbo.GetMovies").ToList();
 
-        //    var genres = new List<tb_GENRE>();
-        //    genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
+            var genres = new List<tb_GENRE>();
+            genres = db.tb_GENRE.FromSqlRaw(@"exec dbo.GetGenres").ToList();
 
-        //    List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+            genres = genres.Where(x => x.GENRE_NAME.Equals("Children")).ToList();
+            //List<tb_GENRE> randomGenres = genres.OrderBy(x => random.Next()).ToList();
+            tb_MOVIESANDGENRES moviesandgenres = new tb_MOVIESANDGENRES(movies, genres);
 
-        //    tb_MOVIESANDGENRES moviesAndGenres = new tb_MOVIESANDGENRES(movies, randomGenres);
-        //    MoviesList.list = movies;
-        //    string mode = getMode();
-        //    ViewBag.Mode = mode;
+            
+            tb_GLOBALSETTING mode = getMode();
+            ViewBag.Mode = mode.mode;
+            ViewBag.ModeBtn = mode.modeBtn;
+            return View(moviesandgenres);
 
-        //    return View(moviesAndGenres);
-        //}
+        }
     }
 }

@@ -21,6 +21,12 @@
 <h1 class="E_Profile_Title">Edit Profile Section</h1>
 
 <body>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["Message"]
+        </div>
+    }
     <div class="EP_structure">
         <div class="div_image">
             <img class="profile_image" src="data:image/jpg;base64,@Html.DisplayFor(model => model.IMG)" />

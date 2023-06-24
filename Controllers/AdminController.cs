@@ -13,6 +13,7 @@ using ProyectoVideoteca.Models.DTO;
 using ProyectoVideoteca.Repositories.Abstract;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace ProyectoVideoteca.Controllers
 {
@@ -196,6 +197,7 @@ namespace ProyectoVideoteca.Controllers
             tb_GLOBALSETTING mode = getMode();
             ViewBag.Mode = mode.mode;
             ViewBag.ModeBtn = mode.modeBtn;
+
             return View();
         }
 
@@ -207,6 +209,8 @@ namespace ProyectoVideoteca.Controllers
                 var result = await _service.RegistrationAsync(model); //save users in dataBaseContext
                 db.tb_USER.Add(user); //save users in testUCR
                 db.SaveChanges();
+                TempData["Message"] = "User was Created Successfully";
+                TempData["MessageClass"] = "alert alert-info";
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
@@ -243,9 +247,24 @@ namespace ProyectoVideoteca.Controllers
             {
                 var result = await _service.EditAsync(model); //save users in dataBaseContext
 
-                db.tb_USER.Update(user); //save users in testUCR
-                db.SaveChanges();
-                return RedirectToAction(nameof(Display));
+                string pattern = "^[a-zA-Z ]+$"; //Validation
+
+                if (Regex.IsMatch(user.NAME, pattern))
+                {
+                    TempData["Message"] = "User was Edited Successfully";
+                    TempData["MessageClass"] = "alert alert-info";
+
+                    db.tb_USER.Update(user); //save users in testUCR
+                    db.SaveChanges();
+                    return RedirectToAction(nameof(Display));
+                }
+                else
+                {
+                    TempData["Message"] = "Incorrect type file. Verify that you are introducing your information correctly";
+                    TempData["MessageClass"] = "alert alert-info";
+
+                    return RedirectToAction("Edit", "Admin", user.USERNAME);
+                }
             }
             catch (Exception ex)
             {
@@ -272,9 +291,10 @@ namespace ProyectoVideoteca.Controllers
             try
             {
                 var result = await _service.RemoveAsync(model);
-
                 db.tb_USER.Remove(user);
                 db.SaveChanges();
+                TempData["Message"] = "User was Deleted Successfully";
+                TempData["MessageClass"] = "alert alert-info";
                 return RedirectToAction(nameof(Display));
             }
             catch (Exception ex)
@@ -452,7 +472,7 @@ namespace ProyectoVideoteca.Controllers
                 if (!string.IsNullOrEmpty(user.ProfilePicture))
                 {
                     //Convert base64 to valid url
-                    string imageFormat = "image/png"; 
+                    string imageFormat = "image/png";
                     string profilePictureUrl = $"data:{imageFormat};base64,{profilePictureBase64}";
 
                     //send image to view
