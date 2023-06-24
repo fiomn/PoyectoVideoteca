@@ -7,7 +7,6 @@ a {
     text-decoration: none;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +16,7 @@ a {
 body {
     background: var(--background);
     font-family: 'Open Sans', sans-serif;
+    color:#AAA;
 }
 
 #pageMovies {
@@ -96,7 +96,6 @@ thead {
         box-shadow: inset 0 2px 60px rgba(0,0,0,0.1), inset 0 2px 8px rgba(0,0,0,0.1), inset 0 -4px 4px rgba(0,0,0,0.05);
     }
 
-
     #toggle .indicator {
         position: absolute;
         top: 0;
@@ -116,7 +115,6 @@ thead {
         box-shadow: 0 8px 20px rgba(0,0,0,0.1), inset 0 4px 4px rgba(255,255,255,1), inset 0 -4px 4px rgba(255,255,255,1);
     }
 
-
 .searchNG {
     display: flex;
     margin: 1em;
@@ -131,6 +129,7 @@ thead {
         box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 4px #444, inset 0 -4px 4px #444;
         padding: 5px 17px;
         border-radius: 8px;
+        width: 20%;
     }
 
     .searchNG #inputSerie {
@@ -142,7 +141,7 @@ thead {
         padding: 5px 17px;
         border-radius: 8px;
     }
-
+    
     .searchNG #inputSearch::placeholder {
         color: black;
     }
@@ -174,6 +173,10 @@ thead {
     background: linear-gradient(white, #6c7a70);
     color:black;
 }
+
+    #selectCRUD:hover { /*recien agregado*/
+        background-color: lightgray;
+    }
 
 .inp {
     width: 30%;
@@ -233,31 +236,11 @@ header nav a.active {
     color: red;
 }
 
-.carousel-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.main-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.movies-container {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-.movie {
-    padding: 50px;
-    padding-top: 50px;
-}
-
-/*carousel-container*/
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
+
 .title-controls-container {
-    padding: 50px 50px 50px 50px;
     display: flex;
+    padding: 20px; /*50px 50px 50px*/
     justify-content: space-between;
     align-items: flex-end;
 }
@@ -284,6 +267,10 @@ header nav a.active {
 
 /* ---- ----- ----- Main Container and Arrows ----- ----- ----- */
 #carRe {
+    display: none;
+}
+
+#carSeries {/*recien agregado*/
     display: none;
 }
 
@@ -325,8 +312,25 @@ header nav a.active {
     }
 }
 
+/*Media querie de searchNG*/
 
+@media (max-width: 768px) {
+    .searchNG #inputSearch {
+        font-size: 14px;
+        padding: 3px 10px;
+        border-radius: 6px;
+        width: 50%;
+    }
+}
 
+@media (max-width: 480px) {
+    .searchNG #inputSearch {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        width: 50%;
+    }
+}
 
 /* Video Section */
 
@@ -398,10 +402,107 @@ header nav a.active {
     display: block;
 }
 
+
+/* Demo styles */
+
+/*body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg)
+}*/
+
+/***********************Menú responsive************************/
+nav {
+    height: 80px;
+    width: 100%;
+}
+
+    /*.logo {
+    height: 40px;
+}*/
+
+    nav ul {
+        float: right;
+        margin-right: 20px;
+    }
+
+        nav ul li {
+            display: inline-block;
+            line-height: 10px;
+            margin: 0 5px;
+        }
+
+            nav ul li a {
+                font-size: 16px;
+                padding: 7px 13px;
+                /*text-transform: uppercase;*/
+            }
+
+.checkbtn {
+    font-size: 30px;
+    color: floralwhite; /*menu icon color*/
+    float: right;
+    line-height: 50px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+@media (max-width: 420px) {
+    .checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #212529; /*#fff;*/
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+        z-index: 9999;
+    }
+
+        nav ul li {
+            display: block;
+            margin: 50px 0;
+            line-height: 30px;
+        }
+
+            nav ul li a {
+                font-size: 15px;
+            }
+
+                nav ul li a:hover,
+                nav ul li a.active {
+                    background: none;                    
+                    color: red;
+                }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+
+    /*div {
+        height: 300px;
+    }*/
+}
+
 /* Edit Profile Section*/
 
 .E_Profile_Title {
     margin-bottom: 30px;
+    color:#AAA;
 }
 
 .EP_structure {
@@ -438,6 +539,7 @@ header nav a.active {
 
 .button_section_eps {
     margin-top: 20px;
+    margin-left: 20px;
     display: flex;
 }
 
@@ -472,7 +574,7 @@ header nav a.active {
     font-size: 14px;
     border: none;
     text-decoration: none;
-    color: inherit;
+    color: black;
     padding: 15px 20px;
     margin-left: 12px;
     text-align: center;
@@ -506,12 +608,14 @@ header nav a.active {
     width: 140px;
 }
 
+#btnSave{
+    height: 40px;
+}
 
 /*     Change Profile Picture Section */
 
-
 .CPP_BODY {
-    color:#AAA;
+    color: #AAA;
     display: flex;
     justify-content: center;
     align-items: center;

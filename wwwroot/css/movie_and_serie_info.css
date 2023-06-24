@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background: var(--background);
+    color: #AAA;
 }
 
 #season {
@@ -44,24 +44,16 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-.movie-details,
-.episode-details {
-    display: flex;
-    margin: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
 .movie-details__poster,
 .episode-details__poster {
     flex: 0 0 200px;
     margin-right: 40px;
 }
 
-
     .movie-details__poster img,
     .episode-details__poster img {
         width: 100%;
+        /*height: auto;*/
     }
 
 .movie-details__content,
@@ -71,17 +63,21 @@ body {
     color: black;
 }
 
+/*ajuste trailer*/
+
 .movie-details__video-info {
     display: flex;
     flex-direction: column;
 }
 
     .movie-details__video-info iframe {
-        width: 650px;
-        height: 295px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
         margin-bottom: 40px;
     }
 
+/*ajuste trailer*/
 
 .movie-details__title {
     font-size: 30px;
@@ -115,6 +111,7 @@ body {
 }
 
 .commentInList {
+    color: #AAA;
     border: 3px solid firebrick;
     border-radius: 8px;
     margin-bottom: 30px;
@@ -176,6 +173,7 @@ body {
 }
 
 .actors {
+    color: #AAA;
     display: flex;
     flex-direction: column;
     margin: 10px 20px 30px 0px;
@@ -190,9 +188,10 @@ body {
 
 .actors_link {
 }
-
-.pop-button:hover,
-.buttons:hover {
+.pop-up-button:hover,
+.go-back-button:hover,
+.season-submit:hover,
+#season:hover {
     background-color: #595959;
 }
 
@@ -208,16 +207,16 @@ body {
 
 
 .pop-up-window {
-    color: #AAA;
+    color: black;
     background-color: var(--background);
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #AAA;
+    border: 1px solid black;
     width: 50%;
 }
 
 .close-pop-up {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -230,3 +229,67 @@ body {
         text-decoration: none;
         cursor: pointer;
     }
+
+/* Media queries */
+@media (max-width: 768px) {
+    .pop-up-window {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .details-button {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pop-up-button,
+    .buttons {
+        font-size: 16px;
+        padding: 15px 15px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pop-up-window {
+        width: 90%;
+    }
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    .movie-details,
+    .episode-details {
+        flex-direction: column;
+    }
+
+    .movie-details__poster,
+    .episode-details__poster {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    /*.movie-details__video-info iframe {*/
+        /* margin-bottom: 20px;*/
+        /*width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        margin-bottom: 40px;
+    }*/
+
+    .all-comment-section,
+    .commentInList {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-details__title {
+        font-size: 24px;
+    }
+
+    .submitBTN {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

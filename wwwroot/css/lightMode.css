@@ -44,8 +44,8 @@ h3 {
     text-align: center;
 }
 
-#info{
-    padding:40px
+#info {
+    padding: 40px
 }
 
 #paragraph {
@@ -59,17 +59,17 @@ h3 {
     margin-bottom: 20px;
 }
 
-#edit{
-   color:firebrick;
-   align-items:center;
-   text-align:center;
-   margin:0px;
+#edit {
+    color: firebrick;
+    align-items: center;
+    text-align: center;
+    margin: 0px;
 }
 
     #edit #inputMovies {
         background: linear-gradient(to right, white, lightgray);
-        border-radius:7px;
-        padding:22px;
+        border-radius: 7px;
+        padding: 22px;
     }
 
 #toggle {
@@ -122,6 +122,7 @@ h3 {
         box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 4px rgba(255,255,255,1), inset 0 -4px 4px rgba(255,255,255,1);
         padding: 5px 17px;
         border-radius: 8px;
+        width: 20%;
     }
 
     .searchNG #inputSerie {
@@ -182,7 +183,7 @@ h3 {
     margin: auto;
 }
 
-header {
+header { 
     padding: 30px 0;
 }
 
@@ -225,13 +226,11 @@ header {
     color: red;
 }
 
-
 /* ---- ----- ----- Title and Controls Container ----- ----- ----- */
-
 
 .title-controls-container {
     display: flex;
-    padding: 50px 50px 50px 50px;
+    padding: 20px; /*50px 50px 50px*/
     justify-content: space-between;
     align-items: flex-end;
 }
@@ -303,8 +302,25 @@ header {
     }
 }
 
+/*Media querie de searchNG*/
 
+@media (max-width: 768px) {
+    .searchNG #inputSearch {
+        font-size: 14px;
+        padding: 3px 10px;
+        border-radius: 6px;
+        width: 50%;
+    }
+}
 
+@media (max-width: 480px) {
+    .searchNG #inputSearch {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        width: 50%;
+    }
+}
 
 /* Video Section */
 
@@ -377,66 +393,98 @@ header {
 }
 
 
-/*          Botón modo niños            */
+/* Demo styles */
 
-:root {
-    --bg: #1a1e24;
-    --color: #eee;
-    --font: Montserrat, Roboto, Helvetica, Arial, sans-serif;
+/*body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg)
+}*/
+
+/***********************Menú responsive************************/
+nav {
+    height: 80px;
+    width: 100%;
 }
 
-.wrapper {
-    padding: 1.5rem 0;
-    filter: url('#goo');
+/*.logo {
+    height: 40px;
+}*/
+
+nav ul {
+    float: right;
+    margin-right: 20px;
 }
 
-.button {
+nav ul li {
     display: inline-block;
-    text-align: center;
-    background: var(--color);
-    color: var(--bg);
-    font-weight: bold;
-    padding: 1.18em 1.32em 1.03em;
-    line-height: 1;
-    border-radius: 1em;
-    position: absolute; /*relative*/
-    min-width: 8.23em;
-    text-decoration: none;
-    font-family: var(--font);
-    font-size: 1.25rem;
+    line-height: 10px;
+    margin: 0 5px;
 }
 
-    .button:before,
-    .button:after {
-        width: 4.4em;
-        height: 2.95em;
-        position: absolute;
-        content: "";
-        display: inline-block;
-        background: var(--color);
-        border-radius: 50%;
-        transition: transform 1s ease;
-        transform: scale(0);
-        z-index: -1;
+nav ul li a {
+    font-size: 16px;
+    padding: 7px 13px;
+    /*text-transform: uppercase;*/
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: firebrick; /**menu icon color*/
+    float: right;
+    line-height: 50px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+@media (max-width: 420px) {
+    .checkbtn {
+        display: block;
     }
 
-    .button:before {
-        top: -25%;
-        left: 20%;
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #fff;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+        z-index: 9999;
     }
 
-    .button:after {
-        bottom: -25%;
-        right: 20%;
-    }
+        nav ul li {
+            display: block;
+            margin: 50px 0;
+            line-height: 30px;
+        }
 
-    .button:hover:before,
-    .button:hover:after {
-        transform: none;
-    }
+            nav ul li a {
+                font-size: 15px;
+            }
 
+                nav ul li a:hover,
+                nav ul li a.active {
+                    background: none;
+                    color: red;
+                }
 
 /* Edit Profile Section*/
+
+.E_Profile_Title {
+    color: black;
+    margin-bottom: 30px;
+}
 
 .EP_structure {
     display: flex;
@@ -444,7 +492,6 @@ header {
     padding-top: 20px;
     margin: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    
 }
 
 .div_image {
@@ -458,13 +505,11 @@ header {
 
 .details_EP .row {
     padding: 30px;
-    
 }
 
 .edit-content {
     margin-bottom: 20px;
     display: flex;
-    
 }
 
 .details_EP dt,
@@ -474,7 +519,7 @@ header {
 }
 
 .button_section_eps {
-    margin-left: 17px;
+    margin-left: 20px;
     margin-top: 20px;
     display: flex;
 }
@@ -541,6 +586,10 @@ header {
 
 #change_pic {
     width: 140px;
+}
+
+#btnSave {
+    height: 40px;
 }
 
 /*     Change Profile Picture Section */
@@ -646,12 +695,8 @@ header {
 
 /* Demo styles */
 
-/*body {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg)
-}*/
+    /*div {
+        height: 300px;
+    }*/
+}
+
